@@ -63,11 +63,11 @@
 % ---------------------------------------------------------------
 % INFORMAÇÕES DO DOCUMENTO
 % ---------------------------------------------------------------
-\titulo{Título do Trabalho de Conclusão de Curso}
-\autor{Nome Completo do Aluno}
+\titulo{Sistema Inteligente de Tradução de Libras Utilizando Visão Computacional e Processamento de Linguagem Natural}
+\autor{Júlia Almeida Leite \n Maria Eduarda Mariano Coelho}
 \local{São Paulo}
-\data{2025}
-\orientador{Prof. Nome do Orientador}
+\data{2026}
+\orientador{Prof. Afonso Cesar Lelis Brandão}
 % \coorientador{Prof. Nome do Coorientador} % Descomente se houver coorientador
 
 \instituicao{%
@@ -75,12 +75,12 @@
   \par
   Unidade Santo Amaro
   \par
-  Curso de [Nome do Curso]
+  Curso de Bacharelado em Ciência da Computação
 }
 
 \tipotrabalho{Trabalho de Conclusão de Curso I}
 
-\preambulo{Proposta de Trabalho de Conclusão de Curso apresentado ao SENAC Santo Amaro como requisito parcial para aprovação na disciplina de TCC1 do curso de [Nome do Curso].}
+\preambulo{Proposta de Trabalho de Conclusão de Curso apresentado ao SENAC Santo Amaro como requisito parcial para aprovação na disciplina de TCC1 do curso de Bacharelado em Ciência da Computação.}
 
 % ---------------------------------------------------------------
 % COMPILA O ÍNDICE
@@ -157,15 +157,19 @@ Este documento apresenta a proposta inicial do Trabalho de Conclusão de Curso (
 \chapter{Introdução}
 \label{cap:introducao}
 
-A introdução deve apresentar o tema do trabalho de forma clara e objetiva, situando o leitor no contexto da pesquisa. Neste capítulo, são apresentados o contexto no qual o problema se insere, a justificativa para a realização do estudo e os objetivos que norteiam o desenvolvimento do trabalho.
+A comunicação é extremamente importante para promover a inclusão social. No entanto, muitas pessoas surdas que utilizam a Língua Brasileira de Sinais (Libras) encontram barreiras na interação com aqueles que não conhecem essa linguagem. Essa limitação afeta diretamente o acesso a serviços, educação e oportunidades do dia a dia. 
+
+Com a evolução das tecnologias em inteligência artificial, principalmente em visão computacional e processamento de linguagem natural, surgem novas maneiras de diminuir essas barreiras. Sistemas que conseguem reconhecer gestos e convertê-los automaticamente em texto ou fala podem ser uma solução bastante promissora para facilitar a interação entre surdos e ouvintes. 
+
+Diante disso, nosso trabalho propõe desenvolver um sistema de tradução de Libras, aplicando técnicas de visão computacional para reconhecer os sinais e processamento de linguagem natural para gerar frases em português. O objetivo é contribuir para a inclusão social com uma solução acessível, eficiente e aplicável em diversos contextos. 
 
 % ---------------------------------------------------------------
 \section{Contexto}
 \label{sec:contexto}
 
-Apresente o cenário que originou o problema, ressaltando fatos, indicadores e lacunas identificadas na área de estudo. O contexto deve situar o leitor sobre o estado atual do tema, mostrando a relevância do assunto para a Computação e para a sociedade.
+A comunicação é necessária para a integração social e o exercício da cidadania. Contudo, para a comunidade surda no Brasil, essa interação muitas vezes é limitada por barreiras linguísticas significativas. Conforme dados do IBGE (2026), o Brasil conta com mais de 10 milhões de pessoas com algum nível de deficiência auditiva, sendo cerca de 2,3 milhões completamente surdas. 
 
-Descreva o ambiente ou domínio em que o problema ocorre, utilizando dados e referências que comprovem a existência do problema. Explique quem são os principais afetados e quais são as consequências de não resolvê-lo.
+Embora a Língua Brasileira de Sinais (Libras) seja o principal meio de comunicação desta comunidade, estima-se que até 2025, menos de 0,5% da população (cerca de 1 milhão de pessoas) entenderão ou dominarão a língua. Essa lacuna na comunicação gera uma dependência constante de intérpretes, que são poucos e frequentemente inacessíveis em situações cotidianas. 
 
 \vspace{0.3cm}
 \noindent\fbox{\parbox{\dimexpr\textwidth-2\fboxsep-2\fboxrule}{%
@@ -205,43 +209,33 @@ A revisão bibliográfica não consiste em simplesmente listar os trabalhos enco
 \section{Justificativa}
 \label{sec:justificativa}
 
-Explicite por que resolver esse problema é importante. A justificativa deve abordar:
+A comunicação é fundamental para a inclusão social e para a participação das pessoas na sociedade. No Brasil, embora a Língua Brasileira de Sinais (Libras) seja reconhecida oficialmente, ainda existem dificuldades na comunicação entre pessoas surdas e ouvintes. Um dos principais motivos é o número reduzido de pessoas que conhecem a língua, o que acaba limitando interações no dia a dia. Diante disso, torna-se importante pensar em alternativas que utilizem tecnologia para facilitar essa comunicação e tornar o acesso mais inclusivo.
 
-\begin{itemize}
-    \item \textbf{Relevância acadêmica}: como este trabalho contribui para o avanço do conhecimento na área;
-    \item \textbf{Relevância prática/profissional}: quais benefícios práticos a solução trará para usuários, organizações ou a sociedade;
-    \item \textbf{Lacuna identificada}: o que ainda não foi resolvido ou explorado suficientemente pelos trabalhos existentes.
-\end{itemize}
+Do ponto de vista acadêmico, este trabalho se insere na área de Ciência da Computação ao combinar técnicas de visão computacional e processamento de linguagem natural em uma mesma solução. Trata-se de um problema que não é simples, pois envolve desde o reconhecimento de movimentos e gestos até a construção de frases compreensíveis em português. Além disso, lidar com dados visuais em sequência e interpretar corretamente os sinais são desafios relevantes, o que torna a proposta interessante como estudo e desenvolvimento na área de inteligência artificial aplicada.
 
-Mostre que o trabalho não é apenas um texto sobre um tema popular, mas sim uma proposta que visa preencher uma lacuna real e contribuir de forma significativa para a área.
+Em relação à prática, a proposta pode trazer benefícios concretos, principalmente para a comunidade surda. Um sistema capaz de traduzir Libras automaticamente pode ajudar a diminuir a dependência de intérpretes em situações cotidianas, como atendimentos, ambientes educacionais ou interações básicas. Com isso, há um ganho em autonomia e acessibilidade, além de ampliar as possibilidades de comunicação em diferentes contextos.
+
+Apesar de já existirem pesquisas nessa área, ainda há pontos que não são totalmente resolvidos. Muitos trabalhos focam apenas no reconhecimento de sinais isolados, sem considerar o contexto completo da comunicação. Outros utilizam bancos de dados muito restritivos, que não representam bem as variações reais da Libras no dia a dia. Também são poucos os estudos que integram todo o processo, desde a identificação dos gestos até a formação de frases com sentido em português.
+
+Portanto, este trabalho busca avançar nesse quesito ao propor uma solução mais integrada, que não se limite apenas ao reconhecimento individual de sinais, mas que também considere a construção da linguagem. A intenção é contribuir tanto para a área acadêmica quanto para a sociedade, explorando uma aplicação prática da inteligência artificial voltada à acessibilidade.
 
 % ---------------------------------------------------------------
 \section{Objetivo}
 \label{sec:objetivo}
 
-Os objetivos definem o que o trabalho pretende alcançar. Devem ser claros, mensuráveis e diretamente relacionados ao problema identificado.
-
 \subsection{Objetivo principal}
 
-O objetivo principal deve ser \textbf{único} e sintetizar o propósito central do trabalho em uma frase direta. Ele deve responder à pergunta: \textit{o que este trabalho pretende resolver ou alcançar?}
-
-Exemplo: \textit{Desenvolver um sistema web para gerenciamento de tarefas acadêmicas que permita aos estudantes organizar suas atividades de forma colaborativa.}
-
-\textbf{Dica}: utilize verbos no infinitivo como \textit{desenvolver}, \textit{analisar}, \textit{propor}, \textit{avaliar}, \textit{implementar}, \textit{comparar}, entre outros. Evite verbos vagos como \textit{estudar} ou \textit{entender}.
+Propor um sistema computacional capaz de reconhecer gestos da Língua Brasileira de Sinais (Libras) por meio de visão computacional e traduzi-los em texto ou fala, utilizando técnicas de processamento de linguagem natural.
 
 \subsection{Objetivos secundários}
 
-Os objetivos secundários são desdobramentos do objetivo principal. Eles descrevem as etapas ou ações necessárias para atingir o objetivo principal. Devem ser mensuráveis e verificáveis.
-
 \begin{enumerate}
-    \item Realizar levantamento bibliográfico sobre [tema específico];
-    \item Identificar e analisar os requisitos do sistema/solução proposta;
-    \item Projetar a arquitetura da solução com base nos requisitos levantados;
-    \item Implementar um protótipo funcional da solução proposta;
-    \item Validar a solução por meio de [testes, métricas, estudo de caso, etc.].
+    \item Coletar e tratar dataset de Libras;
+    \item Desenvolver um modelo de visão computacional para detecção e reconhecimento dos sinais manuais;
+    \item Implementar um módulo de processamento de linguagem natural para lidar com palavras, como pronomes, verbos e substantivos, e formar frases;
+    \item Integrar os módulos em um sistema funcional de tradução em tempo real;
+    \item Avaliar o desempenho do sistema utilizando diferentes métricas.
 \end{enumerate}
-
-\textbf{Atenção}: cada objetivo secundário deve contribuir diretamente para o alcance do objetivo principal. Evite listar objetivos que não tenham relação clara com o problema.
 
 % ===============================================================
 % CAPÍTULO 2 - REVISÃO BIBLIOGRÁFICA
@@ -255,30 +249,21 @@ A revisão bibliográfica tem como finalidade apresentar o embasamento teórico 
 \section{Referencial teórico}
 \label{sec:referencial}
 
-Apresente os principais conceitos, teorias e definições que fundamentam o trabalho. O referencial teórico deve fornecer ao leitor a base necessária para compreender o problema e a solução proposta.
+A tradução automática de Libras envolve desafios complexos, pois essa linguagem possui estrutura gramatical própria, distinta do português, além de depender de expressões corporais e movimentos tridimensionais. Tradicionalmente, estudos nessa área utilizam técnicas de visão computacional para capturar movimentos e reconhecer padrões.
 
-Organize esta seção por temas ou conceitos, não por autor. Cada subseção deve abordar um conceito relevante, explicando-o e relacionando-o ao contexto do trabalho.
+Com o avanço do aprendizado profundo, modelos baseados em redes neurais convolucionais (CNNs) têm sido amplamente utilizados para reconhecimento de imagens e vídeos, enquanto redes recorrentes, como LSTM e GRU, são aplicadas para lidar com sequências temporais de gestos.
 
-Por exemplo: se o trabalho envolve desenvolvimento web, aborde conceitos como arquitetura cliente-servidor, APIs REST, padrões de projeto, etc. Se envolve inteligência artificial, explique os algoritmos e técnicas que serão utilizados.
+Além disso, técnicas de processamento de linguagem natural permitem transformar sequências de sinais em frases coerentes, considerando aspectos sintáticos e semânticos da língua portuguesa. 
 
-Utilize citações para fundamentar cada conceito apresentado. Segundo \citeonline{Wazlawick2020}, o referencial teórico deve demonstrar que o autor domina os fundamentos necessários para conduzir a pesquisa.
+Apesar dos avanços, ainda existem desafios relacionados à disponibilidade de dados e integração eficiente entre reconhecimento visual e geração de linguagem. Dessa forma, este trabalho propõe uma abordagem integrada, buscando desenvolver um sistema funcional e aplicável ao contexto real.
 
 % ---------------------------------------------------------------
 \section{Metodologia da pesquisa bibliográfica}
 \label{sec:metodologia_pesquisa}
 
-Descreva como a pesquisa bibliográfica foi conduzida, incluindo:
+A pesquisa bibliográfica foi realizada nas bases Google Scholar e IEEE Xplore, utilizando as strings de busca "Libras" AND "Deep Learning" AND "Visão Computacional", "Reconhecimento de sinais" AND "Libras" AND ("CNN" OR "LSTM") e "Língua Brasileira de Sinais" AND "Acessibilidade" AND "Redes Neurais". Foram selecionados artigos publicados entre 2021 e 2026, em português e inglês, que abordassem diretamente técnicas de classificação automática de documentos.
 
-\begin{itemize}
-    \item \textbf{Bases de dados consultadas}: Google Scholar, IEEE Xplore, ACM Digital Library, SciELO, Periódicos CAPES, entre outras;
-    \item \textbf{Palavras-chave utilizadas}: liste os termos de busca em português e inglês;
-    \item \textbf{Critérios de inclusão e exclusão}: quais critérios foram usados para selecionar ou descartar trabalhos (período, idioma, relevância, tipo de publicação);
-    \item \textbf{Período de abrangência}: intervalo de anos das publicações consultadas.
-\end{itemize}
-
-Exemplo de descrição:
-
-\textit{A pesquisa bibliográfica foi realizada nas bases Google Scholar, IEEE Xplore e ACM Digital Library, utilizando as palavras-chave ``machine learning'', ``classificação de texto'' e ``processamento de linguagem natural''. Foram selecionados artigos publicados entre 2018 e 2025, em português e inglês, que abordassem diretamente técnicas de classificação automática de documentos.}
+% \textit{} italico
 
 % ---------------------------------------------------------------
 \section{Fundamentos}
@@ -478,6 +463,7 @@ O cronograma a seguir apresenta, no formato de diagrama de Gantt, as atividades 
 %
 % Veja o arquivo bibliografia.bib para exemplos de cada tipo.
 % ---------------------------------------------------------------
+
 \bibliography{bibliografia}
 
 % ---------------------------------------------------------------
