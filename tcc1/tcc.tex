@@ -171,40 +171,6 @@ A comunicação é necessária para a integração social e o exercício da cida
 
 Embora a Língua Brasileira de Sinais (Libras) seja o principal meio de comunicação desta comunidade, estima-se que até 2025, menos de 0,5\% da população (cerca de 1 milhão de pessoas) entenderão ou dominarão a língua. Essa lacuna na comunicação gera uma dependência constante de intérpretes, que são poucos e frequentemente inacessíveis em situações cotidianas. 
 
-\vspace{0.3cm}
-\noindent\fbox{\parbox{\dimexpr\textwidth-2\fboxsep-2\fboxrule}{%
-\textbf{Orientação sobre citações (ABNT NBR 10520:2023)}
-
-\vspace{0.2cm}
-O aluno deve \textbf{priorizar citações indiretas} (paráfrases), nas quais a ideia do autor é reescrita com as próprias palavras. Citações diretas (transcrições literais) \textbf{não são recomendadas}, exceto quando o texto original for insubstituível --- por exemplo, definições consagradas, leis, normas técnicas ou trechos cuja reformulação alteraria o sentido.
-
-\vspace{0.2cm}
-\textbf{Citação indireta} (recomendada) --- o autor interpreta e reescreve a ideia:
-
-\vspace{0.1cm}
-\textit{Exemplo 1 --- sistema autor-data entre parênteses:}\\
-A definição clara do problema é considerada um fator determinante para o sucesso de qualquer pesquisa na área de Computação \cite{Wazlawick2020}.
-
-\vspace{0.1cm}
-\textit{Exemplo 2 --- autor como parte do texto:}\\
-Para \citeonline{Pressman2016}, a escolha de uma metodologia adequada impacta diretamente na qualidade dos resultados obtidos em projetos de software.
-
-\vspace{0.2cm}
-\textbf{Citação direta curta} (até 3 linhas, apenas quando indispensável) --- entre aspas, com indicação de página:
-
-\vspace{0.1cm}
-Segundo \citeonline[p.~42]{Wazlawick2020}, ``a formulação do problema deve ser expressa de forma clara, objetiva e delimitada, evitando ambiguidades que possam comprometer o escopo da pesquisa''.
-
-\vspace{0.2cm}
-\textbf{Citação direta longa} (mais de 3 linhas, apenas quando indispensável) --- recuo de 4\,cm, fonte menor, sem aspas:
-
-\begin{citacao}
-A revisão bibliográfica não consiste em simplesmente listar os trabalhos encontrados, mas em analisá-los criticamente, identificando convergências, divergências e lacunas que justifiquem a realização de uma nova pesquisa \cite[p.~87]{Wazlawick2020}.
-\end{citacao}
-
-\textbf{Resumo}: use citações indiretas como regra. Reserve a citação direta para casos excepcionais em que a transcrição literal seja realmente necessária.
-}}
-
 % ---------------------------------------------------------------
 \section{Justificativa}
 \label{sec:justificativa}
@@ -227,7 +193,7 @@ Os objetivos deste trabalho estão voltados para o desenvolvimento de uma soluç
 
 \subsection{Objetivo principal}
 
-Propor um sistema computacional capaz de reconhecer gestos da Língua Brasileira de Sinais (Libras) por meio de visão computacional e traduzi-los em texto ou fala, utilizando técnicas de processamento de linguagem natural.
+Implementar um sistema computacional capaz de reconhecer gestos da Língua Brasileira de Sinais (Libras) por meio de visão computacional e traduzi-los em texto ou fala, utilizando técnicas de processamento de linguagem natural.
 
 \subsection{Objetivos secundários}
 
@@ -294,7 +260,17 @@ A arquitetura da LSTM é composta por três componentes principais, conhecidos c
 No contexto do tradutor de Libras, essa capacidade de retenção temporal permite que o sistema compreenda que a trajetória e a transição entre as poses das mãos são tão importantes quanto a configuração isolada em um único frame \cite{Almeida2019}. Como destacado por \citeonline{Schmidhuber2014}, a profundidade dessas redes em termos de passos temporais possibilita a extração de representações abstratas que conectam movimentos manuais a conceitos semânticos complexos, garantindo maior precisão na interpretação de sinais dinâmicos.
 
 \textbf{2.3.3 Processamento de Linguagem Natural (NLP)} \\
-O reconhecimento isolado de gestos não é suficiente para uma comunicação fluida, dada a diferença gramatical entre a Libras e o Português. O módulo de NLP atua na camada de pós-processamento, realizando a conversão semântica e sintática dos sinais identificados. Este fundamento permite que o sistema organize as palavras reconhecidas em frases coerentes, tratando variações de tempo verbal, concordância e estrutura frasal, garantindo que a tradução final seja compreensível para o usuário ouvinte.
+O Processamento de Linguagem Natural é uma vertente da Inteligência Artificial que visa capacitar sistemas computacionais a compreender, interpretar e gerar a linguagem humana, tanto em formato de texto quanto de voz. Segundo a \citeonline{IBM2024}, o NLP combina a linguística estatística e computacional com modelos de aprendizado profundo para processar a linguagem em formas que exibam compreensão de significado e intenção.
+
+No escopo deste projeto, o reconhecimento isolado de gestos por meio de visão computacional não é suficiente para uma comunicação fluida, dada a profunda divergência gramatical entre a Libras e a língua portuguesa. Conforme apontam \citeonline{Lopez2017}, o uso de redes neurais aplicadas ao NLP permite que o sistema lide com a ambiguidade inerente à linguagem e aprenda representações hierárquicas dos dados textuais. O módulo de NLP atua, portanto, como uma camada de pós-processamento essencial, realizando a conversão semântica e sintática dos sinais identificados pela rede neural.
+
+Este fundamento permite que o sistema organize os "tokens" — definidos como os sinais ou palavras isoladas identificados nas etapas anteriores — em frases coerentes e gramaticalmente corretas. 
+
+Para isso, aplicam-se técnicas de processamento que ajustam a sintaxe e a gramática, reordenando os elementos para adequá-los à estrutura da língua portuguesa, visto que a Libras frequentemente utiliza organizações frasais distintas, como a estrutura Objeto-Sujeito-Verbo. 
+
+Paralelamente, o módulo assegura a integridade semântica da tradução, garantindo que o sentido original da mensagem seja preservado durante a conversão entre as modalidades. 
+
+Por fim, o tratamento de variações linguísticas resolve questões essenciais de concordância nominal e verbal, além de refinar a estrutura frasal, resultando em uma saída de texto ou fala que seja natural e compreensível para o usuário ouvinte \cite{Lopez2017}.
 
 \clearpage
 
