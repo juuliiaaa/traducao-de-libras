@@ -279,9 +279,19 @@ As Redes Neurais Convolucionais são arquiteturas especializadas no processament
 O diferencial da CNN reside nas camadas de convolução, que aplicam filtros matemáticos para extrair características hierárquicas da imagem, como bordas, texturas e formas. De acordo com \citeonline{Fleck2016}, o sucesso dessas redes em tarefas de visão computacional deve-se à sua capacidade de identificar características locais e ao compartilhamento de pesos entre as conexões. Essa configuração garante uma maior invariância a variações de translação e posição do objeto analisado, permitindo que o modelo identifique padrões visuais de forma robusta, mesmo diante de oscilações de iluminação ou enquadramento (\cite{Furtado2019}; \cite{Fleck2016}).
 
 \textbf{2.3.2 Redes de Memória de Longo Prazo (LSTM)} \\
-Para o reconhecimento de sinais dinâmicos em vídeo, onde o significado do gesto reside no movimento ao longo do tempo, utiliza-se a Long Short-Term Memory (LSTM). A LSTM é uma variante das Redes Neurais Recorrentes (RNN) projetada para superar o problema do desaparecimento do gradiente, permitindo que a rede retenha informações de frames passados por longos períodos.
+Para o reconhecimento de sinais dinâmicos em vídeo, onde o significado do gesto reside no movimento ao longo do tempo, utiliza-se a Long Short-Term Memory (LSTM). Esta arquitetura é uma evolução das Redes Neurais Recorrentes (RNN) tradicionais, introduzida por \citeonline{Hochreiter1997} para solucionar a limitação do desaparecimento do gradiente (vanishing gradient), que impede redes comuns de aprenderem dependências de longo prazo em sequências de dados.
 
-A arquitetura da LSTM é composta por "portões" (gates) que controlam o fluxo de informação: o que deve ser esquecido, o que deve ser armazenado e o que deve ser passado para o próximo estado. No contexto de Libras, isso permite que o sistema compreenda que a trajetória de um movimento é tão importante quanto a pose final da mão para a tradução correta de uma frase.
+O diferencial da LSTM é a sua unidade de memória interna, frequentemente chamada de célula, que permite a manutenção de informações por intervalos de tempo estendidos \cite{Hochreiter1997}. Essa estrutura é fundamental para o aprendizado de sequências complexas, como a linguagem de sinais, onde a predição ou classificação de um gesto depende de frames ocorridos em instantes anteriores \cite{Bayer2009}.
+
+A arquitetura da LSTM é composta por três componentes principais, conhecidos como "portões" (gates), que controlam o fluxo de informação:
+
+\begin{enumerate}
+  \item Portão de Esquecimento (Forget Gate): decide qual informação do estado anterior deve ser descartada;
+  \item Portão de Entrada (Input Gate): seleciona quais novas informações serão armazenadas no estado da célula;
+  \item Portão de Saída (Output Gate): determina qual parte do estado interno será enviada como saída para o próximo passo temporal (\cite{Contarini2020}; \cite{Almeida2019}).
+\end{enumerate}
+
+No contexto do tradutor de Libras, essa capacidade de retenção temporal permite que o sistema compreenda que a trajetória e a transição entre as poses das mãos são tão importantes quanto a configuração isolada em um único frame \cite{Almeida2019}. Como destacado por \citeonline{Schmidhuber2014}, a profundidade dessas redes em termos de passos temporais possibilita a extração de representações abstratas que conectam movimentos manuais a conceitos semânticos complexos, garantindo maior precisão na interpretação de sinais dinâmicos.
 
 \textbf{2.3.3 Processamento de Linguagem Natural (NLP)} \\
 O reconhecimento isolado de gestos não é suficiente para uma comunicação fluida, dada a diferença gramatical entre a Libras e o Português. O módulo de NLP atua na camada de pós-processamento, realizando a conversão semântica e sintática dos sinais identificados. Este fundamento permite que o sistema organize as palavras reconhecidas em frases coerentes, tratando variações de tempo verbal, concordância e estrutura frasal, garantindo que a tradução final seja compreensível para o usuário ouvinte.
