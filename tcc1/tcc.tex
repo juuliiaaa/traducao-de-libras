@@ -263,7 +263,22 @@ No nível sintático, a língua portuguesa segue predominantemente a ordem Sujei
 Essas diferenças impactam diretamente o processo de tradução automática. Elementos comuns no português, como artigos e preposições, nem sempre aparecem de forma explícita na Libras, pois muitas dessas relações são expressas pelo uso do espaço e pelo contexto. Por isso, sistemas computacionais precisam não apenas reconhecer os sinais, mas também reorganizar as informações e incluir elementos necessários para gerar frases corretas em português.
 
 
-\textbf{2.3.2 Visão Computacional} \\
+\textbf{2.3.2 Bases de Dados (Datasets)} \\
+
+No desenvolvimento de modelos de Aprendizado Profundo, o dataset (base de dados) constitui o pilar fundamental para o treinamento e a validação do sistema. Segundo Schmidhuber (2015), a eficácia de arquiteturas complexas como CNNs e LSTMs depende diretamente da disponibilidade de grandes volumes de dados rotulados, que permitem ao modelo aprender representações estatísticas precisas e generalizáveis.
+
+No contexto do reconhecimento de Libras, os datasets apresentam desafios únicos devido à natureza multimodal da língua. Uma base de dados robusta para este fim deve conter não apenas imagens isoladas, mas sequências de vídeo que capturem a dinâmica dos sinais. De acordo com Silva (2017), a diversidade dos dados é crucial para mitigar problemas de overfitting, garantindo que o sistema seja capaz de reconhecer gestos realizados por diferentes usuários, com variações em:
+
+\begin{itemize}
+\item {Antropometria:} Diferenças no tamanho, cor e formato das mãos dos sinalizadores;
+\item {Condições Ambientais:} Variações de iluminação e fundos de imagem (backgrounds) complexos, que testam a capacidade de segmentação do modelo;
+\item {Execução do Sinal:} Diferenças na velocidade, amplitude e fluidez do movimento, que impactam diretamente a análise temporal das redes LSTM.
+\end{itemize}
+
+Além disso, a estruturação do dataset deve prever a divisão entre conjuntos de treinamento, validação e teste. Conforme explicam Goodfellow, Bengio e Courville (2015), essa separação é o que permite avaliar a capacidade de generalização do algoritmo frente a dados nunca vistos, assegurando que o tradutor de Libras funcione corretamente em cenários do mundo real e não apenas em ambientes controlados de laboratório.
+
+
+\textbf{2.3.3 Visão Computacional} \\
 
 A Visão Computacional (VC) é a ciência que permite que máquinas enxerguem e interpretem o meio à sua volta. Através da captura de imagens por câmeras e sensores, o sistema extrai informações significativas que permitem reconhecer e manipular objetos (MILANO; HONORATO).
 
@@ -277,13 +292,13 @@ Para viabilizar essas aplicações, utilizam-se técnicas de processamento de im
 
 Por fim, aplica-se a extração de características para identificar padrões relevantes, como o formato e a trajetória das mãos. De acordo com Souza, Magalhães e Pires (2021), essa técnica permite que o sistema identifique pontos específicos, chamados de landmarks, essenciais para a classificação precisa do sinal.
 
-\textbf{2.3.3 Redes Neurais Convolucionais (CNN)}
+\textbf{2.3.4 Redes Neurais Convolucionais (CNN)}
 
 As Redes Neurais Convolucionais são arquiteturas especializadas no processamento de dados com topologia em grelha, como imagens. No escopo deste trabalho, a CNN é utilizada para o reconhecimento de sinais estáticos (alfabeto manual), onde a identificação do sinal depende exclusivamente da configuração espacial da mão em um único frame.
 
 O diferencial da CNN reside nas camadas de convolução, que aplicam filtros matemáticos para extrair características hierárquicas da imagem, como bordas, texturas e formas. De acordo com \citeonline{Fleck2016}, o sucesso dessas redes em tarefas de visão computacional deve-se à sua capacidade de identificar características locais e ao compartilhamento de pesos entre as conexões. Essa configuração garante uma maior invariância a variações de translação e posição do objeto analisado, permitindo que o modelo identifique padrões visuais de forma robusta, mesmo diante de oscilações de iluminação ou enquadramento (\cite{Furtado2019}; \cite{Fleck2016}).
 
-\textbf{2.3.4 Redes de Memória de Longo Prazo (LSTM)}
+\textbf{2.3.5 Redes de Memória de Longo Prazo (LSTM)}
 
 Para o reconhecimento de sinais dinâmicos em vídeo, onde o significado do gesto reside no movimento ao longo do tempo, utiliza-se a Long Short-Term Memory (LSTM). Esta arquitetura é uma evolução das Redes Neurais Recorrentes (RNN) tradicionais, introduzida por \citeonline{Hochreiter1997} para solucionar a limitação do desaparecimento do gradiente (vanishing gradient), que impede redes comuns de aprenderem dependências de longo prazo em sequências de dados.
 
@@ -299,7 +314,7 @@ A arquitetura da LSTM é composta por três componentes principais, conhecidos c
 
 No contexto do tradutor de Libras, essa capacidade de retenção temporal permite que o sistema compreenda que a trajetória e a transição entre as poses das mãos são tão importantes quanto a configuração isolada em um único frame \cite{Almeida2019}. Como destacado por \citeonline{Schmidhuber2014}, a profundidade dessas redes em termos de passos temporais possibilita a extração de representações abstratas que conectam movimentos manuais a conceitos semânticos complexos, garantindo maior precisão na interpretação de sinais dinâmicos.
 
-\textbf{2.3.5 Processamento de Linguagem Natural (NLP)}
+\textbf{2.3.6 Processamento de Linguagem Natural (NLP)}
 O Processamento de Linguagem Natural é uma vertente da Inteligência Artificial que visa capacitar sistemas computacionais a compreender, interpretar e gerar a linguagem humana, tanto em formato de texto quanto de voz. Segundo a \citeonline{IBM2024}, o NLP combina a linguística estatística e computacional com modelos de aprendizado profundo para processar a linguagem em formas que exibam compreensão de significado e intenção.
 
 No escopo deste projeto, o reconhecimento isolado de gestos por meio de visão computacional não é suficiente para uma comunicação fluida, dada a profunda divergência gramatical entre a Libras e a língua portuguesa. Conforme apontam \citeonline{Lopez2017}, o uso de redes neurais aplicadas ao NLP permite que o sistema lide com a ambiguidade inerente à linguagem e aprenda representações hierárquicas dos dados textuais. O módulo de NLP atua, portanto, como uma camada de pós-processamento essencial, realizando a conversão semântica e sintática dos sinais identificados pela rede neural.
@@ -312,7 +327,7 @@ Paralelamente, o módulo assegura a integridade semântica da tradução, garant
 
 Por fim, o tratamento de variações linguísticas resolve questões essenciais de concordância nominal e verbal, além de refinar a estrutura frasal, resultando em uma saída de texto ou fala que seja natural e compreensível para o usuário ouvinte \cite{Lopez2017}.
 
-\textbf{2.3.6 Deep Learning}
+\textbf{2.3.7 Deep Learning}
 
 O Deep Learning, ou Aprendizado Profundo, é uma subárea do aprendizado de máquina que utiliza redes neurais artificiais com múltiplas camadas de processamento. Segundo a IBM (2026), essa abordagem é inspirada na estrutura do cérebro humano, onde cada camada de "neurônios" executa operações matemáticas para aprender representações cada vez mais abstratas dos dados.
 
@@ -326,7 +341,7 @@ A relação direta com as arquiteturas CNN e LSTM ocorre porque o aprendizado pr
 
 Dessa forma, a profundidade dessas redes permite que o sistema capture desde detalhes mínimos de um frame até o contexto completo de uma frase em Libras. Conforme destacam Fleck et al. (2016), essa estrutura multicamada é essencial para que o modelo aprenda padrões que seriam invisíveis para algoritmos de aprendizado mais simples.
 
-\textbf{2.3.7 Reconhecimento de Gestos (Gesture Recognition)}
+\textbf{2.3.8 Reconhecimento de Gestos (Gesture Recognition)}
 O reconhecimento de gestos é uma parte da visão computacional que visa identificar e interpretar movimentos ou posições do corpo humano a partir de dados visuais, transformando-os em comandos ou símbolos compreensíveis por máquinas (SILVA, 2017). No contexto da Língua Brasileira de Sinais (Libras), essa técnica é o pilar fundamental para a tradução automatizada, permitindo que a interação entre surdos e ouvintes ocorra de forma fluida através da interface homem-máquina (BITTENCOURT; OSÓRIO, 2002).
 
 Os gestos são geralmente classificados em duas categorias principais, cada uma exigindo abordagens algorítmicas distintas:
@@ -341,7 +356,7 @@ Além disso, a variabilidade entre usuários introduz complexidade, uma vez que 
 
 Por fim, a influência do fundo da imagem (background) pode impactar a precisão, especialmente em cenários com muitos objetos ou cores semelhantes ao tom da pele humana, o que torna essencial o uso de filtros adaptativos ou técnicas de segmentação para isolar adequadamente a mão do restante da cena (MONTEIRO et al., 2016).
 
-\textbf{2.3.8 Integração Visão Computacional + NLP}
+\textbf{2.3.9 Integração Visão Computacional + NLP}
 
 A integração entre visão computacional e processamento de linguagem natural é essencial para o funcionamento do sistema proposto. Essa combinação permite não apenas reconhecer os sinais, mas também convertê-los em linguagem compreensível.
 
