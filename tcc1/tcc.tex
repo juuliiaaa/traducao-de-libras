@@ -296,7 +296,7 @@ Por fim, aplica-se a extração de características para identificar padrões re
     \centering
     \includegraphics[width=1.0\textwidth]{./figuras/visao-computacional.png}
     \caption{Fluxo de Processamento da Arquitetura Híbrida.}
-    %\source{Autoria própria (2026).}
+    \source{Autoria própria (2026).}
 \end{figure}
 
 \textbf{2.3.4 Redes Neurais Convolucionais (CNN)}
@@ -325,7 +325,7 @@ No contexto do tradutor de Libras, essa capacidade de retenção temporal permit
     \centering
     \includegraphics[width=0.8\textwidth]{./figuras/lstm}
     \caption{Diagrama de Rede Neural LSTM.}
-    %\source{Autoria própria (2026).}
+    \source{Autoria própria (2026).}
 \end{figure}
 
 \textbf{2.3.6 Processamento de Linguagem Natural (NLP)}
@@ -345,7 +345,7 @@ Por fim, o tratamento de variações linguísticas resolve questões essenciais 
     \centering
     \includegraphics[width=0.4\textwidth]{./figuras/processamento-de-imagem-nlp}
     \caption{Diagrama de Processamento de Linguagem Natural - NLP.}
-    %\source{Autoria própria (2026).}
+    \source{Autoria própria (2026).}
 \end{figure}
 
 \textbf{2.3.7 Deep Learning}
@@ -389,7 +389,7 @@ Um dos principais desafios dessa integração está na necessidade de transforma
     \centering
     \includegraphics[width=0.8\textwidth]{./figuras/arquitetura-sistema}
     \caption{Diagrama de fluxo da solução proposta.}
-    %\source{Autoria própria (2026).}
+    \source{Autoria própria (2026).}
 \end{figure}
 
 % ---------------------------------------------------------------
@@ -462,12 +462,20 @@ Neste capítulo, apresenta-se a solução proposta para o problema de tradução
 \label{sec:solucao}
 
 \begin{itemize}
+
     \item \textbf{Visão geral da solução} \\
     A solução proposta consiste em um sistema desktop de tradução automática em tempo execução, capaz de reconhecer gestos da Língua Brasileira de Sinais por meio de visão computacional e convertê-los em texto e fala em língua portuguesa. O sistema é voltado para uso em computadores com câmera integrada, sendo projetado para funcionar como um facilitador de comunicação em contextos como atendimentos, ambientes educacionais e interações cotidianas.
     
     A aplicação é composta por três módulos principais integrados em um pipeline de processamento sequencial: (i) o módulo de visão computacional, responsável pela captura e reconhecimento dos sinais; (ii) o módulo de processamento de linguagem natural, responsável pela conversão dos tokens reconhecidos em frases coerentes em português; e (iii) a interface do usuário, que exibe a tradução em tempo execução.
     
     Em razão da amplitude lexical da Libras e do caráter experimental deste estudo, o vocabulário inicial do sistema abrangerá um conjunto definido de sinais voltados a contextos de comunicação básica, como cumprimentos, solicitações de ajuda, identificação pessoal e situações de atendimento.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.4\textwidth]{./figuras/execução-pipeline}
+        \caption{Fluxograma de Execução do Pipeline.}
+        \source{Autoria própria (2026).}
+    \end{figure}
 
     \item \textbf{Arquitetura}\\
     A arquitetura do sistema é organizada de forma modular, dividida em três camadas principais de processamento que interagem sequencialmente para garantir a precisão da tradução:
@@ -482,7 +490,7 @@ Neste capítulo, apresenta-se a solução proposta para o problema de tradução
         \item Linguagem de Programação: Python, devido à sua maturidade e vasta biblioteca para IA.
         \item Frameworks de Inteligência Artificial: TensorFlow ou Keras para o desenvolvimento das arquiteturas CNN e LSTM.
         \item Visão Computacional: MediaPipe ou OpenCV para a extração ágil de pontos de referência (landmarks) das mãos.
-        \item Dataset: [Inserir aqui o nome da base de dados, ex: LIBRAS-UFSC ou própria], escolhido pela diversidade de sinais e qualidade das anotações.
+        \item Dataset: Minds-Libras, Libras Brazilian Sign Language e V-BrasilIL escolhidos pela diversidade de sinais e qualidade das anotações.
         \item Processamento de Texto: Biblioteca NLTK ou spaCy para as tarefas de NLP e adequação gramatical.
     \end{itemize}
 
@@ -509,6 +517,8 @@ Neste capítulo, apresenta-se a solução proposta para o problema de tradução
 
 \end{itemize}
 
+
+
 % ---------------------------------------------------------------
 \section{Cronograma de trabalho}
 \label{sec:cronograma}
@@ -517,69 +527,62 @@ O cronograma a seguir apresenta, no formato de diagrama de Gantt, as atividades 
 
 \begin{figure}[htb]
     \centering
-    \caption{Cronograma de atividades -- Diagrama de Gantt}
     \label{fig:gantt}
-    \begin{ganttchart}[
-        hgrid,
-        vgrid,
-        x unit=0.72cm,
-        y unit title=0.6cm,
-        y unit chart=0.7cm,
-        title height=1,
-        bar height=0.5,
-        bar label font=\scriptsize,
-        title label font=\small,
-        milestone label font=\scriptsize\itshape,
-        group label font=\scriptsize\bfseries,
-        bar/.append style={fill=blue!40},
-        group/.append style={draw=black, fill=blue!70},
-        milestone/.append style={fill=red!70},
-    ]{1}{16}
-        % Título: semanas de 1 a 16
-        \gantttitle{Semanas}{16} \\
-        \gantttitlelist{1,...,16}{1} \\
+    % Resizebox ajusta o gráfico automaticamente à largura da página
+    \resizebox{\textwidth}{!}{
+        \begin{ganttchart}[
+            hgrid,
+            vgrid,
+            x unit=0.6cm, % Reduzido para comprimir as semanas
+            y unit title=0.6cm,
+            y unit chart=0.6cm,
+            title height=1,
+            bar height=0.5,
+            bar label font=\tiny, % Fonte menor para os nomes das tarefas
+            title label font=\scriptsize,
+            milestone label font=\tiny\itshape,
+            group label font=\tiny\bfseries,
+            bar/.append style={fill=blue!40},
+            group/.append style={draw=black, fill=blue!70},
+            milestone/.append style={fill=red!70},
+        ]{1}{16}
+            \gantttitle{Semanas}{16} \\
+            \gantttitlelist{1,...,16}{1} \\
 
-        % Grupo 1: Revisão e Planejamento
-        \ganttgroup{Fase 1: Planejamento}{1}{4} \\
-        \ganttbar{Revisão bibliográfica}{1}{3} \\
-        \ganttbar{Definição de requisitos}{2}{4} \\
-        \ganttbar{Projeto da arquitetura}{3}{4} \\
-        \ganttmilestone{Entrega do projeto}{4} \\
+            \ganttgroup{Fase 1: Planejamento}{1}{4} \\
+            \ganttbar{Revisão bibliográfica}{1}{2} \\
+            \ganttbar{Requisitos do sistema}{2}{3} \\
+            \ganttbar{Análise do dataset}{2}{4} \\
+            \ganttbar{Projeto da arquitetura}{3}{4} \\
+            \ganttmilestone{Entrega projeto}{4} \\
 
-        % Grupo 2: Desenvolvimento
-        \ganttgroup{Fase 2: Desenvolvimento}{5}{11} \\
-        \ganttbar{Implementação do módulo 1}{5}{7} \\
-        \ganttbar{Implementação do módulo 2}{7}{9} \\
-        \ganttbar{Integração dos módulos}{9}{11} \\
-        \ganttmilestone{Protótipo funcional}{11} \\
+            \ganttgroup{Fase 2: Desenvolvimento}{5}{12} \\
+            \ganttbar{Módulo Visão Computacional}{5}{7} \\
+            \ganttbar{Treinamento CNN}{6}{8} \\
+            \ganttbar{Implementação LSTM}{7}{9} \\
+            \ganttbar{Desenvolvimento PLN}{8}{10} \\
+            \ganttbar{Integração módulos}{10}{11} \\
+            \ganttbar{Interface}{10}{12} \\
+            \ganttmilestone{Protótipo}{12} \\
 
-        % Grupo 3: Testes e Finalização
-        \ganttgroup{Fase 3: Validação}{12}{16} \\
-        \ganttbar{Testes e validação}{12}{14} \\
-        \ganttbar{Ajustes e correções}{14}{15} \\
-        \ganttbar{Redação final do TCC2}{13}{16} \\
-        \ganttmilestone{Entrega final}{16}
+            \ganttgroup{Fase 3: Validação}{13}{16} \\
+            \ganttbar{Testes e avaliação}{13}{14} \\
+            \ganttbar{Ajustes e otimizações}{14}{15} \\
+            \ganttbar{Redação final}{13}{16} \\
+            \ganttmilestone{Entrega final}{16}
 
-        % Ligações entre atividades
-        \ganttlink{elem2}{elem3}
-        \ganttlink{elem3}{elem4}
-        \ganttlink{elem4}{elem5}
-        \ganttlink{elem7}{elem8}
-        \ganttlink{elem8}{elem9}
-        \ganttlink{elem9}{elem10}
-        \ganttlink{elem12}{elem13}
-    \end{ganttchart}
-    \legend{Fonte: Elaborado pelo autor (2025)}
+            \ganttlink{elem2}{elem3}
+            \ganttlink{elem3}{elem4}
+            \ganttlink{elem4}{elem5}
+            \ganttlink{elem7}{elem8}
+            \ganttlink{elem8}{elem9}
+            \ganttlink{elem9}{elem10}
+            \ganttlink{elem12}{elem13}
+        \end{ganttchart}
+    }
+    \caption{Cronograma de atividades -- Diagrama de Gantt}
+    \source{Autoria própria (2026).}
 \end{figure}
-
-\textbf{Instruções para personalização do cronograma}:
-\begin{itemize}
-    \item Ajuste o número de semanas conforme o calendário acadêmico do semestre;
-    \item Modifique as atividades de acordo com as etapas do seu projeto;
-    \item Os marcos (\textit{milestones}) indicam entregas importantes --- adapte-os às datas de avaliação;
-    \item As setas entre atividades indicam dependências --- uma atividade só inicia após a conclusão da anterior;
-    \item Utilize o diagrama como ferramenta de acompanhamento: atualize-o a cada reunião com o orientador.
-\end{itemize}
 
 % ---------------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
