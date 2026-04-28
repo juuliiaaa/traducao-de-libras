@@ -414,40 +414,80 @@ Para cada trabalho relacionado, descreva:
     \item Como o \textbf{seu trabalho se diferencia} ou avança em relação a ele.
 \end{enumerate}
 
-\subsection{Trabalho 1: [Título do trabalho]}
+\subsection{Trabalho 1: Sign Language Translator System Using Computer Vision and LSTM Neural Networks}
 
-\citeonline{Silva2022} abordou o problema de [descrever o problema --- deve ser o mesmo ou muito similar ao seu]. Para resolvê-lo, os autores propuseram [descrever a solução]. A metodologia utilizada foi [descrever]. Os resultados mostraram que [descrever]. No entanto, a solução apresenta limitações como [descrever as lacunas que permanecem]. O presente trabalho diferencia-se por [explicar como sua proposta avança na resolução do mesmo problema].
+O estudo de Jiang et al. investigou o problema da dificuldade de comunicação entre pessoas surdas e ouvintes, causada pela falta de compreensão da língua de sinais, o que impacta diretamente o acesso a serviços e interações sociais — o mesmo problema abordado neste trabalho.
 
-\subsection{Trabalho 2: [Título do trabalho]}
+Para enfrentar essa questão, os autores desenvolveram um sistema de tradução de língua de sinais em tempo real, combinando técnicas de visão computacional, redes neurais convolucionais (CNN), redes recorrentes do tipo LSTM e processamento de linguagem natural. A metodologia incluiu a coleta e anotação de um dataset de gestos, seguido do treinamento de modelos capazes de reconhecer sinais e convertê-los em texto automaticamente.
 
-[Descrever o segundo trabalho seguindo a mesma estrutura acima, sempre evidenciando que o problema abordado é o mesmo ou muito próximo ao seu.]
+Os resultados obtidos demonstraram uma precisão de 97\% no reconhecimento dos gestos, indicando que a abordagem é eficaz para cenários controlados. Além disso, o sistema mostrou potencial para melhorar a acessibilidade e a inclusão social.
 
-\subsection{Trabalho 3: [Título do trabalho]}
+Entretanto, a solução apresenta limitações importantes, como a dependência de condições ambientais controladas (iluminação e fundo), a escassez de datasets amplos, e dificuldades em manter desempenho em tempo real. Também há restrições relacionadas à acessibilidade, especialmente em sistemas baseados na web que dependem de conexão com a internet.
 
-[Descrever o terceiro trabalho seguindo a mesma estrutura acima, sempre evidenciando que o problema abordado é o mesmo ou muito próximo ao seu.]
+Diferentemente desse trabalho, a presente pesquisa propõe uma abordagem mais integrada, ao não apenas reconhecer os sinais, mas também estruturá-los linguisticamente por meio de processamento de linguagem natural, buscando gerar frases coerentes em português, e não apenas transcrições diretas de sinais.
+
+\subsection{Trabalho 2: Interpretação de gestos de Libras usando K-Means e Random Forest}
+
+Caiafa et al. propuseram uma solução para o reconhecimento automático de sinais da Libras com foco em reduzir o custo computacional, mantendo uma boa acurácia. O problema tratado também está relacionado à barreira de comunicação entre usuários e não usuários da língua de sinais, sendo, portanto, diretamente alinhado com esta pesquisa.
+
+A abordagem adotada pelos autores difere das soluções baseadas exclusivamente em deep learning, pois utiliza o MediaPipe para extração de pontos-chave corporais, seguido de técnicas de agrupamento com K-Means e classificação utilizando algoritmos como KNN e Random Forest. Essa metodologia permite trabalhar com representações mais leves dos dados, reduzindo o processamento necessário.
+
+Os experimentos foram realizados utilizando a base de dados MINDS-Libras, resultando em uma acurácia de 94,72%, demonstrando que a solução é eficiente mesmo com menor complexidade computacional.
+
+Apesar dos bons resultados, o trabalho apresenta limitações, principalmente no fato de que o sistema foca apenas na classificação de sinais isolados, sem tratar a construção de frases ou o contexto linguístico. Além disso, ainda enfrenta desafios comuns da área, como variações de iluminação, ângulo de câmera e aumento do vocabulário.
+
+O presente trabalho avança em relação a essa proposta ao incorporar, além da etapa de reconhecimento, um módulo de processamento de linguagem natural, responsável por organizar os sinais identificados em frases estruturadas em português, ampliando o nível de interpretação da comunicação.
+
+\subsection{Trabalho 3: Detection and Interpretation of Indian Sign Language Using LSTM Networks}
+
+Vyavahare et al. abordaram o desenvolvimento de um sistema para reconhecimento e interpretação da língua de sinais indiana (ISL) em tempo real, com o objetivo de reduzir a lacuna comunicacional entre pessoas com deficiência auditiva e a sociedade — problema equivalente ao tratado neste TCC.
+
+A solução proposta baseia-se no uso de técnicas de visão computacional para extração de características visuais, combinadas com redes neurais recorrentes do tipo LSTM, capazes de capturar dependências temporais em gestos dinâmicos. Os autores também criaram um dataset próprio, composto por vídeos anotados de usuários nativos de ISL.
+
+Os resultados experimentais indicaram um desempenho elevado, com 96% de acurácia no treinamento e 87% no teste, evidenciando a capacidade do modelo em reconhecer padrões gestuais dinâmicos.
+
+No entanto, o estudo apresenta algumas limitações relevantes. A principal delas é que o sistema está restrito ao reconhecimento de palavras isoladas, não sendo capaz de interpretar frases completas. Além disso, o desempenho pode ser afetado por fatores como variações de iluminação, ângulo de câmera e posicionamento das mãos.
+
+Este trabalho se diferencia ao propor uma solução que vai além do reconhecimento de gestos individuais, incorporando uma camada de processamento de linguagem natural para construção de frases, buscando uma tradução mais próxima da comunicação real entre Libras e língua portuguesa.
 
 \vspace{0.5cm}
-
-Uma tabela comparativa ajuda a sintetizar as diferenças entre os trabalhos:
 
 \begin{table}[htb]
     \centering
     \caption{Comparação entre trabalhos relacionados}
     \label{tab:trabalhos_relacionados}
-    \begin{tabular}{l|c|c|c|c}
+    \small % Reduz levemente o tamanho da fonte para caber melhor na página
+    \begin{tabular}{p{2cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}}
         \toprule
         \textbf{Critério} & \textbf{Trabalho 1} & \textbf{Trabalho 2} & \textbf{Trabalho 3} & \textbf{Este trabalho} \\
         \midrule
-        Objetivo           & [resumo]   & [resumo]   & [resumo]   & [resumo] \\
+        \textbf{Objetivo} 
+        & Tradução de sinais em tempo real para texto. 
+        & Classificação de sinais de Libras com baixo custo computacional. 
+        & Reconhecimento e interpretação de sinais dinâmicos (ISL). 
+        & Tradução de Libras com estruturação gramatical de frases. \\
         \midrule
-        Tecnologia         & [tecn.]    & [tecn.]    & [tecn.]    & [tecn.] \\
+        \textbf{Tecnologia} 
+        & CNN, LSTM e PLN básico. 
+        & MediaPipe, K-Means, KNN e Random Forest. 
+        & Visão Computacional (OpenCV) e LSTM. 
+        & Arquitetura híbrida CNN + LSTM e camada robusta de PLN. \\
         \midrule
-        Validação          & [método]   & [método]   & [método]   & [método] \\
+        \textbf{Validação} 
+        & Dataset próprio (webcam); Acurácia de 97\%. 
+        & Base pública MINDS-Libras; Acurácia de 94,72\%. 
+        & Dataset próprio (ISL); 96\% treino e 87\% teste. 
+        & Dataset de Libras, métricas de acurácia e avaliação sintática. \\
         \midrule
-        Limitação          & [limit.]   & [limit.]   & [limit.]   & --- \\
+        \textbf{Limitação} 
+        & Sensível à iluminação e dependência de conexão web. 
+        & Classificação restrita a sinais/palavras isoladas. 
+        & Não interpreta frases completas ou contexto linguístico. 
+        & Dependência de dataset abrangente para diversidade de sinais. \\
         \bottomrule
     \end{tabular}
-    \legend{Fonte: Elaborado pelo autor (2025)}
+    \\
+    \source{Autoria própria (2026).}
 \end{table}
 
 % ===============================================================
