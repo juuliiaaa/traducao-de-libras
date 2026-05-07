@@ -207,7 +207,7 @@ Implementar um sistema computacional capaz de reconhecer gestos da Língua Brasi
     \item Selecionar, estruturar e tratar datasets de Libras;
     \item Desenvolver um modelo de visão computacional para detecção e reconhecimento dos sinais manuais;
     \item Implementar um módulo de processamento de linguagem natural para lidar com um conjunto definido de palavras e formar frases simples em português;
-    \item Integrar os módulos em um sistema funcional de tradução com processamento ao vivo;
+    \item Integrar os módulos em um sistema funcional de tradução com processamento em tempo real;
     \item Avaliar o desempenho do sistema utilizando diferentes métricas.
 \end{enumerate}
 
@@ -254,13 +254,22 @@ A Língua Brasileira de Sinais (Libras) é uma língua natural, completa e autô
 
 Do ponto de vista linguístico, a Libras pertence à modalidade visual-espacial, em contraste com a modalidade oral-auditiva do português. Essa diferença implica mudanças importantes na forma como a informação é organizada: enquanto a língua portuguesa apresenta uma estrutura linear, em que os elementos aparecem em sequência, a Libras permite expressar diferentes informações ao mesmo tempo, por meio da combinação de sinais, movimentos e expressões faciais. Estudos mostram que as línguas de sinais possuem as mesmas propriedades das línguas naturais, como criatividade, organização por regras e capacidade de expressar qualquer tipo de conteúdo \cite{Quadros2004}.
 
-No nível fonológico, os sinais são formados por parâmetros básicos, como configuração de mão (CM), movimento (M), locação (L), orientação (Or) e expressões não manuais (ENM). A combinação desses elementos forma os sinais, e mudanças em qualquer um desses parâmetros podem alterar o significado.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./figuras/sinaisLibras.jpg}
+    \caption{Parâmetros de formação do sinal na Libras.}
+    \label{fig:sinais}
+    \fonte{\citeonline{Felipe2013}.}
+\end{figure}
+
+No nível fonológico, os sinais são formados por parâmetros básicos, conforme detalhado na Figura~\ref{fig:sinais}: a configuração de mão (CM), o movimento (M), a locação (L), a orientação (Or) e as expressões não manuais (ENM). A combinação desses elementos forma os sinais, e mudanças em qualquer um desses parâmetros podem alterar o significado.
 
 Do ponto de vista morfológico, a Libras apresenta uma estrutura diferente da língua portuguesa. Em vez de adicionar partes de forma sequencial (como prefixos e sufixos), os elementos do sinal são combinados ao mesmo tempo. Por exemplo, informações como número, negação e até mesmo o objeto da ação podem ser incorporadas diretamente ao sinal. Além disso, a relação entre quem realiza e quem recebe a ação pode ser indicada pela direção do movimento no espaço, utilizando pontos de referência criados durante a comunicação (\cite{Quadros2004}).
 
 No nível sintático, a língua portuguesa segue predominantemente a ordem Sujeito-Verbo-Objeto (SVO). Já a Libras apresenta maior flexibilidade, sendo possíveis diferentes organizações, como SVO, SOV, OSV e VOS, dependendo do contexto. Isso ocorre porque a língua utiliza o espaço para indicar relações entre os elementos da frase, reduzindo a necessidade de uma ordem fixa.
 
 Essas diferenças impactam diretamente o processo de tradução automática. Elementos comuns no português, como artigos e preposições, nem sempre aparecem de forma explícita na Libras, pois muitas dessas relações são expressas pelo uso do espaço e pelo contexto. Por isso, sistemas computacionais precisam não apenas reconhecer os sinais, mas também reorganizar as informações e incluir elementos necessários para gerar frases corretas em português.
+
 
 
 \subsection{Bases de Dados (Datasets)}
@@ -295,7 +304,7 @@ No contexto deste trabalho, o pré-processamento também inclui a preparação d
 
 \subsection{Visão Computacional}
 
-A Visão Computacional (VC) é a ciência que permite que máquinas enxerguem e interpretem o meio à sua volta. Através da captura de imagens por câmeras e sensores, o sistema extrai informações significativas que permitem reconhecer e manipular objetos \cite{Milano2014}.
+A Visão Computacional é a ciência que permite que máquinas enxerguem e interpretem o meio à sua volta. Através da captura de imagens por câmeras e sensores, o sistema extrai informações significativas que permitem reconhecer e manipular objetos \cite{Milano2014}.
 
 Essa tecnologia busca capacitar computadores a compreender o mundo visual de forma similar aos humanos. Segundo a \citeonline{IBM2025}, enquanto a visão humana é intuitiva, as máquinas dependem de algoritmos para converter pixels e dados brutos em conceitos estruturados e compreensíveis.
 
@@ -314,9 +323,40 @@ Os landmarks, ou pontos-chave, são coordenadas específicas extraídas de parte
 
 No reconhecimento de Libras, os landmarks desempenham um papel fundamental, pois permitem reduzir a complexidade dos dados visuais. Em vez de processar toda a imagem, o sistema passa a trabalhar com um conjunto estruturado de pontos que descrevem a posição e a movimentação das mãos ao longo do tempo.
 
-Ferramentas como o Google MediaPipe possibilitam a detecção desses pontos em tempo real, fornecendo informações como coordenadas tridimensionais (x, y, z) das articulações. De acordo com \citeonline{Lugaresi2019}, essa abordagem torna o processamento mais eficiente e robusto, além de reduzir a influência de fatores externos, como iluminação e fundo da imagem.
+Ferramentas como o Google MediaPipe possibilitam a detecção desses pontos em tempo real, fornecendo informações como coordenadas tridimensionais (x, y, z) das articulações. Conforme ilustrado na Figura~\ref{fig:landmarks}, o sistema mapeia 21 pontos distintos, organizados em grupos que representam o pulso (ponto 0), o polegar (pontos 1-4) e os demais dedos — indicador (5-8), médio (9-12), anelar (13-16) e mínimo (17-20).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./figuras/landmarks.jpg}
+    \caption{Mapeamento de pontos de referência (\textit{landmarks}) da mão pelo MediaPipe.}
+    \label{fig:landmarks}
+    \fonte{\citeonline{Jung2021}.}
+\end{figure}
+ 
+
+De acordo com \citeonline{Lugaresi2019}, essa abordagem torna o processamento mais eficiente e robusto, além de reduzir a influência de fatores externos, como iluminação e fundo da imagem.
 
 Dessa forma, os landmarks atuam como uma representação compacta e informativa dos sinais, facilitando tanto o processamento pelas redes neurais quanto a generalização do modelo para diferentes usuários.
+
+
+
+\subsection{MediaPipe}
+ 
+O MediaPipe é um \textit{framework} de código aberto desenvolvido pelo Google para a construção de pipelines de percepção multimodal em tempo real \cite{Lugaresi2019}. Ele fornece um conjunto de soluções pré-treinadas para tarefas como detecção de pose corporal, rastreamento de rosto e, de forma central para este trabalho, detecção e rastreamento de mãos (\textit{MediaPipe Hands}).
+ 
+A solução \textit{MediaPipe Hands} opera em dois estágios sequenciais \cite{Zhang2020}. No primeiro, um detector leve baseado em aprendizado profundo localiza a palma da mão na imagem completa, produzindo um \textit{bounding box} delimitador. No segundo, um modelo de regressão de \textit{landmarks} recebe o recorte da mão e estima as coordenadas tridimensionais ($x$, $y$, $z$) de 21 pontos-chave que representam as articulações dos dedos e o pulso, conforme ilustrado na Figura~\ref{fig:mediapipe}. As coordenadas $x$ e $y$ são normalizadas em relação às dimensões do \textit{frame} (valores entre 0 e 1), enquanto $z$ representa a profundidade relativa ao pulso, permitindo inferir a orientação tridimensional da mão mesmo com uma câmera RGB comum \cite{Zhang2020}.
+ 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./figuras/hand_landmark.png}
+    \caption{Esquema dos 21 \textit{landmarks} detectados pelo MediaPipe Hands.}
+    \label{fig:mediapipe}
+    \fonte{\citeonline{Zhang2020}.}
+\end{figure}
+ 
+Do ponto de vista técnico, o diferencial do MediaPipe em relação a abordagens baseadas em segmentação de pele ou subtração de fundo é que ele não depende de condições controladas de iluminação ou de fundo homogêneo para localizar a mão: o detector opera diretamente sobre a imagem bruta e é robusto a variações de cor e textura do ambiente \cite{Lugaresi2019}. Além disso, a arquitetura leve do \textit{framework} permite processamento em tempo real, atingindo taxas superiores a 30 \textit{frames} por segundo em hardware convencional, o que o torna adequado para aplicações de tradução ao vivo.
+ 
+No contexto deste projeto, o MediaPipe Hands substitui o processamento direto sobre pixels das imagens de câmera. Em vez de alimentar os modelos CNN e LSTM com \textit{frames} completos -- o que elevaria o custo computacional e aumentaria a sensibilidade a ruídos visuais, o sistema extrai os 21 \textit{landmarks} por mão (totalizando até 63 coordenadas por \textit{frame} quando duas mãos estão presentes) e utiliza esses vetores compactos como representação de entrada. Essa escolha reduz drasticamente a dimensionalidade dos dados, acelera o treinamento e a inferência, e torna o sistema mais generalizável entre diferentes usuários, pois a representação baseada em articulações é invariante a variações de tom de pele e textura das mãos \cite{Lugaresi2019}.
 
 \subsection{Deep Learning}
 
@@ -393,7 +433,7 @@ O custo computacional refere-se à quantidade de recursos necessários para exec
 
 Modelos mais complexos, como redes profundas com múltiplas camadas, tendem a apresentar maior precisão, porém demandam mais recursos computacionais. Conforme discutido por \citeonline{Goodfellow2016}, o aumento da profundidade das redes neurais eleva sua capacidade de representação, mas também implica maior custo de processamento e necessidade de hardware mais robusto.
 
-No contexto deste trabalho, a escolha das arquiteturas busca equilibrar desempenho e eficiência, considerando a necessidade de processamento em tempo quase real. Estratégias como o uso de landmarks, redução de dimensionalidade dos dados e limitação do vocabulário inicial contribuem para diminuir o custo computacional.
+No contexto deste trabalho, a escolha das arquiteturas busca equilibrar desempenho e eficiência, considerando a necessidade de processamento em tempo execução. Estratégias como o uso de landmarks, redução de dimensionalidade dos dados e limitação do vocabulário inicial contribuem para diminuir o custo computacional.
 
 Esse equilíbrio é fundamental para garantir que o sistema seja não apenas preciso, mas também utilizável em cenários práticos.
 
@@ -464,6 +504,34 @@ A adoção de árvores de dependência é especialmente adequada para este proje
  
 Dessa forma, as árvores de dependência atuam como a representação intermediária que conecta a saída do reconhecedor de gestos (sequência de tokens na ordem da Libras) à frase final gramaticalmente correta em português, tornando o pipeline de tradução mais explícito, interpretável e extensível.
 
+\subsection{Integração Visão Computacional + NLP}
+
+A integração entre visão computacional e processamento de linguagem natural é essencial para o funcionamento do sistema proposto. Essa combinação permite não apenas reconhecer os sinais, mas também convertê-los em linguagem compreensível.
+
+O processo ocorre em etapas, iniciando pela captura de vídeo, seguida pelo reconhecimento dos sinais por meio de modelos de visão computacional, e finalizando com a conversão desses sinais em texto por meio de técnicas de NLP.
+
+Um dos principais desafios dessa integração está na necessidade de transformar sinais isolados em frases coerentes, respeitando as regras gramaticais da língua portuguesa. Dessa forma, o sistema não se limita ao reconhecimento de gestos, mas busca realizar uma tradução mais completa e significativa.
+
+\subsection{Acurácia e Matriz de Confusão}
+ 
+A acurácia é uma das métricas mais fundamentais para a avaliação de modelos de classificação. Ela expressa a proporção de predições corretas em relação ao total de exemplos avaliados, oferecendo uma visão geral do desempenho do sistema \cite{Goodfellow2016}. Apesar de sua interpretação direta, a acurácia isolada pode ser insuficiente em contextos com muitas classes, pois não revela quais sinais estão sendo confundidos entre si, informação essencial para o refinamento do modelo.
+ 
+Para suprir essa limitação, utiliza-se a matriz de confusão, uma representação tabular que cruza as classes reais com as classes preditas. Cada célula indica quantas amostras de uma determinada classe foram classificadas como outra, permitindo identificar padrões de erro específicos. Por exemplo, quais pares de sinais o modelo tende a confundir com maior frequência devido à semelhança na configuração de mão ou no movimento \cite{Goodfellow2016}. A partir dela, derivam-se ainda métricas complementares como precisão e \textit{recall}, que expõem desequilíbrios de desempenho entre as classes de forma mais granular.
+ 
+No escopo desta pesquisa, a acurácia e a matriz de confusão serão utilizadas para avaliar o módulo de visão computacional, tanto na classificação de sinais estáticos pela CNN quanto no reconhecimento de sinais dinâmicos pela LSTM. A análise conjunta dessas métricas permitirá identificar os sinais com maior taxa de erro e orientar ajustes no modelo ou na composição do dataset de treinamento.
+ 
+Com essa abordagem, busca-se garantir que o sistema apresente desempenho equilibrado entre todos os sinais do vocabulário definido, e não apenas nas classes mais frequentes.
+
+\subsection{Métrica BLEU}
+ 
+A métrica BLEU (\textit{Bilingual Evaluation Understudy}), proposta por \citeonline{Papineni2002}, é o padrão consolidado para avaliação automática de qualidade em sistemas de tradução. Ela compara o texto gerado pelo sistema com traduções humanas de referência, mensurando a sobreposição de sequências de palavras conhecidas como $n$-gramas. Esses elementos representam agrupamentos contínuos de $n$ itens; enquanto os unigramas ($n=1$) avaliam a presença de palavras isoladas, os bigramas ($n=2$) e trigramas ($n=3$) permitem verificar se a ordem e o contexto gramatical foram preservados. Quanto maior a correspondência com as referências humanas, mais alto o escore BLEU, que varia de 0 a 1.
+ 
+O uso do BLEU é especialmente relevante neste projeto porque o módulo de NLP não apenas transcreve sinais isolados, mas reorganiza e flexiona as palavras para gerar frases coerentes em português, um processo criativo que não pode ser avaliado somente por acurácia. Conforme apontam \citeonline{Papineni2002}, a métrica captura tanto a precisão lexical quanto aspectos da fluência, ao penalizar hipóteses que se distanciam estruturalmente das referências humanas.
+ 
+Para a validação do sistema proposto, o BLEU será calculado comparando as frases em português produzidas pelo sistema com traduções de referência elaboradas por especialistas para o mesmo conjunto de sinais de entrada. Escores mais altos indicam que o módulo de NLP está gerando saídas linguisticamente próximas ao que um humano produziria a partir dos mesmos sinais.
+ 
+Nesse sentido, o BLEU complementa as métricas de reconhecimento gestual ao avaliar especificamente a qualidade da camada linguística do sistema, fechando o ciclo de avaliação do pipeline completo de tradução.
+
 \subsection{Latência e Tempo de Resposta}
 
 A latência corresponde ao tempo decorrido entre a captura do sinal pelo sistema e a exibição da tradução ao usuário. Em aplicações de tradução em tempo real, esse fator é crítico, pois impacta diretamente a experiência de uso e a fluidez da comunicação.
@@ -475,15 +543,6 @@ De acordo com \citeonline{Molchanov2015}, em sistemas de reconhecimento de gesto
 No presente trabalho, a latência será considerada como um dos principais critérios de avaliação do sistema. A utilização de técnicas como processamento eficiente de frames, redução do tamanho dos dados (por meio de landmarks) e escolha de modelos com menor custo computacional contribui para minimizar o tempo de resposta.
 
 Dessa forma, busca-se garantir que a tradução ocorra de forma rápida e contínua, aproximando-se de uma comunicação natural.
-
-\subsection{Integração Visão Computacional + NLP}
-
-A integração entre visão computacional e processamento de linguagem natural é essencial para o funcionamento do sistema proposto. Essa combinação permite não apenas reconhecer os sinais, mas também convertê-los em linguagem compreensível.
-
-O processo ocorre em etapas, iniciando pela captura de vídeo, seguida pelo reconhecimento dos sinais por meio de modelos de visão computacional, e finalizando com a conversão desses sinais em texto por meio de técnicas de NLP.
-
-Um dos principais desafios dessa integração está na necessidade de transformar sinais isolados em frases coerentes, respeitando as regras gramaticais da língua portuguesa. Dessa forma, o sistema não se limita ao reconhecimento de gestos, mas busca realizar uma tradução mais completa e significativa.
-
 
 % ---------------------------------------------------------------
 \section{Trabalhos relacionados}
@@ -641,8 +700,7 @@ O sucesso da solução será medido através de métricas quantitativas e qualit
 \begin{itemize}
     \item Acurácia e Precisão: Medição da taxa de acerto do modelo na classificação dos sinais utilizando uma matriz de confusão.
     \item Métrica BLEU (Bilingual Evaluation Understudy): Utilizada para avaliar a qualidade da tradução gerada pelo módulo de NLP em comparação com traduções humanas.
-    \item Tempo de Resposta: Testes de latência para garantir que a tradução ocorra em tempo quase real.
-    \item Teste de Usabilidade: Avaliação da interface com potenciais usuários para verificar a clareza da tradução apresentada.
+    \item Tempo de Resposta: Testes de latência para garantir que a tradução ocorra em tempo de execução.
 \end{itemize}
 
 % ---------------------------------------------------------------
