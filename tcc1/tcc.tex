@@ -156,18 +156,23 @@ Este documento apresenta a proposta inicial do Trabalho de Conclusão de Curso (
 % ===============================================================
 \chapter{Introdução}
 \label{cap:introducao}
+A comunicação é extremamente importante para promover a inclusão social. No entanto, muitas pessoas surdas que utilizam a Língua Brasileira de Sinais (Libras) encontram barreiras na interação com aqueles que não conhecem essa linguagem. Essa limitação afeta diretamente o acesso a serviços, educação e oportunidades do dia a dia.
 
-A comunicação é extremamente importante para promover a inclusão social. No entanto, muitas pessoas surdas que utilizam a Língua Brasileira de Sinais (Libras) encontram barreiras na interação com aqueles que não conhecem essa linguagem. Essa limitação afeta diretamente o acesso a serviços, educação e oportunidades do dia a dia. 
+O desafio da comunicação reside no fato de que a Libras e a Língua Portuguesa possuem modalidades distintas sendo esta oral-auditiva e linear, e aquela visual-espacial e simultânea \cite{Olizaroski2024}. Enquanto o português organiza os elementos da frase em sequência fixa, a Libras expressa informações por meio da combinação simultânea de configurações de mão, movimentos e expressões faciais, com ordem frasal flexível que varia conforme o contexto comunicativo \cite{Quadros2004}.
 
-O desafio da comunicação reside no fato de que a Libras e a Língua Portuguesa possuem modalidades distintas, sendo esta oral-auditiva e linear, e aquela visual-espacial e simultânea, o que resulta em gramáticas e estruturas sintáticas completamente divergentes (\cite{Olizaroski2024}).
+Com a evolução das tecnologias em inteligência artificial, surgem novas maneiras de diminuir essas barreiras. O desenvolvimento do trabalho proposto apoia-se em três eixos tecnológicos complementares.
 
-Com a evolução das tecnologias em inteligência artificial, principalmente em visão computacional e processamento de linguagem natural, surgem novas maneiras de diminuir essas barreiras. Sistemas que conseguem reconhecer gestos e convertê-los automaticamente em texto podem ser uma solução bastante promissora para facilitar a interação entre surdos e ouvintes. 
+O primeiro eixo é a visão computacional, responsável por capturar e interpretar os sinais a partir do fluxo de vídeo da câmera. Nesse processo, a ferramenta MediaPipe \cite{Lugaresi2019} desempenha o papel central ao detectar, com o processamento ao vivo, os 21 pontos-chave (\textit{landmarks}) das articulações da mão, fornecendo coordenadas tridimensionais que descrevem a geometria e o movimento dos sinais de forma compacta e independente de variações de iluminação ou tom de pele \cite{Zhang2020}.
 
-Nesse cenário, o Processamento de Linguagem Natural (PLN) desempenha um papel fundamental ao atuar como uma camada de conversão inteligente. Sua função é interpretar os sinais isolados identificados pela visão computacional e reorganizá-los semântica e sintaticamente, realizando os ajustes de concordância e ordem frasal necessários para transformar a estrutura própria da Libras em frases coerentes e gramaticalmente corretas na língua portuguesa.
+O segundo eixo é o aprendizado profundo (\textit{deep learning}), que fornece a base para o reconhecimento dos sinais a partir dessas representações visuais. Para sinais estáticos, como as configurações do alfabeto manual, são empregadas Redes Neurais Convolucionais (CNN), capazes de identificar padrões espaciais nas configurações de mão \cite{Lecun1998}. Para sinais dinâmicos, cuja compreensão depende da trajetória e da sequência de movimentos ao longo do tempo, utilizam-se Redes de Memória de Longo Prazo (LSTM), arquitetura especializada no processamento de sequências temporais \cite{Hochreiter1997}.
 
-É importante ressaltar que, devido à amplitude lexical da Libras e à natureza experimental deste estudo, o sistema proposto não visa uma tradução universal imediata. A pesquisa delimita-se ao reconhecimento de um conjunto inicial de vocabulários voltados a contextos específicos, para garantir o rigor técnico na integração entre a visão computacional e o PLN, estabelecendo um modelo de referência que possa, em etapas posteriores, ser expandido para um léxico mais abrangente.
+O terceiro eixo é o processamento de linguagem natural (NLP), que atua como uma camada de conversão inteligente entre as saídas do reconhecedor de gestos e o texto final em português. Sua função é interpretar os sinais isolados identificados pela visão computacional e reorganizá-los semântica e sintaticamente, realizando os ajustes de concordância e ordem frasal necessários para transformar a estrutura própria da Libras em frases coerentes e gramaticalmente corretas. Para isso, o módulo de NLP, implementado com a biblioteca spaCy \cite{Honnibal2020}, utiliza árvores de dependência sintática para identificar as relações gramaticais entre os tokens (sujeito, verbo e objeto) e reconstituir a sentença na estrutura do português \cite{Jurafsky2023}.
 
-Diante disso, nosso trabalho propõe desenvolver um sistema de tradução de Libras, aplicando técnicas de visão computacional para reconhecer os sinais e processamento de linguagem natural para gerar frases em português. O objetivo é contribuir para a inclusão social com uma solução acessível, eficiente e aplicável em diversos contextos. 
+O sistema será treinado e validado sobre três bases de dados de Libras: o MINDS-Libras \cite{Rezende2021}, o V-Librasil \cite{Rodrigues2021} e o Libras Brazilian Sign Language \cite{Pas2020}, selecionados pela diversidade de sinalizadores, vocabulário e modalidade de captura. O desempenho da solução será avaliado por métricas complementares: a acurácia e a matriz de confusão para o módulo de reconhecimento gestual, a métrica BLEU \cite{Papineni2002} para a qualidade linguística das traduções geradas, e a latência para verificar a adequação do sistema ao uso em tempo de execução.
+
+É importante ressaltar que, devido à amplitude lexical da Libras e à natureza experimental deste estudo, o sistema proposto não visa uma tradução universal imediata. A pesquisa delimita-se ao reconhecimento de um conjunto inicial de sinais voltados a contextos específicos, para garantir o rigor técnico na integração entre os três eixos, estabelecendo um modelo de referência que possa, em etapas posteriores, ser expandido para um léxico mais abrangente.
+
+Diante disso, este trabalho propõe desenvolver um sistema de tradução de Libras que articula visão computacional, aprendizado profundo e processamento de linguagem natural em um pipeline integrado. O objetivo é contribuir para a inclusão social com uma solução acessível e aplicável em contextos como atendimentos, ambientes educacionais e interações cotidianas.
 
 % ---------------------------------------------------------------
 \section{Contexto}
@@ -314,14 +319,14 @@ Outra aplicação fundamental é o reconhecimento de gestos, técnica que visa i
 
 Para viabilizar essas aplicações, utilizam-se técnicas de processamento de imagem, que preparam os dados brutos para análise. Segundo \citeonline{Milano2014}, procedimentos como filtragem e redução de ruído são fundamentais para que o sistema ignore informações irrelevantes do fundo da imagem.
 
-Por fim, aplica-se a extração de características para identificar padrões relevantes, como o formato e a trajetória das mãos, permitndo que o sistema identifique pontos específicos, chamados de landmarks, essenciais para a classificação precisa do sinal.
+Por fim, aplica-se a extração de características para identificar padrões relevantes, como o formato e a trajetória das mãos, permitndo que o sistema identifique pontos específicos, chamados de \textit{landmarks}, essenciais para a classificação precisa do sinal.
 
 
 \subsection{Landmarks (Pontos-chave)}
 
-Os landmarks, ou pontos-chave, são coordenadas específicas extraídas de partes relevantes do corpo, como mãos, dedos e articulações, utilizadas para representar a geometria e o movimento dos sinais.
+Os \textit{landmarks}, ou pontos-chave, são coordenadas específicas extraídas de partes relevantes do corpo, como mãos, dedos e articulações, utilizadas para representar a geometria e o movimento dos sinais.
 
-No reconhecimento de Libras, os landmarks desempenham um papel fundamental, pois permitem reduzir a complexidade dos dados visuais. Em vez de processar toda a imagem, o sistema passa a trabalhar com um conjunto estruturado de pontos que descrevem a posição e a movimentação das mãos ao longo do tempo.
+No reconhecimento de Libras, os \textit{landmarks} desempenham um papel fundamental, pois permitem reduzir a complexidade dos dados visuais. Em vez de processar toda a imagem, o sistema passa a trabalhar com um conjunto estruturado de pontos que descrevem a posição e a movimentação das mãos ao longo do tempo.
 
 Ferramentas como o Google MediaPipe possibilitam a detecção desses pontos em tempo real, fornecendo informações como coordenadas tridimensionais (x, y, z) das articulações. Conforme ilustrado na Figura~\ref{fig:landmarks}, o sistema mapeia 21 pontos distintos, organizados em grupos que representam o pulso (ponto 0), o polegar (pontos 1-4) e os demais dedos — indicador (5-8), médio (9-12), anelar (13-16) e mínimo (17-20).
 
@@ -336,7 +341,7 @@ Ferramentas como o Google MediaPipe possibilitam a detecção desses pontos em t
 
 De acordo com \citeonline{Lugaresi2019}, essa abordagem torna o processamento mais eficiente e robusto, além de reduzir a influência de fatores externos, como iluminação e fundo da imagem.
 
-Dessa forma, os landmarks atuam como uma representação compacta e informativa dos sinais, facilitando tanto o processamento pelas redes neurais quanto a generalização do modelo para diferentes usuários.
+Dessa forma, os \textit{landmarks} atuam como uma representação compacta e informativa dos sinais, facilitando tanto o processamento pelas redes neurais quanto a generalização do modelo para diferentes usuários.
 
 
 
@@ -360,13 +365,13 @@ No contexto deste projeto, o MediaPipe Hands substitui o processamento direto so
 
 \subsection{Deep Learning}
 
-O Deep Learning, ou Aprendizado Profundo, é uma subárea do aprendizado de máquina que utiliza redes neurais artificiais com múltiplas camadas de processamento. Segundo a \citeonline{IBM2026}, essa abordagem é inspirada na estrutura do cérebro humano, onde cada camada de "neurônios" executa operações matemáticas para aprender representações cada vez mais abstratas dos dados.
+O \textit{deep learning}, ou Aprendizado Profundo, é uma subárea do aprendizado de máquina que utiliza redes neurais artificiais com múltiplas camadas de processamento. Segundo a \citeonline{IBM2026}, essa abordagem é inspirada na estrutura do cérebro humano, onde cada camada de "neurônios" executa operações matemáticas para aprender representações cada vez mais abstratas dos dados.
 
 Diferente dos métodos tradicionais, o aprendizado profundo permite que o sistema identifique características automaticamente, sem a necessidade de intervenção humana manual. Conforme explica a \citeonline{Oracle2022}, essa capacidade de autoajuste através de pesos e vieses é o que torna os modelos extremamente precisos para resolver problemas complexos.
 
 Um dos principais motivos para a ampla adoção desta tecnologia é o seu desempenho superior em tarefas que envolvem visão computacional e processamento de texto. De acordo com \citeonline{Schmidhuber2014}, o aprendizado profundo revolucionou o reconhecimento de padrões ao permitir a análise de grandes volumes de dados não estruturados.
 
-No contexto deste projeto, o uso do Deep Learning justifica-se pela necessidade de tratar informações visuais e sequenciais simultaneamente. Segundo \citeonline{Goodfellow2016}, redes profundas são aproximadores universais capazes de mapear entradas complexas para saídas específicas, como a tradução de um gesto em texto.
+No contexto deste projeto, o uso do \textit{deep learning} justifica-se pela necessidade de tratar informações visuais e sequenciais simultaneamente. Segundo \citeonline{Goodfellow2016}, redes profundas são aproximadores universais capazes de mapear entradas complexas para saídas específicas, como a tradução de um gesto em texto.
 
 A relação direta com as arquiteturas CNN e LSTM ocorre porque o aprendizado profundo fornece a base para camadas especializadas. Enquanto as Redes Neurais Convolucionais (CNN) focam na hierarquia espacial das imagens, as redes de memória de longo prazo (LSTM) lidam com a dependência temporal \cite{Hochreiter1997}.
 
@@ -433,7 +438,7 @@ O custo computacional refere-se à quantidade de recursos necessários para exec
 
 Modelos mais complexos, como redes profundas com múltiplas camadas, tendem a apresentar maior precisão, porém demandam mais recursos computacionais. Conforme discutido por \citeonline{Goodfellow2016}, o aumento da profundidade das redes neurais eleva sua capacidade de representação, mas também implica maior custo de processamento e necessidade de hardware mais robusto.
 
-No contexto deste trabalho, a escolha das arquiteturas busca equilibrar desempenho e eficiência, considerando a necessidade de processamento em tempo execução. Estratégias como o uso de landmarks, redução de dimensionalidade dos dados e limitação do vocabulário inicial contribuem para diminuir o custo computacional.
+No contexto deste trabalho, a escolha das arquiteturas busca equilibrar desempenho e eficiência, considerando a necessidade de processamento em tempo execução. Estratégias como o uso de \textit{landmarks}, redução de dimensionalidade dos dados e limitação do vocabulário inicial contribuem para diminuir o custo computacional.
 
 Esse equilíbrio é fundamental para garantir que o sistema seja não apenas preciso, mas também utilizável em cenários práticos.
 
@@ -540,7 +545,7 @@ Sistemas com alta latência podem gerar atrasos perceptíveis, comprometendo a i
 
 De acordo com \citeonline{Molchanov2015}, em sistemas de reconhecimento de gestos em tempo real, o desempenho está diretamente relacionado à eficiência computacional dos modelos e à capacidade de processar sequências de vídeo com baixa latência.
 
-No presente trabalho, a latência será considerada como um dos principais critérios de avaliação do sistema. A utilização de técnicas como processamento eficiente de frames, redução do tamanho dos dados (por meio de landmarks) e escolha de modelos com menor custo computacional contribui para minimizar o tempo de resposta.
+No presente trabalho, a latência será considerada como um dos principais critérios de avaliação do sistema. A utilização de técnicas como processamento eficiente de frames, redução do tamanho dos dados (por meio de \textit{landmarks}) e escolha de modelos com menor custo computacional contribui para minimizar o tempo de resposta.
 
 Dessa forma, busca-se garantir que a tradução ocorra de forma rápida e contínua, aproximando-se de uma comunicação natural.
 
@@ -564,9 +569,9 @@ Diferentemente desse trabalho, a presente pesquisa propõe uma abordagem mais in
 
 \citeonline{Caiafa2023} propuseram uma solução para o reconhecimento automático de sinais da Libras com foco em reduzir o custo computacional, mantendo uma boa acurácia. O problema tratado também está relacionado à barreira de comunicação entre usuários e não usuários da língua de sinais, sendo, portanto, diretamente alinhado com esta pesquisa.
 
-A abordagem adotada pelos autores difere das soluções baseadas exclusivamente em deep learning, pois utiliza o MediaPipe para extração de pontos-chave corporais, seguido de técnicas de agrupamento com K-Means e classificação utilizando algoritmos como KNN e Random Forest. Essa metodologia permite trabalhar com representações mais leves dos dados, reduzindo o processamento necessário.
+A abordagem adotada pelos autores difere das soluções baseadas exclusivamente em \textit{deep learning}, pois utiliza o MediaPipe para extração de pontos-chave corporais, seguido de técnicas de agrupamento com K-Means e classificação utilizando algoritmos como KNN e Random Forest. Essa metodologia permite trabalhar com representações mais leves dos dados, reduzindo o processamento necessário.
 
-Os experimentos foram realizados utilizando a base de dados MINDS-Libras, resultando em uma acurácia de 94,72%, demonstrando que a solução é eficiente mesmo com menor complexidade computacional.
+Os experimentos foram realizados utilizando a base de dados MINDS-Libras, resultando em uma acurácia de 94,72\%, demonstrando que a solução é eficiente mesmo com menor complexidade computacional.
 
 Apesar dos bons resultados, o trabalho apresenta limitações, principalmente no fato de que o sistema foca apenas na classificação de sinais isolados, sem tratar a construção de frases ou o contexto linguístico. Além disso, ainda enfrenta desafios comuns da área, como variações de iluminação, ângulo de câmera e aumento do vocabulário.
 
@@ -658,7 +663,7 @@ Em razão da amplitude lexical da Libras e do caráter experimental deste estudo
 \subsection{Arquitetura}
 A arquitetura do sistema é organizada de forma modular, dividida em três camadas principais de processamento que interagem sequencialmente para garantir a precisão da tradução:
 \begin{enumerate}
-    \item Camada de Aquisição e Visão (Front-end/Captura): Responsável por receber o fluxo de vídeo e utilizar algoritmos de extração de landmarks para isolar os movimentos das mãos e do corpo.
+    \item Camada de Aquisição e Visão (Front-end/Captura): Responsável por receber o fluxo de vídeo e utilizar algoritmos de extração de \textit{landmarks} para isolar os movimentos das mãos e do corpo.
     \item Camada de Inteligência (Processamento Híbrido): O núcleo da solução, onde Redes Neurais Convolucionais (CNN) processam a geometria espacial de cada frame e Redes de Memória de Longo Prazo (LSTM) interpretam a continuidade temporal dos movimentos.
     \item Camada de Interpretação Linguística (NLP): Módulo que recebe os sinais identificados (tokens) e aplica regras de Processamento de Linguagem Natural para gerar frases gramaticalmente corretas em língua portuguesa.
 \end{enumerate}
@@ -673,7 +678,7 @@ As escolhas tecnológicas foram feitas visando o alto desempenho em processament
 \begin{itemize}
     \item Linguagem de Programação: Python, devido à sua maturidade e vasta biblioteca para IA.
     \item Frameworks de Inteligência Artificial: TensorFlow ou Keras para o desenvolvimento das arquiteturas CNN e LSTM.
-    \item Visão Computacional: MediaPipe ou OpenCV para a extração ágil de pontos de referência (landmarks) das mãos.
+    \item Visão Computacional: MediaPipe ou OpenCV para a extração ágil de pontos de referência (\textit{landmarks}) das mãos.
     \item Dataset: Minds-Libras, Libras Brazilian Sign Language e V-BrasilIL escolhidos pela diversidade de sinais e qualidade das anotações.
     \item Processamento de Texto: Biblioteca NLTK ou spaCy para as tarefas de NLP e adequação gramatical.
 \end{itemize}
@@ -681,14 +686,13 @@ As escolhas tecnológicas foram feitas visando o alto desempenho em processament
 Para atingir os objetivos propostos, o sistema disponibilizará as seguintes funcionalidades:
 \begin{itemize}
     \item Captura de Sinais em Tempo Real: Processamento de vídeo via webcam com baixa latência.
-    \item Reconhecimento de Sinais Estáticos e Dinâmicos: Capacidade de traduzir desde o alfabeto manual até gestos complexos em movimento.
+    \item Reconhecimento de Sinais Estáticos e Dinâmicos: Capacidade de traduzir desde o alfabeto manual, como o da Figura~\ref{fig:alfabetoLibras}, até gestos complexos em movimento.
     \begin{figure}[H]
         \centering
         \caption{Alfabeto de Libras.} 
-        \label{fig: https://segredosdomundo.r7.com/linguagem-de-sinais-aprenda-algumas-palavras-e-frases-em-libras/}
+        \label{fig:alfabetoLibras}
         \includegraphics[width=0.8\textwidth]{./figuras/alfabetoLibras.jpg}
-        \vspace{0.3cm}
-        \centerline{\small Fonte: Segredos do Mundo (2026).}
+        \fonte{\citeonline{Nascimento2018}.}
     \end{figure}
     \item Tradução Sintática Automática: Reorganização de sentenças da estrutura Libras para a estrutura SVO do português.
     \item Saída Multimodal: Exibição da tradução em texto na tela.
