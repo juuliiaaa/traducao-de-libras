@@ -656,24 +656,63 @@ Neste capítulo, apresenta-se a solução proposta para o problema de tradução
 \label{sec:solucao}
 
 \subsection{Visão geral da solução}
-A solução proposta consiste em um sistema desktop de tradução automática em tempo execução, capaz de reconhecer gestos da Língua Brasileira de Sinais por meio de visão computacional e convertê-los em texto da língua portuguesa. O sistema é voltado para uso em computadores com câmera integrada, sendo projetado para funcionar como um facilitador de comunicação em contextos como atendimentos, ambientes educacionais e interações cotidianas.
+A solução proposta consiste em um sistema \textit{desktop} de tradução automática em tempo de execução, capaz de reconhecer gestos e expressões faciais da Língua Brasileira de Sinais por meio de visão computacional e convertê-los em frases gramaticalmente coerentes em língua portuguesa. O sistema é voltado para uso em computadores com câmera integrada, sendo projetado para funcionar como um facilitador de comunicação em contextos como atendimentos, ambientes educacionais e interações cotidianas.
 
-A aplicação é composta por três módulos principais integrados em um pipeline de processamento sequencial: (i) o módulo de visão computacional, responsável pela captura e reconhecimento dos sinais; (ii) o módulo de processamento de linguagem natural, responsável pela conversão dos tokens reconhecidos em frases coerentes em português; e (iii) a interface do usuário, que exibe a tradução em tempo execução.
+A aplicação é composta por quatro módulos principais integrados em um \textit{pipeline} de processamento sequencial: (i) o módulo de visão computacional, responsável pela captura simultânea dos \textit{landmarks} manuais e das expressões faciais (\textit{Expressões Não Manuais — ENM}); (ii) os modelos de reconhecimento (CNN para sinais estáticos e LSTM para sinais dinâmicos), que classificam os gestos e as expressões capturadas; (iii) o módulo de processamento de linguagem natural, responsável pela conversão dos \textit{tokens} reconhecidos em frases estruturadas em português; e (iv) o módulo LLM, que refina a saída produzida pelo NLP para garantir fluência e naturalidade na sentença final.
 
-Em razão da amplitude lexical da Libras e do caráter experimental deste estudo, o vocabulário inicial do sistema abrangerá um conjunto definido de sinais voltados a contextos de comunicação básica, como cumprimentos, solicitações de ajuda, identificação pessoal e situações de atendimento.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{./figuras/execução-pipeline}
     \caption{Fluxograma de Execução do Pipeline.}
     \source{Autoria própria (2026).}
 \end{figure}
-\subsection{Arquitetura}
-A arquitetura do sistema é organizada de forma modular, dividida em três camadas principais de processamento que interagem sequencialmente para garantir a precisão da tradução:
+
+\subsection{Domínio de Aplicação e Seleção do Vocabulário}
+O sistema adota uma estratégia de foco em domínio: em vez de buscar cobertura superficial de um léxico amplo e heterogêneo, o \textit{pipeline} completo é desenvolvido e validado sobre um conjunto de sinais pertencentes a uma categoria temática específica. Essa abordagem é deliberada e tecnicamente justificada — ela garante que os modelos CNN e LSTM sejam treinados sobre dados semanticamente coerentes, que o módulo de NLP opere com um vocabulário bem mapeado e que o LLM possa refinar traduções com base em contexto definido, resultando em um sistema de alta qualidade dentro do seu escopo.
+
+A seleção do domínio de aplicação é realizada com base em análise quantitativa e qualitativa dos três \textit{datasets} disponíveis (MINDS-Libras, V-Librasil e Libras Brazilian Sign Language), priorizando a categoria que ofereça: (a) maior quantidade de amostras por sinal e diversidade de sinalizadores; (b) relevância social comprovada para contextos de inclusão, como saúde, atendimento ao público ou educação; e (c) representação equilibrada entre sinais estáticos e dinâmicos, de modo a exercitar plenamente ambas as arquiteturas de reconhecimento (CNN e LSTM). A definição final do domínio será documentada e justificada com dados quantitativos na etapa de desenvolvimento do TCC2.
+
+\subsection{Tamanho do Vocabulário e Tipos de Sinais Suportados e Tipos de Sinais Suportados}
+
+O sistema reconhece e traduz sinais pertencentes ao domínio temático selecionado, cobrindo tanto o componente manual quanto o componente não manual (expressões faciais) dos gestos. O vocabulário é dimensionado para garantir profundidade de cobertura dentro do domínio escolhido, com um número suficiente para compor enunciados completos e contextualmente significativos em cenários reais de uso.
+
+Em termos de tipologia, o sistema suporta três categorias de entrada:
+
+\begin{itemize}
+    \item Sinais manuais estáticos: Configurações de mão realizadas sem componente de movimento significativo, como letras do alfabeto manual e numerais. Processados pela CNN a partir dos \textit{landmarks} extraídos pelo \textit{MediaPipe Hands} em um único \textit{frame}.
+    \item Sinais manuais dinâmicos: Gestos que envolvem trajetória e movimento ao longo do tempo, categoria que abrange a maior parte do léxico cotidiano da Libras. Processados pela LSTM a partir de sequências temporais de \textit{landmarks}.
+    \item Expressões Não Manuais (ENM): Expressões faciais com função gramatical na Libras, como marcação de perguntas (sobrancelhas elevadas), negação facial e intensificação. Capturadas em tempo real pelo \textit{MediaPipe Face Mesh} e classificadas em conjunto com os \textit{landmarks} manuais, permitindo que o sistema distinga enunciados com o mesmo sinal manual mas significados distintos conforme a expressão que os acompanha.
+\end{itemize}
+
+\subsection{Desafios do Sistema}
+O desenvolvimento do sistema envolve desafios técnicos inerentes à natureza contínua e visual da Libras, que motivam decisões arquiteturais específicas e orientam o planejamento das etapas de implementação e validação.
+
+O primeiro desafio é a detecção dos limites temporais dos sinais, identificar, no fluxo contínuo de vídeo capturado pela câmera, o exato instante em que um sinal começa e termina. Diferentemente do reconhecimento de fala, em que pausas sonoras delimitam palavras, na Libras os sinais são realizados em movimento contínuo, sem separadores visuais explícitos entre eles. O sistema precisa, portanto, implementar um mecanismo de segmentação temporal capaz de distinguir o momento em que o sinalizador está ativamente produzindo um sinal daquele em que está em transição ou repouso, para que apenas sequências válidas sejam enviadas aos modelos de classificação.
+
+O segundo desafio é a distinção entre sinais dinâmicos e estáticos no mesmo fluxo de entrada. Sinais estáticos, como configurações do alfabeto manual, são realizados com a mão relativamente imóvel, enquanto sinais dinâmicos envolvem trajetória e movimento intencional. Como ambos chegam ao sistema como sequências de \textit{frames}, é necessário que o \textit{pipeline} classifique automaticamente o tipo de sinal recebido antes de direcioná-lo ao modelo correto (CNN ou LSTM), evitando que micro-movimentos involuntários de manutenção de postura sejam interpretados como gestos dinâmicos.
+
+O terceiro desafio é o tratamento de ruídos e interrupções naturais da captura. Durante o uso real, o sinalizador pode fazer pausas entre sinais, ajustar a posição das mãos, coçar o rosto ou simplesmente manter as mãos em repouso no campo da câmera. Esses comportamentos produzem sequências de \textit{landmarks} que não correspondem a nenhum sinal válido, mas que o sistema poderia interpretar incorretamente como entrada. Além disso, oclusões parciais das mãos, variações bruscas de iluminação e perda momentânea de detecção pelo MediaPipe introduzem lacunas e inconsistências nos vetores de entrada que precisam ser tratadas antes da classificação, por meio de técnicas como interpolação de \textit{frames} ausentes, janelas deslizantes com limiar de confiança e descarte de sequências com detecção abaixo do mínimo aceitável.
+
+\subsection{Limitações do Sistema}
+
+As limitações a seguir definem o escopo desta pesquisa e orientam o planejamento de trabalhos futuros. Elas não representam restrições ao mérito da solução proposta, mas delimitam com precisão o contexto em que os resultados devem ser interpretados.
+
 \begin{enumerate}
-    \item Camada de Aquisição e Visão (Front-end/Captura): Responsável por receber o fluxo de vídeo e utilizar algoritmos de extração de \textit{landmarks} para isolar os movimentos das mãos e do corpo.
-    \item Camada de Inteligência (Processamento Híbrido): O núcleo da solução, onde Redes Neurais Convolucionais (CNN) processam a geometria espacial de cada frame e Redes de Memória de Longo Prazo (LSTM) interpretam a continuidade temporal dos movimentos.
-    \item Camada de Interpretação Linguística (NLP): Módulo que recebe os sinais identificados (tokens) e aplica regras de Processamento de Linguagem Natural para gerar frases gramaticalmente corretas em língua portuguesa.
+    \item Cobertura restrita ao domínio selecionado: O sistema realiza tradução de alta qualidade dentro do domínio temático escolhido. Sinais fora desse escopo não serão reconhecidos, o que é uma consequência esperada e planejada da estratégia de foco em domínio adotada. A extensão do vocabulário a outros domínios é um trabalho futuro natural.
+    \item Sinais classificadores e polissêmicos complexos: Sinais cujo significado depende criticamente de contexto espacial tridimensional complexo — como classificadores que referenciam objetos posicionados no espaço de sinalização — estão fora do escopo desta versão, dado que o \textit{pipeline} atual não modela explicitamente o espaço de referenciação da Libras.
+    \item Dependência de condições mínimas de captura: Embora o uso de \textit{landmarks} pelo MediaPipe reduza significativamente a sensibilidade a variações de iluminação e fundo, situações de oclusão severa das mãos ou iluminação extremamente baixa podem comprometer a detecção. Câmeras com resolução mínima adequada são requisito de hardware do sistema.
+    \item Latência do módulo LLM em hardware limitado: Em dispositivos com recursos computacionais mais restritos, a chamada ao LLM pode introduzir atrasos perceptíveis. A validação de latência (seção 3.1.6) incluirá testes em diferentes configurações de hardware para mapear os requisitos mínimos do sistema.
 \end{enumerate}
+
+\subsection{Arquitetura}
+A arquitetura do sistema é organizada de forma modular, dividida em quatro camadas principais de processamento que interagem sequencialmente para garantir a precisão e a fluência da tradução:
+\begin{enumerate}
+    \item Camada de Aquisição e Visão (Captura): Responsável por receber o fluxo de vídeo e executar simultaneamente dois processos de extração de \textit{landmarks}: (a) o \textit{MediaPipe Hands}, que mapeia 21 pontos-chave das articulações de cada mão, fornecendo coordenadas tridimensionais (x, y, z); e (b) o \textit{MediaPipe Face Mesh}, que rastreia pontos-chave do rosto, incluindo sobrancelhas, olhos, bochecha e boca, capturando as Expressões Não Manuais (ENM) que exercem funções gramaticais na Libras.
+    \item Camada de Inteligência (Processamento Híbrido): O núcleo do sistema de reconhecimento. As Redes Neurais Convolucionais (CNN) processam a geometria espacial combinada dos \textit{landmarks} manuais e faciais para classificar sinais estáticos, como as configurações do alfabeto manual e expressões de negação ou interrogação. As Redes de Memória de Longo Prazo (LSTM) interpretam a continuidade temporal dessas representações para o reconhecimento de sinais dinâmicos, cujo significado depende da trajetória do movimento ao longo do tempo.
+    \item Camada de Interpretação Linguística (NLP): Módulo implementado com a biblioteca spaCy que recebe os \textit{tokens} reconhecidos — incluindo informações semânticas derivadas das ENM — e aplica tokenização, etiquetagem morfossintática, análise de dependência sintática e regras de concordância para gerar frases gramaticalmente estruturadas em língua portuguesa.
+    \item Camada de Refinamento (LLM): Módulo de pós-processamento que recebe a sentença intermediária produzida pelo NLP e aplica um Modelo de Linguagem de Grande Escala para otimizar a naturalidade e a fluência do texto final, corrigindo ambiguidades e inserindo elementos contextuais que regras determinísticas não capturam.
+\end{enumerate}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{./figuras/visao-computacional.png}
@@ -712,6 +751,7 @@ O sucesso da solução será medido através de métricas quantitativas e qualit
     \item Acurácia e Precisão: Medição da taxa de acerto do modelo na classificação dos sinais utilizando uma matriz de confusão.
     \item Métrica BLEU (Bilingual Evaluation Understudy): Utilizada para avaliar a qualidade da tradução gerada pelo módulo de NLP em comparação com traduções humanas.
     \item Tempo de Resposta: Testes de latência para garantir que a tradução ocorra em tempo de execução.
+    \item Validação com Usuários Reais: Sessões supervisionadas com membros da comunidade surda e/ou intérpretes de Libras para avaliação qualitativa das traduções e da usabilidade do sistema em condições reais de uso.
 \end{itemize}
 
 % ---------------------------------------------------------------
