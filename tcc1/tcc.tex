@@ -160,19 +160,19 @@ A comunicação é extremamente importante para promover a inclusão social. No 
 
 O desafio da comunicação reside no fato de que a Libras e a Língua Portuguesa possuem modalidades distintas sendo esta oral-auditiva e linear, e aquela visual-espacial e simultânea \cite{Olizaroski2024}. Enquanto o português organiza os elementos da frase em sequência fixa, a Libras expressa informações por meio da combinação simultânea de configurações de mão, movimentos e expressões faciais, com ordem frasal flexível que varia conforme o contexto comunicativo \cite{Quadros2004}.
 
-Com a evolução das tecnologias em inteligência artificial, surgem novas maneiras de diminuir essas barreiras. O desenvolvimento do trabalho proposto apoia-se em quatro eixos tecnológicos complementares.
+Com a evolução das tecnologias em inteligência artificial, surgem novas maneiras de diminuir essas barreiras. O desenvolvimento do trabalho proposto apoia-se em três eixos tecnológicos complementares.
 
 O primeiro eixo é a visão computacional, responsável por capturar e interpretar os sinais a partir do fluxo de vídeo da câmera. Nesse processo, a ferramenta MediaPipe \cite{Lugaresi2019} desempenha o papel central ao detectar, com o processamento ao vivo, os 21 pontos-chave (\textit{landmarks}) das articulações da mão, fornecendo coordenadas tridimensionais que descrevem a geometria e o movimento dos sinais de forma compacta e independente de variações de iluminação ou tom de pele \cite{Zhang2020}.
 
 O segundo eixo é o aprendizado profundo (\textit{deep learning}), que fornece a base para o reconhecimento dos sinais a partir dessas representações visuais. Para sinais estáticos, como as configurações do alfabeto manual, são empregadas Redes Neurais Convolucionais (CNN), capazes de identificar padrões espaciais nas configurações de mão \cite{Lecun1998}. Para sinais dinâmicos, cuja compreensão depende da trajetória e da sequência de movimentos ao longo do tempo, utilizam-se Redes de Memória de Longo Prazo (LSTM), arquitetura especializada no processamento de sequências temporais \cite{Hochreiter1997}.
 
-O terceiro eixo é o processamento de linguagem natural (NLP), que atua como uma camada de conversão inteligente entre as saídas do reconhecedor de gestos e o texto intermediário em português. Sua função é interpretar os sinais isolados identificados pela visão computacional e reorganizá-los semântica e sintaticamente, realizando os ajustes de concordância e ordem frasal necessários para transformar a estrutura própria da Libras em frases coerentes e gramaticalmente corretas. Para isso, o módulo de NLP, implementado com a biblioteca spaCy, utiliza árvores de dependência sintática para identificar as relações gramaticais entre os \textit{tokens} (sujeito, verbo e objeto) e reconstituir a sentença na estrutura do português \cite{Jurafsky2023}.
+O terceiro eixo é o processamento de linguagem natural (NLP), que atua como uma camada de conversão inteligente entre as saídas do reconhecedor de gestos e o texto intermediário em português. Sua função é interpretar os sinais isolados identificados pela visão computacional e reorganizá-los semântica e sintaticamente, realizando os ajustes de concordância e ordem frasal necessários para transformar a estrutura própria da Libras em frases coerentes e gramaticalmente corretas. Para isso, o módulo de NLP, implementado com a biblioteca spaCy \cite{Honnibal2020}, utiliza árvores de dependência sintática para identificar as relações gramaticais entre os \textit{tokens} (sujeito, verbo e objeto) e reconstituir a sentença na estrutura do português \cite{Jurafsky2023}.
 
-O quarto eixo é o uso de um Modelo de Linguagem de Grande Escala (LLM, do inglês \textit{Large Language Model}), responsável por refinar e contextualizar a saída produzida pelo módulo de NLP. Após a reorganização sintática inicial, o LLM recebe a frase intermediária e aplica conhecimento linguístico profundo para corrigir ambiguidades, inserir artigos e preposições ausentes e produzir uma sentença final fluente em português \cite{Brown2020}.
+O quarto eixo é o uso de um Modelo de Linguagem de Grande Escala (LLM, do inglês \textit{Large Language Model}), responsável por refinar e contextualizar a saída produzida pelo módulo de NLP. Após a reorganização sintática inicial, o LLM recebe a frase intermediária e aplica conhecimento linguístico profundo para corrigir ambiguidades, inserir artigos e preposições ausentes e produzir uma sentença final fluente em português \cite{Brown2020}. Essa camada agrega robustez ao sistema, tratando casos em que regras determinísticas de NLP seriam insuficientes para capturar nuances da comunicação natural.
 
-O sistema será treinado e validado sobre três bases de dados de Libras: o MINDS-Libras \cite{Rezende2021}, o V-Librasil \cite{Rodrigues2021} e o Libras Brazilian Sign Language \cite{Pas2020}, selecionados pela diversidade de sinalizadores, vocabulário e modalidade de captura. O desempenho da solução será avaliado por métricas complementares: a acurácia e a matriz de confusão para o módulo de reconhecimento gestual, a métrica BLEU para a qualidade linguística das traduções geradas, e a latência para verificar a adequação do sistema ao uso em tempo de execução.
+O sistema será treinado e validado sobre três bases de dados de Libras: o MINDS-Libras \cite{Rezende2021}, o V-Librasil \cite{Rodrigues2021} e o Libras Brazilian Sign Language \cite{Pas2020}, selecionados pela diversidade de sinalizadores, vocabulário e modalidade de captura. O desempenho da solução será avaliado por métricas complementares: a acurácia e a matriz de confusão para o módulo de reconhecimento gestual, a métrica BLEU \cite{Papineni2002} para a qualidade linguística das traduções geradas, e a latência para verificar a adequação do sistema ao uso em tempo de execução.
 
-É importante ressaltar que, devido à amplitude lexical da Libras e à natureza experimental deste estudo, o sistema proposto não visa uma tradução universal imediata. A pesquisa delimita-se ao reconhecimento de um conjunto inicial de sinais voltados a contextos específicos, para garantir o rigor técnico na integração entre os quatro eixos, estabelecendo um modelo de referência que possa, em etapas posteriores, ser expandido para um léxico mais abrangente.
+É importante ressaltar que, devido à amplitude lexical da Libras e à natureza experimental deste estudo, o sistema proposto não visa uma tradução universal imediata. A pesquisa delimita-se ao reconhecimento de um conjunto inicial de sinais voltados a contextos específicos, para garantir o rigor técnico na integração entre os três eixos, estabelecendo um modelo de referência que possa, em etapas posteriores, ser expandido para um léxico mais abrangente.
 
 Diante disso, este trabalho propõe desenvolver um sistema de tradução de Libras que articula visão computacional, aprendizado profundo, processamento de linguagem natural e modelos de linguagem de grande escala em um \textit{pipeline} integrado. O objetivo é contribuir para a inclusão social com uma solução acessível e aplicável em contextos como atendimentos, ambientes educacionais e interações cotidianas.
 
@@ -181,6 +181,8 @@ Diante disso, este trabalho propõe desenvolver um sistema de tradução de Libr
 \label{sec:contexto}
 
 A comunicação é necessária para a integração social e o exercício da cidadania. Contudo, para a comunidade surda no Brasil, essa interação muitas vezes é limitada por barreiras linguísticas significativas. Conforme dados do \cite{IBGE2019}, o Brasil conta com mais de 10 milhões de pessoas com algum nível de deficiência auditiva, sendo cerca de 2,3 milhões completamente surdas. 
+
+Embora a Língua Brasileira de Sinais (Libras) seja o principal meio de comunicação desta comunidade, estima-se que até 2025, menos de 0,5\% da população (cerca de 1 milhão de pessoas) entenderão ou dominarão a língua. Essa lacuna na comunicação gera uma dependência constante de intérpretes, que são poucos e frequentemente inacessíveis em situações cotidianas. 
 
 % ---------------------------------------------------------------
 \section{Justificativa}
@@ -203,13 +205,12 @@ Portanto, este trabalho busca avançar nesse quesito ao propor uma solução mai
 Os objetivos deste trabalho estão voltados para o desenvolvimento de uma solução capaz de auxiliar na comunicação entre pessoas surdas e ouvintes por meio da tradução automática de Libras. Para isso, define-se um objetivo principal que orienta a proposta geral do sistema, enquanto os objetivos secundários detalham as etapas necessárias para sua construção, incluindo desde o tratamento dos dados até a implementação e avaliação da solução.
 
 \subsection{Objetivo principal}
-
 Implementar um sistema computacional capaz de reconhecer gestos da Língua Brasileira de Sinais (Libras) por meio de visão computacional e traduzi-los em frases gramaticalmente coerentes em língua portuguesa, utilizando técnicas de processamento de linguagem natural e modelos de linguagem de grande escala.
 
 \subsection{Objetivos secundários}
 
 \begin{enumerate}
-    \item Realizar levantamento bibliográfico sobre reconhecimento de gestos em Libras, arquiteturas de redes neurais convolucionais e recorrentes, processamento de linguagem natural e modelos de linguagem de grande escala aplicados à tradução automática;
+        \item Realizar levantamento bibliográfico sobre reconhecimento de gestos em Libras, arquiteturas de redes neurais convolucionais e recorrentes, processamento de linguagem natural e modelos de linguagem de grande escala aplicados à tradução automática;
     \item Selecionar, estruturar e pré-processar os datasets de Libras, aplicando técnicas de balanceamento e augmentação de dados para garantir a qualidade do treinamento;
     \item Projetar a arquitetura híbrida do sistema, integrando o módulo de visão computacional baseado em MediaPipe, CNN e LSTM ao módulo de NLP implementado com spaCy e refinamento via LLM;
     \item Implementar um protótipo funcional do pipeline completo de tradução, desde a captura de vídeo via webcam até a exibição da frase traduzida em português na interface do usuário;
@@ -228,22 +229,20 @@ Neste capítulo, são apresentados os conceitos fundamentais necessários para o
 \section{Referencial teórico}
 \label{sec:referencial}
 
-Esta seção apresenta os conceitos fundamentais que embasam o desenvolvimento do sistema proposto, organizados de acordo com os eixos tecnológicos do projeto: a língua alvo da tradução, os dados necessários para o treinamento, a cadeia de visão computacional e as abordagens de linguagem natural. Cada tópico é tratado em seu aspecto conceitual e científico, fornecendo a base teórica para as decisões de arquitetura e implementação detalhadas na seção de Fundamentos.
- 
-\subsection{Linguagem da Língua Brasileira de Sinais (Libras)}
- 
+\title{Linguagem da Língua Brasileira de Sinais (Libras)}
+
 A Língua Brasileira de Sinais (Libras) é uma língua natural, completa e autônoma, utilizada pela comunidade surda no Brasil, reconhecida pela Lei nº 10.436/2002 e regulamentada pelo Decreto nº 5.626/2005 como meio legal de comunicação e expressão. Possui estrutura gramatical própria, independente da Língua Portuguesa, e está inserida em um contexto cultural e linguístico específico da comunidade surda.
- 
-Do ponto de vista linguístico, a Libras pertence à modalidade visual-espacial, em contraste com a modalidade oral-auditiva do português. Essa diferença implica mudanças importantes na forma como a informação é organizada: enquanto a língua portuguesa apresenta uma estrutura linear, em que os elementos aparecem em sequência, a Libras permite expressar diferentes informações ao mesmo tempo, por meio da combinação de sinais, movimentos e expressões faciais.
- 
+
+Do ponto de vista linguístico, a Libras pertence à modalidade visual-espacial, em contraste com a modalidade oral-auditiva do português. Essa diferença implica mudanças importantes na forma como a informação é organizada: enquanto a língua portuguesa apresenta uma estrutura linear, em que os elementos aparecem em sequência, a Libras permite expressar diferentes informações ao mesmo tempo, por meio da combinação de sinais, movimentos e expressões faciais. 
+
 As expressões faciais e corporais possuem papel fundamental na Libras, não sendo utilizadas apenas para transmitir emoções, mas também como elementos gramaticais da língua. Conhecidas como Expressões Não Manuais (ENM), elas complementam os sinais realizados com as mãos e auxiliam na construção do significado das frases \cite{Quadros2004}. Em muitos casos, a ausência dessas expressões pode dificultar a compreensão ou até alterar o sentido do enunciado.
- 
+
 Diferentes movimentos do rosto podem indicar intenções comunicativas específicas. Expressões faciais associadas ao movimento das sobrancelhas, por exemplo, podem marcar perguntas, negações e intensificações, funcionando como elementos linguísticos da estrutura da Libras \cite{Brito1995}. Além disso, movimentos da boca, direção do olhar e expressões corporais também contribuem para a construção da mensagem e para a fluidez da comunicação.
- 
+
 Dessa forma, as expressões não manuais são consideradas um dos parâmetros fundamentais da Libras, atuando em conjunto com a configuração das mãos, o movimento, a locação e a orientação. Sua utilização reforça que a Libras é uma língua completa, com estrutura gramatical própria e mecanismos linguísticos complexos de comunicação \cite{Quadros2004}.
- 
+
 Estudos mostram que as línguas de sinais possuem as mesmas propriedades das línguas naturais, como criatividade, organização por regras e capacidade de expressar qualquer tipo de conteúdo \cite{Quadros2004}.
- 
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{./figuras/sinaisLibras.png}
@@ -251,155 +250,14 @@ Estudos mostram que as línguas de sinais possuem as mesmas propriedades das lí
     \label{fig:sinais}
     \fonte{\citeonline{Felipe2013}.}
 \end{figure}
- 
+
 No nível fonológico, os sinais são formados por parâmetros básicos, conforme detalhado na Figura~\ref{fig:sinais}: a configuração de mão (CM), o movimento (M), a locação (L), a orientação (Or) e as expressões não manuais (ENM). A combinação desses elementos forma os sinais, e mudanças em qualquer um desses parâmetros podem alterar o significado.
- 
-Do ponto de vista morfológico, a Libras apresenta uma estrutura diferente da língua portuguesa. Em vez de adicionar partes de forma sequencial (como prefixos e sufixos), os elementos do sinal são combinados ao mesmo tempo. Por exemplo, informações como número, negação e até mesmo o objeto da ação podem ser incorporadas diretamente ao sinal. Além disso, a relação entre quem realiza e quem recebe a ação pode ser indicada pela direção do movimento no espaço, utilizando pontos de referência criados durante a comunicação \cite{Quadros2004}.
- 
-No nível sintático, a língua portuguesa segue predominantemente a ordem Sujeito-Verbo-Objeto (SVO). Já a Libras apresenta maior flexibilidade, sendo possíveis diferentes organizações, como SVO, SOV, OSV e VOS, dependendo do contexto. Isso ocorre porque a língua utiliza o espaço para indicar relações entre os elementos da frase, reduzindo a necessidade de uma ordem fixa. Por exemplo, enquanto em português a sentença "Eu vi o médico" segue obrigatoriamente a ordem sujeito-verbo-objeto, em Libras o objeto pode ser topicalizado e sinalizado antes do verbo, resultando em uma estrutura como MÉDICO EU VER, sem perda de significado \cite{Quadros2004}.
- 
-Essas diferenças impactam diretamente o processo de tradução automática. Elementos comuns no português, como artigos e preposições, nem sempre aparecem de forma explícita na Libras, pois muitas dessas relações são expressas pelo uso do espaço e pelo contexto.
- 
-\subsection{Bases de Dados (Datasets)}
 
-No desenvolvimento de modelos de Aprendizado Profundo, o dataset constitui o pilar fundamental para o treinamento e a validação do sistema. Segundo \citeonline{Schmidhuber2014}, a eficácia de arquiteturas como CNNs e LSTMs depende diretamente da disponibilidade de grandes volumes de dados rotulados, que permitem ao modelo aprender representações estatísticas precisas e generalizáveis.
+Do ponto de vista morfológico, a Libras apresenta uma estrutura diferente da língua portuguesa. Em vez de adicionar partes de forma sequencial (como prefixos e sufixos), os elementos do sinal são combinados ao mesmo tempo. Por exemplo, informações como número, negação e até mesmo o objeto da ação podem ser incorporadas diretamente ao sinal. Além disso, a relação entre quem realiza e quem recebe a ação pode ser indicada pela direção do movimento no espaço, utilizando pontos de referência criados durante a comunicação (\cite{Quadros2004}).
 
-Em problemas que envolvem movimento, uma base de dados robusta deve conter sequências de vídeo que capturem a dinâmica do fenômeno. De acordo com \citeonline{Silva2017}, a diversidade dos dados é crucial para mitigar o sobreajuste (\textit{overfitting}), garantindo que o sistema generalize para diferentes usuários e condições.
+No nível sintático, a língua portuguesa segue predominantemente a ordem Sujeito-Verbo-Objeto (SVO). Já a Libras apresenta maior flexibilidade, sendo possíveis diferentes organizações, como SVO, SOV, OSV e VOS, dependendo do contexto. Isso ocorre porque a língua utiliza o espaço para indicar relações entre os elementos da frase, reduzindo a necessidade de uma ordem fixa.
 
-Essa diversidade inclui variações antropométricas (tamanho e forma das mãos), condições ambientais (iluminação, fundos complexos) e diferenças na execução (velocidade, amplitude, fluidez). A estruturação do dataset deve prever a divisão entre treinamento, validação e teste, conforme \citeonline{Goodfellow2016}, para avaliar a capacidade de generalização frente a dados nunca vistos.
-
-\subsection{Pré-processamento de Dados}
-
-Antes da aplicação dos modelos, é necessária uma etapa de pré-processamento dos dados visuais para melhorar a qualidade da informação fornecida ao sistema. O pré-processamento envolve redimensionamento dos quadros, normalização dos valores de pixel e remoção de ruídos.
-
-Filtros para suavização e ajuste de contraste reduzem interferências causadas por variações de iluminação e fundo. Segundo \citeonline{Szeliski2010}, essas etapas são fundamentais para que algoritmos de visão computacional extraiam características relevantes de forma eficiente.
-
-A padronização das dimensões e formatos é essencial para o funcionamento correto de redes neurais, especialmente CNNs e LSTMs. Além disso, o balanceamento de classes evita que o modelo favoreça classes majoritárias; estratégias como \textit{data augmentation}, SMOTE e ponderação de classes na função de perda são comuns \cite{Chawla2002, Goodfellow2016}.
-
-\subsection{Visão Computacional}
-
-A Visão Computacional é a ciência que investiga teorias e algoritmos para capacitar sistemas computacionais a emular o sistema visual humano, permitindo que máquinas enxerguem e interpretem o meio à sua volta. 
-
-Por meio da captura de imagens digitais por câmeras e sensores, o sistema extrai, processa e analisa informações significativas que viabilizam o reconhecimento e a manipulação simbólica de objetos \cite{Milano2014}. 
-
-Segundo \citeonline{IBM2025}, enquanto a percepção visual biológica é uma habilidade cognitiva intuitiva e imediata, a visão artificial depende de formulações matemáticas rigorosas para converter matrizes de pixels e dados brutos em conceitos estruturados e representações geométricas tridimensionais.
-
-A metodológia da área abrange desde os níveis mais baixos de processamento até a interpretação semântica de alto nível, englobando a detecção de objetos, o rastreamento de movimento e a modelagem matemática para extração de características. 
-
-No nível básico, procedimentos baseados em matrizes de convolução espacial, como a filtragem digital e as técnicas de redução de ruído Gaussiano ou mediana, operam diretamente no domínio da imagem para ignorar informações espúrias e atenuar frequências irrelevantes do fundo \cite{Milano2014}.
-
-Uma vez suavizado o sinal visual, os métodos avançam para a extração de características latentes, mapeando descontinuidades de intensidade para delinear formas e delimitar trajetórias. 
-
-Na literatura contemporânea, um recurso teórico amplamente adotado é a parametrização por pontos-chave anatômicos (landmarks), que codifica matrizes bidimensionais densas em vetores esparsos de coordenadas espaciais. 
-
-Conforme explicam \citeonline{Pinho2004}, essa decomposição analítica reduz drasticamente a dimensionalidade dos dados brutos, preservando a topologia espacial e as variações cinemáticas que diferenciam as configurações de forma e orientações espaciais dentro de um espaço de busca métrico.
-
-\subsection{MediaPipe e Landmarks}
-
-Os \textit{landmarks} são coordenadas específicas extraídas de partes relevantes do corpo, como articulações das mãos, utilizadas para representar a geometria e o movimento. O MediaPipe é um \textit{framework} de código aberto do Google para construção de \textit{pipelines} de percepção multimodal em tempo real \cite{Lugaresi2019}.
-
-A solução \textit{MediaPipe Hands} opera em dois estágios: um detector localiza a palma da mão produzindo um \textit{bounding box}, e um modelo de regressão estima coordenadas 3D de 21 pontos-chave \cite{Zhang2020}. As coordenadas 
-x
-x e 
-y
-y são normalizadas, e 
-z
-z representa profundidade relativa ao pulso.
-
-Um diferencial do MediaPipe é sua robustez a variações de iluminação e fundo, operando diretamente sobre a imagem bruta \cite{Lugaresi2019}. Sua arquitetura leve atinge taxas superiores a 30 quadros por segundo em hardware convencional, viabilizando aplicações interativas.
-
-\subsection{Deep Learning}
-
-O Aprendizado Profundo (Deep Learning) representa uma evolução conceitual do aprendizado de máquina tradicional, fundamentando-se no paradigma de redes neurais artificiais organizadas em estruturas hierárquicas com múltiplas camadas de processamento não linear.
-
-De acordo com \citeonline{IBM2026}, essa abordagem baseia-se na concepção teórica do córtex visual, simulando redes de processamento onde cada camada subsequente executa transformações matemáticas sobre a saída da camada anterior para aprender representações gradativamente mais abstratas e complexas dos dados textuais ou visuais.
-
-O grande divisor de águas teórico dessa disciplina reside na substituição do desenvolvimento manual de extratores de características (feature engineering) pelo princípio do aprendizado de representações fim-a-fim (end-to-end representation learning), onde o próprio modelo deduz algoritmos matemáticos internos para isolar padrões invariantes a partir dos dados em sua forma mais bruta \cite{Oracle2022}.
-
-Esse mecanismo de autoajuste é governado pelo ajuste dinâmico de tensores de pesos e vieses através de algoritmos de retropropagação do erro acoplados à descida de gradiente estocástica, conferindo às redes profundas a propriedade matemática de aproximadores universais \cite{Goodfellow2016}.
-
-Segundo \citeonline{Schmidhuber2014}, o advento do aprendizado profundo causou uma ruptura no reconhecimento de padrões ao fornecer formulações matemáticas capazes de modelar dependências estruturais de alta dimensionalidade em grandes volumes de dados não estruturados.
-
-Desse modo, o arcabouço teórico do Deep Learning fundamenta-se na capacidade de projetar espaços latentes onde entradas massivas e altamente não lineares são projetadas em variedades topológicas simples, permitindo classificações e mapeamentos de extrema precisão matemática \cite{Goodfellow2016}.
-
-\subsection{Redes Neurais Convolucionais (CNN)}
-
-As Redes Neurais Convolucionais são arquiteturas especializadas no processamento de dados com topologia em grade, como imagens. Introduzidas por \citeonline{Lecun1998} e popularizadas com o AlexNet \cite{Krizhevsky2012}, elas substituem a extração manual de características por aprendizado hierárquico.
-
-A arquitetura inclui camadas de convolução, onde filtros deslizam sobre a entrada calculando o produto escalar, gerando mapas de ativação. O compartilhamento de pesos confere invariância à translação \cite{Goodfellow2016}. As camadas de \textit{pooling} realizam subamostragem espacial, reduzindo parâmetros e custo computacional \cite{Lecun1998}.
-
-Ao final, camadas totalmente conectadas combinam as representações abstratas para gerar a predição final \cite{Furtado2019}. As CNNs aprendem características de forma hierárquica: bordas e texturas nas camadas iniciais, objetos completos nas mais profundas \cite{Fleck2016}.
-
-\subsection{Redes de Memória de Longo Prazo (LSTM)}
-
-A Long Short-Term Memory (LSTM) é uma arquitetura recorrente introduzida por \citeonline{Hochreiter1997} para resolver o problema do desaparecimento do gradiente, que impede redes comuns de aprender dependências de longo prazo em sequências.
-
-O diferencial da LSTM é sua unidade de memória interna (célula), que mantém informações por intervalos estendidos \cite{Hochreiter1997}. Três portões controlam o fluxo: o portão de esquecimento descarta informações antigas, o portão de entrada armazena novas informações, e o portão de saída determina o que será enviado ao próximo passo \cite{Contarini2020}.
-
-Segundo \citeonline{Schmidhuber2014}, a profundidade temporal dessas redes possibilita a extração de representações abstratas que conectam sequências de entradas a conceitos semânticos complexos. As LSTMs são fundamentais para tarefas onde a classificação depende de eventos ocorridos muitos passos atrás.
-
-\subsection{Reconhecimento de Gestos (\textit{Gesture Recognition})}
-
-O reconhecimento de gestos constitui uma vertente altamente especializada da visão computacional dedicada ao mapeamento, modelagem e categorização de posturas, movimentos e orientações cinemáticas do corpo humano a partir de fluxos contínuos de dados visuais \cite{Silva2017}.
-
-Do ponto de vista puramente conceitual, as manifestações gestuais humanas são divididas formalmente pela literatura em duas grandes classes operacionais, cujas propriedades matemáticas exigem formulações algorítmicas de naturezas distintas:
-
-Gestos Estáticos: São definidos teoricamente como configurações espaciais discretas que independem do fator temporal, cuja informação semântica está inteiramente contida em uma única amostra de imagem. O foco analítico recai sobre as propriedades de forma, orientação angular e posicionamento relativo dos segmentos anatômicos, características cuja modelagem é tratada com eficiência por meio de operadores de convolução espacial capazes de extrair invariâncias geométricas locais \cite{PintoJunior2019}.
-
-Gestos Dinâmicos: São definidos como trajetórias espaço-temporais contínuas onde o significado da ação está intrinsecamente codificado na evolução do movimento ao longo do eixo do tempo. Diferente da classe estática, os gestos dinâmicos são modelados por funções de velocidade, aceleração e deslocamento, exigindo estruturas algébricas e redes recorrentes capazes de computar dependências sequenciais e continuidade temporal a partir de matrizes residuais ou diferenciais de quadros adjacentes \cite{Monteiro2016}.
-
-A formalização teórica desses sistemas impõe o enfrentamento de severas fontes de ruído matemático que afetam a robustez dos modelos de classificação. O primeiro grande desafio conceitual decorre das variações de iluminação, fenômeno que altera a função de reflectância da cena e modifica drasticamente os valores dos pixels, inserindo ruídos não lineares que dificultam a segmentação e a extração correta de histogramas ou gradientes de pele \cite{Bittencourt2002}.
-
-O segundo fator diz respeito à variabilidade morfométrica e comportamental entre usuários, visto que diferentes indivíduos executam o mesmo padrão gestual com amplitudes e velocidades distintas sob geometrias manuais variadas, o que exige a formulação de espaços de características dotados de propriedades de alta generalização \cite{Silva2017}.
-
-Por fim, a complexidade inerente ao plano de fundo (background clutter) introduz oclusões e texturas concorrentes que compartilham propriedades cromáticas ou espaciais com o objeto de interesse, demandando o desenvolvimento de filtros adaptativos e técnicas de isolamento topológico para garantir que a atenção algorítmica permaneça concentrada estritamente na estrutura gestual analisada \cite{Bittencourt2002, Silva2017}.
-
-\subsection{Processamento de Linguagem Natural (NLP)}
-
-O Processamento de Linguagem Natural (NLP) capacita sistemas a compreender, interpretar e gerar a linguagem humana em formato de texto. Segundo \citeonline{Stryker2024}, o NLP combina linguística computacional com aprendizado profundo para processar a linguagem com compreensão de significado e intenção.
-
-Tarefas fundamentais incluem tokenização (divisão em unidades lexicais), etiquetagem morfossintática (classificação de tokens como substantivos, verbos etc.), análise de dependência sintática e geração de linguagem natural. Conforme \citeonline{Lopez2017}, redes neurais aplicadas ao NLP lidam com a ambiguidade e aprendem representações hierárquicas dos dados textuais.
-
-\subsection{Árvores de Dependência Sintática}
-
-Uma árvore de dependência sintática representa as relações gramaticais binárias entre os tokens de uma sentença. Diferentemente de gramáticas de constituintes, a análise de dependência conecta diretamente pares de palavra-cabeça e dependente, com etiquetas como \textit{nsubj} (sujeito) ou \textit{obj} (objeto) \cite{Jurafsky2023}.
-
-Formalmente, cada token (exceto a raiz) possui exatamente uma cabeça, garantindo a estrutura de árvore \cite{Jurafsky2023}. Essa abordagem é adequada para línguas com ordem frasal flexível, pois identifica relações semânticas independentemente da posição linear dos tokens.
-
-As etiquetas de dependência permitem aplicar regras de concordância dirigidas: identificado o sujeito, é possível flexionar o verbo-cabeça no número e pessoa correspondentes \cite{Bird2009}.
-
-\subsection{Modelos de Linguagem de Grande Escala (LLM)}
-
-Os Modelos de Linguagem de Grande Escala (LLMs) são sistemas treinados em vastos volumes de dados textuais, baseados na arquitetura Transformer \cite{Vaswani2017}. Eles utilizam mecanismos de auto-atenção para capturar dependências de longo alcance de forma paralela.
-
-LLMs apresentam capacidade de \textit{few-shot learning}: com poucos exemplos no contexto, realizam novas tarefas sem atualização dos pesos \cite{Brown2020}. Modelos como Llama \cite{Touvron2023} e Gemma \cite{GemmaTeam2024} são de código aberto e podem ser executados localmente.
-
-Esses modelos aprendem padrões estatísticos sofisticados da linguagem, corrigindo ambiguidades, inserindo elementos implícitos e ajustando o registro formal ou informal de sentenças.
-
-\subsection{Métricas: Acurácia, Matriz de Confusão e BLEU}
-
-A acurácia expressa a proporção de predições corretas em relação ao total de exemplos, sendo a métrica mais fundamental para classificação \cite{Goodfellow2016}. No entanto, ela pode ser insuficiente em problemas com muitas classes ou desbalanceamento.
-
-A matriz de confusão é uma tabela que cruza classes reais com classes preditas, permitindo identificar padrões de erro específicos. A partir dela derivam-se precisão e \textit{recall}, métricas que expõem desequilíbrios de desempenho \cite{Goodfellow2016}.
-
-Para avaliação de tradução, o BLEU (\textit{Bilingual Evaluation Understudy}) compara o texto gerado com referências humanas, medindo a sobreposição de n-gramas. Unigramas avaliam palavras isoladas; bigramas e trigramas verificam ordem e contexto. O escore BLEU varia de 0 a 1 e penaliza desvios estruturais \cite{Papineni2002}.
-
-\subsection{Latência e Tempo de Resposta}
-
-A latência corresponde ao tempo decorrido entre a entrada de um dado no sistema e a produção da resposta correspondente. Em aplicações interativas em tempo real, a latência impacta diretamente a experiência do usuário e a fluidez da comunicação.
-
-Sistemas com alta latência geram atrasos perceptíveis, comprometendo a interação. Segundo \citeonline{Molchanov2015}, em sistemas de reconhecimento de gestos em tempo real, o desempenho está ligado à eficiência computacional dos modelos e à sua capacidade de processar sequências com baixa latência.
-
-Reduzir a latência exige otimização de todo o \textit{pipeline}: captura, pré-processamento, inferência e geração de saída. Em hardware convencional, busca-se um equilíbrio entre precisão, consumo energético e tempo de resposta.
-
-\subsection{Custo Computacional e Peso dos Modelos}
-
-O custo computacional refere-se aos recursos necessários para executar um modelo, incluindo memória, processamento e armazenamento. O peso do modelo está relacionado ao número de parâmetros treináveis, influenciando diretamente seu tamanho e complexidade.
-
-Modelos mais complexos tendem a apresentar maior precisão, porém demandam mais recursos. Conforme \citeonline{Goodfellow2016}, o aumento da profundidade eleva a capacidade de representação, mas implica maior custo e necessidade de hardware robusto.
-
-Em sistemas de tempo real, é essencial equilibrar precisão e eficiência para operar com baixa latência em hardware convencional. Técnicas de compressão como poda e quantização ajudam a reduzir o peso dos modelos sem degradação severa da acurácia.
-
+Essas diferenças impactam diretamente o processo de tradução automática. Elementos comuns no português, como artigos e preposições, nem sempre aparecem de forma explícita na Libras, pois muitas dessas relações são expressas pelo uso do espaço e pelo contexto. Por isso, sistemas computacionais precisam não apenas reconhecer os sinais, mas também reorganizar as informações e incluir elementos necessários para gerar frases corretas em português.
 
 % ---------------------------------------------------------------
 \section{Metodologia da pesquisa bibliográfica}
@@ -413,131 +271,290 @@ A pesquisa bibliográfica foi realizada nas bases Google Scholar e IEEE Xplore, 
 \section{Fundamentos}
 \label{sec:fundamentos}
 
-Esta seção detalha como os conceitos apresentados no Referencial Teórico são aplicados concretamente na construção do sistema proposto. A organização segue o fluxo do \textit{pipeline} de tradução: da coleta e preparação dos dados ao reconhecimento dos gestos, ao pós-processamento linguístico e, por fim, à avaliação do desempenho.
- 
-% --- GRUPO 1 ---
-\subsection{Grupo 1: Coleta de Dados e Tratamentos}
- 
-Este grupo descreve como os dados de Libras são selecionados, organizados e preparados para o treinamento do sistema, envolvendo a escolha dos datasets, as estratégias de pré-processamento e a extração de \textit{landmarks} pelo MediaPipe.
- 
-\subsubsection{Datasets}
- 
-Os três datasets adotados neste projeto foram selecionados pela diversidade de sinalizadores, vocabulário e modalidade de captura. O MINDS-Libras \cite{Rezende2021} conta com distribuição controlada: 6 pessoas realizando 5 repetições de cada um dos 20 sinais, resultando em classes uniformes. O V-Librasil \cite{Rodrigues2021} possui estrutura igualmente regular, com exatamente 3 gravações por sinal para cada um dos 1.364 termos. Já o Libras Brazilian Sign Language \cite{Pas2020}, composto por imagens estáticas do alfabeto manual, apresenta variação relevante no número de amostras entre as classes.
- 
-A integração dos três datasets pode ampliar desequilíbrios, visto que as interseções de vocabulário entre eles são parciais e as quantidades de amostras por sinal diferem. Para compor um conjunto de treinamento robusto, cada base contribui com uma cobertura distinta: o MINDS-Libras e o V-Librasil cobrem sinais dinâmicos com contexto de múltiplos sinalizadores, enquanto o Libras Brazilian Sign Language oferece ampla variedade de configurações estáticas do alfabeto manual.
- 
-\subsubsection{Pré-processamento de Dados}
- 
-O pré-processamento dos dados neste projeto inclui etapas de tratamento de imagem e de balanceamento de classes. Para o tratamento visual, são aplicados redimensionamento dos \textit{frames}, normalização dos valores de pixel e remoção de ruídos, garantindo que todas as sequências e imagens possuam dimensões e formatos consistentes como entrada para os modelos CNN e LSTM \cite{Szeliski2010}.
- 
-Para mitigar o desequilíbrio entre classes decorrente da integração dos três datasets, serão adotadas estratégias complementares: \textit{data augmentation} (espelhamento, rotações e variações de velocidade dos vídeos) para aumentar as classes minoritárias; SMOTE (\textit{Synthetic Minority Over-sampling Technique}), aplicado sobre os vetores de \textit{landmarks} extraídos pelo MediaPipe — e não diretamente sobre pixels —, gerando exemplos sintéticos por interpolação entre amostras próximas no espaço de características \cite{Chawla2002}; e ponderação de classes na função de perda durante o treinamento, penalizando mais os erros cometidos nas classes menos frequentes \cite{Goodfellow2016}.
- 
-O pré-processamento também inclui a preparação das sequências de vídeo para o modelo LSTM, organizando os \textit{frames} de forma temporal. Para os sinais estáticos destinados à CNN, cada imagem é individualmente normalizada e redimensionada para garantir uniformidade de entrada.
- 
-\subsubsection{MediaPipe e Landmarks}
- 
-No contexto deste projeto, o MediaPipe Hands substitui o processamento direto sobre pixels das imagens de câmera. Em vez de alimentar os modelos CNN e LSTM com \textit{frames} completos — o que elevaria o custo computacional e aumentaria a sensibilidade a ruídos visuais —, o sistema extrai os 21 \textit{landmarks} por mão (totalizando até 63 coordenadas por \textit{frame} quando duas mãos estão presentes) e utiliza esses vetores compactos como representação de entrada. Essa escolha reduz drasticamente a dimensionalidade dos dados, acelera o treinamento e a inferência, e torna o sistema mais generalizável entre diferentes usuários, pois a representação baseada em articulações é invariante a variações de tom de pele e textura das mãos \cite{Lugaresi2019}.
- 
-O SMOTE, mencionado na etapa de pré-processamento, é aplicado diretamente sobre esses vetores de \textit{landmarks} — e não sobre os \textit{frames} brutos —, o que garante que a augmentação sintética preserve a estrutura geométrica dos sinais, sem introduzir artefatos visuais \cite{Chawla2002}.
- 
-% --- GRUPO 2 ---
-\subsection{Grupo 2: Leitura dos Gestos}
- 
-Este grupo descreve como o sistema interpreta os dados de \textit{landmarks} para reconhecer sinais de Libras, combinando arquiteturas de visão computacional e aprendizado profundo para tratar tanto sinais estáticos quanto dinâmicos.
- 
-\subsubsection{Visão Computacional Aplicada à Detecção de Mãos}
- 
-No desenvolvimento deste projeto, a aplicação da visão computacional concentra-se prioritariamente na detecção de mãos. Essa etapa é crucial para localizar e isolar os membros superiores do restante do cenário, garantindo que os \textit{landmarks} extraídos pelo MediaPipe representem exclusivamente a configuração dos sinais \cite{Neves2012}. O sistema descarta \textit{frames} em que nenhuma mão for detectada, evitando a inserção de ruído no processo de reconhecimento.
- 
-\subsubsection{Deep Learning: CNN e LSTM}
- 
-O uso do \textit{deep learning} neste projeto justifica-se pela necessidade de tratar informações visuais e sequenciais simultaneamente. Redes profundas são aproximadores universais capazes de mapear entradas complexas para saídas específicas \cite{Goodfellow2016}, o que permite ao sistema aprender, a partir dos vetores de \textit{landmarks}, as combinações de posições articulares que caracterizam cada sinal.
- 
-Para sinais estáticos, como as configurações de mão do alfabeto manual da Libras, é empregada uma CNN. Os \textit{landmarks} extraídos pelo MediaPipe (coordenadas $x$, $y$, $z$ das articulações) são organizados como vetores de entrada para a rede, que aprende, durante o treinamento, quais combinações de posições articulares são discriminativas para cada sinal. As camadas iniciais capturam padrões simples (orientação dos dedos, curvatura das juntas) e as camadas mais profundas combinam esses padrões em representações de alto nível (configuração completa da mão) \cite{Fleck2016}.
- 
-Para sinais dinâmicos, cuja compreensão depende da trajetória e da sequência de movimentos ao longo do tempo, utiliza-se a LSTM. Cada \textit{frame} capturado pela câmera contribui com um vetor de \textit{landmarks}, e a LSTM processa essa sequência temporal de vetores para identificar o sinal. A capacidade de retenção temporal da LSTM permite que o sistema compreenda que a trajetória e a transição entre as poses das mãos são tão importantes quanto a configuração isolada em um único \textit{frame} \cite{Almeida2019}.
- 
+A escolha das arquiteturas utilizadas neste trabalho está diretamente relacionada às diferenças estruturais entre a Língua Brasileira de Sinais (Libras) e a Língua Portuguesa, discutidas na revisão bibliográfica. Enquanto o português apresenta uma organização linear e sequencial, a Libras caracteriza-se por uma estrutura visual-espacial, na qual informações são transmitidas simultaneamente por meio de configurações de mão, movimentos e expressões corporais.
+
+Essa distinção impõe desafios específicos ao processo de tradução automática, exigindo o uso de técnicas capazes de lidar tanto com a análise espacial dos sinais quanto com sua evolução temporal e posterior reorganização linguística. Nesse contexto, são empregadas Redes Neurais Convolucionais para captura de padrões visuais, Redes LSTM para modelagem de sequências de movimento e técnicas de Processamento de Linguagem Natural para adaptação da estrutura gramatical ao português.
+
+\subsection{Bases de Dados (Datasets)}
+
+No desenvolvimento de modelos de Aprendizado Profundo, o dataset (base de dados) constitui o pilar fundamental para o treinamento e a validação do sistema. Segundo \citeonline{Schmidhuber2014}, a eficácia de arquiteturas complexas como CNNs e LSTMs depende diretamente da disponibilidade de grandes volumes de dados rotulados, que permitem ao modelo aprender representações estatísticas precisas e generalizáveis.
+
+No contexto do reconhecimento de Libras, os datasets apresentam desafios únicos devido à natureza multimodal da língua. Uma base de dados robusta para este fim deve conter não apenas imagens isoladas, mas sequências de vídeo que capturem a dinâmica dos sinais. De acordo com \citeonline{Silva2017}, a diversidade dos dados é crucial para mitigar problemas de overfitting, garantindo que o sistema seja capaz de reconhecer gestos realizados por diferentes usuários, com variações em:
+
+\begin{itemize}
+\item {Antropometria:} Diferenças no tamanho, cor e formato das mãos dos sinalizadores;
+\item {Condições Ambientais:} Variações de iluminação e fundos de imagem (backgrounds) complexos, que testam a capacidade de segmentação do modelo;
+\item {Execução do Sinal:} Diferenças na velocidade, amplitude e fluidez do movimento, que impactam diretamente a análise temporal das redes LSTM.
+\end{itemize}
+
+Além disso, a estruturação do dataset deve prever a divisão entre conjuntos de treinamento, validação e teste. Conforme explicam \citeonline{Goodfellow2016}, essa separação é o que permite avaliar a capacidade de generalização do algoritmo frente a dados nunca vistos, assegurando que o tradutor de Libras funcione corretamente em cenários do mundo real e não apenas em ambientes controlados de laboratório.
+
+\subsection{Pré-processamento de Dados}
+
+Antes da aplicação dos modelos de aprendizado profundo, é necessária uma etapa de pré-processamento dos dados visuais, com o objetivo de melhorar a qualidade das informações fornecidas ao sistema e aumentar a precisão do reconhecimento dos sinais.
+
+O pré-processamento envolve técnicas de tratamento de imagem, como redimensionamento dos frames, normalização dos valores de pixel e remoção de ruídos. Além disso, podem ser aplicados filtros para suavização da imagem e ajuste de contraste, reduzindo interferências causadas por variações de iluminação e fundo. Segundo \citeonline{Szeliski2010}, essas etapas são fundamentais para garantir que os algoritmos de visão computacional consigam extrair características relevantes de forma eficiente.
+
+Outro aspecto relevante é a padronização dos dados de entrada, garantindo que todas as imagens ou sequências possuam dimensões e formatos consistentes. Essa uniformidade é essencial para funcionamento correto das redes neurais, especialmente em modelos baseados em CNN e LSTM.
+
+Também é importante o balanceamento de classes. Em datasets de reconhecimento de sinais, é comum que determinadas classes possuam um número de amostras significativamente maior do que outras. Quando treinado sobre dados desbalanceados, o modelo tende a favorecer as classes com maior quantidade, comprometendo o desempenho nas classes menor quantidade \cite{Chawla2002}. 
+
+Os quatro datasets adotados neste projeto apresentam diversidade de dados a esse respeito: o MINDS-Libras conta com distribuição controlada, são 6 pessoas realizando 5 repetições de cada um dos 20 sinais, resultando em classes uniformes \cite{Rezende2021}; o V-Librasil possui estrutura igualmente regular, com exatamente 3 gravações por sinal para cada um dos 1.364 termos \cite{Rodrigues2021}; já o dataset Libras Brazilian Sign Language, composto por imagens estáticas do alfabeto manual, apresenta variação relevante no número de amostras entre as classes, característica comum em datasets tratados a partir de fontes variadas \cite{Pas2020}. 
+
+Além disso, a integração dos quatro pode ampliar desequilíbrios, visto que as interseções de vocabulário entre eles são parciais e as quantidades de amostras por sinal diferem. Para mitigar esse problema, serão adotadas estratégias complementares: \textit{data augmentation} (espelhamento, rotações e variações de velocidade dos vídeos) para aumentar as classes minoritárias; SMOTE (\textit{Synthetic Minority Over-sampling Technique}), aplicado sobre os vetores de \textit{landmarks} extraídos pelo MediaPipe, e não diretamente sobre pixels, gerando exemplos sintéticos por interpolação entre amostras próximas no espaço de características \cite{Chawla2002}; e ponderação de classes na função de perda durante o treinamento, penalizando mais os erros cometidos nas classes menos frequentes \cite{Goodfellow2016}.
+
+No contexto deste trabalho, o pré-processamento também inclui a preparação das sequências de vídeo, organizando os frames de forma temporal para posterior análise pelo modelo LSTM.
+
+\subsection{Visão Computacional}
+
+A Visão Computacional é a ciência que permite que máquinas enxerguem e interpretem o meio à sua volta. Através da captura de imagens por câmeras e sensores, o sistema extrai informações significativas que permitem reconhecer e manipular objetos \cite{Milano2014}.
+
+Essa tecnologia busca capacitar computadores a compreender o mundo visual de forma similar aos humanos. Segundo a \citeonline{IBM2025}, enquanto a visão humana é intuitiva, as máquinas dependem de algoritmos para converter pixels e dados brutos em conceitos estruturados e compreensíveis.
+
+No desenvolvimento deste projeto, a aplicação da visão computacional concentra-se prioritariamente na detecção de mãos. De acordo com \citeonline{Neves2012}, essa etapa é crucial para localizar e isolar os membros superiores do restante do cenário, garantindo o foco nos sinais.
+
+Outra aplicação fundamental é o reconhecimento de gestos, técnica que visa identificar movimentos e posições corporais a partir de dados visuais. Conforme explicam \citeonline{Pinho2004}, essa análise é o que permite distinguir as diferentes configurações de mão que compõem o léxico da Libras.
+
+Para viabilizar essas aplicações, utilizam-se técnicas de processamento de imagem, que preparam os dados brutos para análise. Segundo \citeonline{Milano2014}, procedimentos como filtragem e redução de ruído são fundamentais para que o sistema ignore informações irrelevantes do fundo da imagem.
+
+Por fim, aplica-se a extração de características para identificar padrões relevantes, como o formato e a trajetória das mãos, permitndo que o sistema identifique pontos específicos, chamados de \textit{landmarks}, essenciais para a classificação precisa do sinal.
+
+
+\subsection{Landmarks (Pontos-chave)}
+
+Os \textit{landmarks}, ou pontos-chave, são coordenadas específicas extraídas de partes relevantes do corpo, como mãos, dedos e articulações, utilizadas para representar a geometria e o movimento dos sinais.
+
+No reconhecimento de Libras, os \textit{landmarks} desempenham um papel fundamental, pois permitem reduzir a complexidade dos dados visuais. Em vez de processar toda a imagem, o sistema passa a trabalhar com um conjunto estruturado de pontos que descrevem a posição e a movimentação das mãos ao longo do tempo.
+
+Ferramentas como o Google MediaPipe possibilitam a detecção desses pontos em tempo real, fornecendo informações como coordenadas tridimensionais (x, y, z) das articulações. Conforme ilustrado na Figura~\ref{fig:landmarks}, o sistema mapeia 21 pontos distintos, organizados em grupos que representam o pulso (ponto 0), o polegar (pontos 1-4) e os demais dedos — indicador (5-8), médio (9-12), anelar (13-16) e mínimo (17-20).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./figuras/landmarks.jpg}
+    \caption{Mapeamento de pontos de referência (\textit{landmarks}) da mão pelo MediaPipe.}
+    \label{fig:landmarks}
+    \fonte{\citeonline{Jung2021}.}
+\end{figure}
+
+
+De acordo com \citeonline{Lugaresi2019}, essa abordagem torna o processamento mais eficiente e robusto, além de reduzir a influência de fatores externos, como iluminação e fundo da imagem.
+
+Dessa forma, os \textit{landmarks} atuam como uma representação compacta e informativa dos sinais, facilitando tanto o processamento pelas redes neurais quanto a generalização do modelo para diferentes usuários.
+
+\subsection{MediaPipe}
+
+O MediaPipe é um \textit{framework} de código aberto desenvolvido pelo Google para a construção de pipelines de percepção multimodal em tempo real \cite{Lugaresi2019}. Ele fornece um conjunto de soluções pré-treinadas para tarefas como detecção de pose corporal, rastreamento de rosto e, de forma central para este trabalho, detecção e rastreamento de mãos (\textit{MediaPipe Hands}).
+
+A solução \textit{MediaPipe Hands} opera em dois estágios sequenciais \cite{Zhang2020}. No primeiro, um detector leve baseado em aprendizado profundo localiza a palma da mão na imagem completa, produzindo um \textit{bounding box} delimitador. No segundo, um modelo de regressão de \textit{landmarks} recebe o recorte da mão e estima as coordenadas tridimensionais ($x$, $y$, $z$) de 21 pontos-chave que representam as articulações dos dedos e o pulso, conforme ilustrado na Figura~\ref{fig:mediapipe}. As coordenadas $x$ e $y$ são normalizadas em relação às dimensões do \textit{frame} (valores entre 0 e 1), enquanto $z$ representa a profundidade relativa ao pulso, permitindo inferir a orientação tridimensional da mão mesmo com uma câmera RGB comum \cite{Zhang2020}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./figuras/hand_landmark.png}
+    \caption{Esquema dos 21 \textit{landmarks} detectados pelo MediaPipe Hands.}
+    \label{fig:mediapipe}
+    \fonte{\citeonline{Zhang2020}.}
+\end{figure}
+
+Do ponto de vista técnico, o diferencial do MediaPipe em relação a abordagens baseadas em segmentação de pele ou subtração de fundo é que ele não depende de condições controladas de iluminação ou de fundo homogêneo para localizar a mão: o detector opera diretamente sobre a imagem bruta e é robusto a variações de cor e textura do ambiente \cite{Lugaresi2019}. Além disso, a arquitetura leve do \textit{framework} permite processamento em tempo real, atingindo taxas superiores a 30 \textit{frames} por segundo em hardware convencional, o que o torna adequado para aplicações de tradução ao vivo.
+
+No contexto deste projeto, o MediaPipe Hands substitui o processamento direto sobre pixels das imagens de câmera. Em vez de alimentar os modelos CNN e LSTM com \textit{frames} completos -- o que elevaria o custo computacional e aumentaria a sensibilidade a ruídos visuais, o sistema extrai os 21 \textit{landmarks} por mão (totalizando até 63 coordenadas por \textit{frame} quando duas mãos estão presentes) e utiliza esses vetores compactos como representação de entrada. Essa escolha reduz drasticamente a dimensionalidade dos dados, acelera o treinamento e a inferência, e torna o sistema mais generalizável entre diferentes usuários, pois a representação baseada em articulações é invariante a variações de tom de pele e textura das mãos \cite{Lugaresi2019}.
+
+\subsection{Deep Learning}
+
+O \textit{deep learning}, ou Aprendizado Profundo, é uma subárea do aprendizado de máquina que utiliza redes neurais artificiais com múltiplas camadas de processamento. Segundo a \citeonline{IBM2026}, essa abordagem é inspirada na estrutura do cérebro humano, onde cada camada de "neurônios" executa operações matemáticas para aprender representações cada vez mais abstratas dos dados.
+
+Diferente dos métodos tradicionais, o aprendizado profundo permite que o sistema identifique características automaticamente, sem a necessidade de intervenção humana manual. Conforme explica a \citeonline{Oracle2022}, essa capacidade de autoajuste através de pesos e vieses é o que torna os modelos extremamente precisos para resolver problemas complexos.
+
+Um dos principais motivos para a ampla adoção desta tecnologia é o seu desempenho superior em tarefas que envolvem visão computacional e processamento de texto. De acordo com \citeonline{Schmidhuber2014}, o aprendizado profundo revolucionou o reconhecimento de padrões ao permitir a análise de grandes volumes de dados não estruturados.
+
+No contexto deste projeto, o uso do \textit{deep learning} justifica-se pela necessidade de tratar informações visuais e sequenciais simultaneamente. Segundo \citeonline{Goodfellow2016}, redes profundas são aproximadores universais capazes de mapear entradas complexas para saídas específicas, como a tradução de um gesto em texto.
+
+A relação direta com as arquiteturas CNN e LSTM ocorre porque o aprendizado profundo fornece a base para camadas especializadas. Enquanto as Redes Neurais Convolucionais (CNN) focam na hierarquia espacial das imagens, as redes de memória de longo prazo (LSTM) lidam com a dependência temporal \cite{Hochreiter1997}.
+
+Dessa forma, a profundidade dessas redes permite que o sistema capture desde detalhes mínimos de um frame até o contexto completo de uma frase em Libras. Conforme destacam \citeonline{Fleck2016}, essa estrutura multicamada é essencial para que o modelo aprenda padrões que seriam invisíveis para algoritmos de aprendizado mais simples.
+
+\subsection{Redes Neurais Convolucionais (CNN)}
+
+As Redes Neurais Convolucionais (CNN) são arquiteturas de aprendizado profundo especializadas no processamento de dados com topologia em grade, como imagens e sequências. Introduzidas por \citeonline{Lecun1998} e popularizadas com o modelo AlexNet \cite{Krizhevsky2012}, as CNNs revolucionaram o campo da visão computacional ao substituir a extração manual de características por um processo de aprendizado automático e hierárquico.
+
+No escopo deste trabalho, a CNN é utilizada para o reconhecimento de sinais estáticos, como as configurações de mão do alfabeto manual da Libras, nos quais a identificação do sinal depende exclusivamente da configuração espacial da mão em um único \textit{frame} \cite{Fleck2016}.
+
+A arquitetura de uma CNN é composta por três tipos principais de camadas que se alternam e se combinam ao longo da rede \cite{Goodfellow2016}:
+
+\begin{enumerate}
+
+  \item Camada de Convolução: É o bloco fundamental da CNN. Nela, um conjunto de filtros (também chamados de \textit{kernels}) de tamanho reduzido, tipicamente $3 \times 3$ ou $5 \times 5$ pixels, desliza sobre a imagem de entrada, calculando o produto escalar entre os pesos do filtro e os pixels da região coberta. Matematicamente, para uma imagem de entrada $I$ e um filtro $K$, a operação de convolução discreta é definida como:
+
+  \begin{equation}
+      (I * K)(i, j) = \sum_{m}\sum_{n} I(i+m,\; j+n) \cdot K(m, n)
+  \end{equation}
+  $I$: Imagem de entrada. \\
+  $K$: Filtro ou \textit{kernel}. \\
+  $(i, j)$: Posição atual do pixel na saída (mapa de características). \\
+  $(m, n)$: Índices do \textit{kernel}. \\
+
+  O resultado é chamado de mapa de ativação, que representa a presença de um determinado padrão visual (como bordas, curvas ou texturas) em cada posição espacial da imagem \cite{Goodfellow2016}. O compartilhamento de pesos entre todas as posições da imagem reduz drasticamente o número de parâmetros treináveis e confere à CNN invariância à translação, o modelo reconhece o padrão independentemente de onde ele aparece na imagem \cite{Fleck2016}.
+
+  \item Camada de Pooling: Após a convolução, a camada de \textit{pooling} realiza uma subamostragem espacial dos mapas de ativação, reduzindo suas dimensões e, com isso, a quantidade de parâmetros e o custo computacional das camadas subsequentes. A operação mais comum é o Max Pooling, que seleciona o valor máximo dentro de uma janela de tamanho fixo (por exemplo, $2 \times 2$), retendo as características mais proeminentes e descartando informações redundantes \cite{Lecun1998}. Esse mecanismo também contribui para a robustez do modelo a pequenas variações de posição e escala dos objetos.
+
+  \item Camadas Totalmente Conectadas: Ao final da rede, após um conjunto de camadas de convolução e \textit{pooling}, os mapas de ativação são linearizados e alimentados em uma ou mais camadas totalmente conectadas, que funcionam como um classificador tradicional. Nessa etapa, as representações abstratas aprendidas pelas camadas anteriores são combinadas para gerar a predição final, por exemplo, a probabilidade de que o gesto capturado corresponda a cada letra do alfabeto manual \cite{Furtado2019}.
+
+\end{enumerate}
+
+No contexto deste projeto, os \textit{landmarks} extraídos pelo MediaPipe (coordenadas $x$, $y$, $z$ das articulações da mão) são organizados como vetores de entrada para a CNN. A rede aprende, durante o treinamento, quais combinações de posições articulares são discriminativas para cada sinal estático. 
+
+Conforme apontam \citeonline{Fleck2016}, o sucesso das CNNs em tarefas de visão computacional deve-se à sua capacidade de identificar características locais de forma hierárquica: as camadas iniciais capturam padrões simples (orientação dos dedos, curvatura das juntas) e as camadas mais profundas combinam esses padrões em representações de alto nível (configuração completa da mão). Essa configuração garante maior robustez a variações de iluminação e enquadramento \cite{Furtado2019}.
+
+\subsection{Redes de Memória de Longo Prazo (LSTM)}
+
+Para o reconhecimento de sinais dinâmicos em vídeo, onde o significado do gesto reside no movimento ao longo do tempo, utiliza-se a Long Short-Term Memory (LSTM). Esta arquitetura é uma evolução das Redes Neurais Recorrentes (RNN) tradicionais, introduzida por \citeonline{Hochreiter1997} para solucionar a limitação do desaparecimento do gradiente (vanishing gradient), que impede redes comuns de aprenderem dependências de longo prazo em sequências de dados.
+
+O diferencial da LSTM é a sua unidade de memória interna, frequentemente chamada de célula, que permite a manutenção de informações por intervalos de tempo estendidos \cite{Hochreiter1997}. Essa estrutura é fundamental para o aprendizado de sequências complexas, como a linguagem de sinais, onde a predição ou classificação de um gesto depende de frames ocorridos em instantes anteriores \cite{Bayer2009}.
+
+A arquitetura da LSTM é composta por três componentes principais, conhecidos como "portões" (gates), que controlam o fluxo de informação:
+
+\begin{enumerate}
+  \item Portão de Esquecimento (Forget Gate): decide qual informação do estado anterior deve ser descartada;
+  \item Portão de Entrada (Input Gate): seleciona quais novas informações serão armazenadas no estado da célula;
+  \item Portão de Saída (Output Gate): determina qual parte do estado interno será enviada como saída para o próximo passo temporal (\cite{Contarini2020}; \cite{Almeida2019}).
+\end{enumerate}
+
+No contexto do tradutor de Libras, essa capacidade de retenção temporal permite que o sistema compreenda que a trajetória e a transição entre as poses das mãos são tão importantes quanto a configuração isolada em um único frame \cite{Almeida2019}. Como destacado por \citeonline{Schmidhuber2014}, a profundidade dessas redes em termos de passos temporais possibilita a extração de representações abstratas que conectam movimentos manuais a conceitos semânticos complexos, garantindo maior precisão na interpretação de sinais dinâmicos.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{./figuras/lstm}
     \caption{Diagrama de Rede Neural LSTM.}
     \source{Autoria própria (2026).}
 \end{figure}
- 
-\subsubsection{Reconhecimento de Gestos no Pipeline}
- 
-A arquitetura híbrida CNN+LSTM cobre as duas categorias de gestos presentes na Libras: estáticos e dinâmicos. Após a detecção das mãos pelo MediaPipe, o sistema identifica o tipo de sinal e encaminha os dados para o modelo correspondente. O resultado de ambas as arquiteturas é um token — uma palavra ou conceito reconhecido —, que é então encaminhado para a fila de entrada do módulo de NLP.
- 
-Os principais desafios enfrentados nesta etapa incluem a variabilidade entre usuários (diferenças físicas, velocidade e amplitude de execução) e a dependência de um vocabulário inicial delimitado, necessária para garantir o rigor técnico do sistema neste estágio experimental \cite{Silva2017}.
- 
-% --- GRUPO 3 ---
-\subsection{Grupo 3: Pós-processamento Linguístico}
- 
-Este grupo descreve como os tokens reconhecidos pelo módulo de visão computacional são transformados em frases gramaticalmente corretas em português, por meio de um \textit{pipeline} de NLP implementado com spaCy e refinado por um LLM.
- 
-\subsubsection{Módulo de NLP com spaCy}
- 
-O reconhecimento isolado de gestos não é suficiente para uma comunicação fluida, dada a profunda divergência gramatical entre a Libras e a língua portuguesa. O módulo de NLP atua como uma camada de pós-processamento essencial, realizando a conversão semântica e sintática dos sinais identificados pela rede neural.
- 
-A abordagem adotada é um \textit{pipeline} de processamento sequencial, implementado com a biblioteca spaCy \cite{Honnibal2020}, composto por quatro etapas:
- 
-\begin{enumerate}
-    \item \textbf{Tokenização e normalização:} os sinais identificados chegam ao módulo como uma sequência de tokens na estrutura da Libras (ex.: \texttt{[VOCÊ, QUERER, ÁGUA]}). Cada sinal é tratado como uma unidade lexical discreta, e a lematização reduz as formas flexionadas à forma canônica, facilitando o mapeamento para o português \cite{Bird2009};
-    \item \textbf{Etiquetagem morfossintática:} cada token recebe uma etiqueta (substantivo, verbo, pronome, etc.), por meio de um modelo de rede neural treinado sobre corpora anotados \cite{Honnibal2020};
-    \item \textbf{Análise de dependência sintática:} o analisador identifica as relações gramaticais entre os tokens (sujeito, objeto, modificador, etc.), produzindo uma árvore de dependência sintática. A adoção de árvores de dependência é especialmente adequada para a Libras porque a análise de dependência é robusta a variações de ordem frasal, identificando as relações semânticas independentemente da posição linear dos tokens \cite{Jurafsky2023};
-    \item \textbf{Reordenação sintática e concordância:} com base nas relações da árvore de dependência, o módulo reordena os tokens segundo a estrutura SVO do português e aplica regras de concordância nominal e verbal. Por exemplo, a sequência \texttt{[VOCÊ, QUERER, ÁGUA]} é reescrita como \textit{``Você quer água.''}, com a flexão verbal adequada ao sujeito identificado \cite{Lopez2017}.
-\end{enumerate}
- 
-Formalmente, seja $S_L = (w_1, w_2, \ldots, w_n)$ a sequência de sinais na estrutura da Libras e $S_P$ a frase-alvo em português. O módulo aprende uma função de reordenação $\pi$ tal que:
- 
+
+\subsection{Custo Computacional e Peso dos Modelos}
+
+O custo computacional refere-se à quantidade de recursos necessários para executar um modelo, incluindo uso de memória, processamento e capacidade de armazenamento. Já o peso do modelo está relacionado ao número de parâmetros treináveis presentes na rede neural, influenciando diretamente seu tamanho e complexidade.
+
+Modelos mais complexos, como redes profundas com múltiplas camadas, tendem a apresentar maior precisão, porém demandam mais recursos computacionais. Conforme discutido por \citeonline{Goodfellow2016}, o aumento da profundidade das redes neurais eleva sua capacidade de representação, mas também implica maior custo de processamento e necessidade de hardware mais robusto.
+
+No contexto deste trabalho, a escolha das arquiteturas busca equilibrar desempenho e eficiência, considerando a necessidade de processamento em tempo execução. Estratégias como o uso de \textit{landmarks}, redução de dimensionalidade dos dados e limitação do vocabulário inicial contribuem para diminuir o custo computacional.
+
+Esse equilíbrio é fundamental para garantir que o sistema seja não apenas preciso, mas também utilizável em cenários práticos.
+
+\subsection{Reconhecimento de Gestos (Gesture Recognition)}
+
+O reconhecimento de gestos é uma parte da visão computacional que visa identificar e interpretar movimentos ou posições do corpo humano a partir de dados visuais, transformando-os em comandos ou símbolos compreensíveis por máquinas \cite{Silva2017}. No contexto da Língua Brasileira de Sinais (Libras), essa técnica é o pilar fundamental para a tradução automatizada, permitindo que a interação entre surdos e ouvintes ocorra de forma fluida através da interface homem-máquina \cite{Bittencourt2002}.
+
+Os gestos são geralmente classificados em duas categorias principais, cada uma exigindo abordagens algorítmicas distintas:
+\begin{itemize}
+    \item Estáticos (Imagem): Referem-se à configuração ou postura da mão em um único instante. O foco recai sobre a forma, a orientação e a posição dos dedos, como ocorre na representação do alfabeto manual ou numerais em Libras \cite{PintoJunior2019}. Redes Neurais Convolucionais (CNNs) são frequentemente aplicadas para extrair padrões espaciais nessas imagens estáticas.
+    \item Dinâmicos (Vídeo): Envolvem uma sequência de movimentos ao longo do tempo, onde a trajetória e a velocidade são cruciais para o significado do sinal \cite{Silva2017}. Para interpretá-los, utilizam-se técnicas que consideram a continuidade temporal, como a subtração de quadros sucessivos para detecção de movimento ou o uso de grafos de ação e aprendizado de métricas para reconhecimento em tempo de execução \cite{Monteiro2016}.
+\end{itemize}
+
+A implementação eficaz desses sistemas enfrenta desafios significativos que podem comprometer a taxa de acerto do reconhecimento. As variações de iluminação representam um dos principais obstáculos, pois alterações na luz do ambiente modificam os valores dos pixels e dificultam a segmentação precisa da pele \cite{Bittencourt2002}. 
+
+Além disso, a variabilidade entre usuários introduz complexidade, uma vez que diferentes pessoas possuem características físicas distintas e executam o mesmo sinal com velocidades e amplitudes diversas, exigindo modelos robustos e generalistas \cite{Silva2017}. 
+
+Por fim, a influência do fundo da imagem (background) pode impactar a precisão, especialmente em cenários com muitos objetos ou cores semelhantes ao tom da pele humana, o que torna essencial o uso de filtros adaptativos ou técnicas de segmentação para isolar adequadamente a mão do restante da cena \cite{Monteiro2016}.
+
+\subsection{Processamento de Linguagem Natural (NLP)}
+
+O Processamento de Linguagem Natural é uma vertente da Inteligência Artificial que visa capacitar sistemas computacionais a compreender, interpretar e gerar a linguagem humana, tanto em formato de texto. Segundo \citeonline{Stryker2024}, o NLP combina a linguística estatística e computacional com modelos de aprendizado profundo para processar a linguagem em formas que exibam compreensão de significado e intenção.
+
+No escopo deste projeto, o reconhecimento isolado de gestos por meio de visão computacional não é suficiente para uma comunicação fluida, dada a profunda divergência gramatical entre a Libras e a língua portuguesa. Conforme apontam \citeonline{Lopez2017}, o uso de redes neurais aplicadas ao NLP permite que o sistema lide com a ambiguidade inerente à linguagem e aprenda representações hierárquicas dos dados textuais. O módulo de NLP atua, portanto, como uma camada de pós-processamento essencial, realizando a conversão semântica e sintática dos sinais identificados pela rede neural.
+
+A abordagem adotada neste trabalho é um pipeline de processamento sequencial, implementado com a biblioteca spaCy \cite{Honnibal2020}, composta por 4 etapas, tokenização e normalização, etiquetagem morfossintática, análise de dependência sintática e reordenação sintática e concordância.
+
+Os sinais identificados pela etapa de visão computacional chegam ao módulo de NLP como uma sequência de \textit{tokens}, palavras isoladas na estrutura da Libras (ex.: \texttt{[VOCÊ, QUERER, ÁGUA]}). A tokenização consiste em tratar cada sinal como uma unidade lexical discreta, e a normalização realiza a lematização de cada token, reduzindo as formas flexionadas à forma canônica (lema), o que facilita o mapeamento para o português \cite{Bird2009}.
+
+Cada token recebe uma etiqueta morfossintática (substantivo, verbo, pronome, etc.). No spaCy, esse processo é realizado por um modelo de rede neural treinado sobre corpora anotados \cite{Honnibal2020}. Formalmente, dado um vocabulário $\mathcal{V}$ e um conjunto de etiquetas $\mathcal{T}$, o \textit{tagger} aprende uma função $f: \mathcal{V}^n \rightarrow \mathcal{T}^n$ que maximiza a probabilidade conjunta da sequência de etiquetas dado o contexto da sentença.
+
+Após a etiquetagem, o analisador de dependências identifica as relações gramaticais entre os tokens (sujeito, objeto, modificador, etc.), produzindo uma árvore de dependência sintática.
+
+Com base nas relações identificadas pela árvore de dependência, o módulo reordena os tokens segundo a estrutura SVO do português e aplica regras de concordância nominal e verbal. Por exemplo, a sequência da Libras \texttt{[VOCÊ, QUERER, ÁGUA]} é reescrita como \textit{``Você quer água.''}, com a flexão verbal adequada ao sujeito identificado \cite{Lopez2017}.
+
+Formalmente, seja $S_L = (w_1, w_2, \ldots, w_n)$ a sequência de sinais identificados na estrutura da Libras e $S_P$ a frase-alvo em português. O módulo de NLP aprende uma função de reordenação $\pi$ tal que: 
+
 \begin{equation}
     S_P = \text{Flexão}\bigl(\pi(S_L),\; G_{\text{pt}}\bigr)
 \end{equation}
- 
+
 onde $\pi$ é uma permutação dos índices dos tokens guiada pelas relações de dependência e $G_{\text{pt}}$ representa as regras gramaticais do português, incluindo concordância de gênero, número e tempo verbal \cite{Bird2009}.
- 
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{./figuras/processamento-de-imagem-nlp}
     \caption{Diagrama de Processamento de Linguagem Natural - NLP.}
     \source{Autoria própria (2026).}
 \end{figure}
- 
-\subsubsection{Refinamento via LLM}
- 
-No fluxo de tradução proposto, o LLM atua como uma camada de refinamento linguístico final. Após o módulo de NLP (spaCy) organizar a estrutura sintática básica e realizar as flexões necessárias, o LLM recebe essa sentença intermediária para otimizar sua naturalidade. Essa etapa é essencial para ajustar nuances que as regras gramaticais determinísticas podem não captar, como a inserção de conectivos contextuais, artigos ou preposições ausentes, e o ajuste de registro (formal ou informal), garantindo que a saída em português não seja apenas gramaticalmente correta, mas também fluida \cite{Brown2020}.
- 
-A integração de modelos como Llama \cite{Touvron2023} ou Gemma \cite{GemmaTeam2024} permite que o sistema aproveite a capacidade de \textit{few-shot learning}, refinando traduções a partir de poucos exemplos de contexto, sem a necessidade de um novo treinamento exaustivo.
- 
-% --- GRUPO 4 ---
-\subsection{Grupo 4: Métricas e Validação}
- 
-Este grupo descreve como o desempenho do sistema será mensurado, abrangendo tanto a avaliação do módulo de reconhecimento gestual quanto a qualidade linguística das traduções e a viabilidade de uso em tempo real.
- 
-\subsubsection{Acurácia e Matriz de Confusão}
- 
-No escopo desta pesquisa, a acurácia e a matriz de confusão serão utilizadas para avaliar o módulo de visão computacional, tanto na classificação de sinais estáticos pela CNN quanto no reconhecimento de sinais dinâmicos pela LSTM. A análise conjunta dessas métricas permitirá identificar os sinais com maior taxa de erro — por exemplo, pares de sinais que o modelo tende a confundir devido à semelhança na configuração de mão ou no movimento — e orientar ajustes no modelo ou na composição do dataset de treinamento \cite{Goodfellow2016}. Com essa abordagem, busca-se garantir que o sistema apresente desempenho equilibrado entre todos os sinais do vocabulário definido, e não apenas nas classes mais frequentes.
- 
-\subsubsection{Métrica BLEU}
- 
-O uso do BLEU é especialmente relevante neste projeto porque o módulo de NLP não apenas transcreve sinais isolados, mas reorganiza e flexiona as palavras para gerar frases coerentes em português — um processo que não pode ser avaliado somente por acurácia. Para a validação do sistema, o BLEU será calculado comparando as frases em português produzidas pelo sistema com traduções de referência elaboradas por especialistas para o mesmo conjunto de sinais de entrada. Escores mais altos indicarão que o módulo de NLP está gerando saídas linguisticamente próximas ao que um humano produziria a partir dos mesmos sinais. Nesse sentido, o BLEU complementa as métricas de reconhecimento gestual ao avaliar especificamente a qualidade da camada linguística, fechando o ciclo de avaliação do \textit{pipeline} completo \cite{Papineni2002}.
- 
-\subsubsection{Custo Computacional e Latência}
- 
-No contexto deste projeto, a escolha das arquiteturas busca equilibrar desempenho e eficiência, considerando a necessidade de processamento em tempo de execução. A utilização de \textit{landmarks} como representação de entrada — em vez de \textit{frames} completos — reduz drasticamente a dimensionalidade dos dados, diminuindo o custo de treinamento e inferência. A limitação do vocabulário inicial também contribui para manter os modelos dentro de um tamanho viável para execução em hardware convencional.
- 
-A latência será considerada como um dos principais critérios de avaliação do sistema. Serão medidos os tempos de cada etapa do \textit{pipeline} — captura de vídeo, extração de \textit{landmarks}, inferência CNN ou LSTM, processamento NLP e refinamento LLM — para identificar gargalos e verificar se o sistema é viável para uso em tempo real. Conforme apontado por \citeonline{Molchanov2015}, em sistemas de reconhecimento de gestos, o desempenho está diretamente relacionado à eficiência computacional dos modelos e à capacidade de processar sequências de vídeo com baixa latência.
- 
-% --- GRUPO 5 ---
-\subsection{Grupo 5: Integração do Pipeline}
- 
-Os grupos descritos anteriormente não operam de forma isolada: eles se articulam em um \textit{pipeline} sequencial que transforma o fluxo de vídeo capturado pela câmera em uma frase coerente em português. Esta seção descreve como essas etapas se conectam e os desafios específicos dessa integração.
- 
-O fluxo começa com a captura contínua de \textit{frames} pela webcam. Para cada \textit{frame}, o MediaPipe tenta detectar a presença de mãos. Se mãos forem detectadas, os 21 \textit{landmarks} por mão são extraídos e normalizados (Grupo 1). O vetor de \textit{landmarks} resultante é então encaminhado para o módulo de classificação: se o sinal for estático, a CNN processa o vetor e emite um token; se for dinâmico, a LSTM acumula vetores ao longo de uma janela temporal e emite o token ao identificar o sinal completo (Grupo 2). Os tokens reconhecidos são enfileirados até que um critério de fim de sentença seja satisfeito (pausa ou sinal explícito). Nesse ponto, a sequência de tokens é entregue ao módulo de NLP (spaCy), que realiza a reordenação sintática e as flexões necessárias (Grupo 3). A frase resultante é então enviada ao LLM para refinamento linguístico final, e o texto fluente em português é exibido na interface do usuário (Grupo 3). Por fim, as métricas de avaliação são coletadas ao longo de sessões de teste para validar o desempenho do sistema (Grupo 4).
- 
-Um dos principais desafios dessa integração está na necessidade de sincronizar os diferentes tempos de processamento de cada etapa. O MediaPipe opera em tempo real a mais de 30 \textit{frames} por segundo, enquanto a inferência da LSTM exige o acúmulo de uma sequência mínima de \textit{frames}, e o LLM introduz latência adicional no refinamento da sentença. Para garantir fluidez, o \textit{pipeline} é projetado com filas assíncronas entre os módulos, de modo que a captura de vídeo não seja bloqueada pelo processamento linguístico.
- 
-Outro desafio é a fronteira entre sinais: o sistema precisa identificar quando um gesto termina e o próximo começa, especialmente para sinais dinâmicos com movimentos similares nas fases de transição. Essa detecção de segmentação temporal é tratada por um limiar de confiança nas saídas da LSTM: tokens com confiança abaixo de um valor definido são descartados e exibem um alerta na interface, evitando que erros de reconhecimento contaminem a sentença gerada.
+
+\subsection{Árvores de Dependência Sintática}
+
+Uma árvore de dependência sintática é uma estrutura de dados que representa as relações gramaticais binárias e assimétricas entre os tokens de uma sentença. Diferentemente das gramáticas de constituintes (baseadas em sintagmas), a análise de dependência conecta diretamente pares de palavras: uma cabeça e um dependente, com uma etiqueta que nomeia o tipo de relação (\textit{nsubj} para sujeito nominal, \textit{obj} para objeto direto, \textit{advmod} para modificador adverbial, etc.) \cite{Jurafsky2023}.
+
+Formalmente, dada uma sentença $s = (w_1, w_2, \ldots, w_n)$, uma árvore de dependência é um grafo dirigido $G = (V, A)$ onde:
+
+\begin{itemize}
+    \item $V = \{w_0, w_1, \ldots, w_n\}$ é o conjunto de vértices (tokens mais um nó raiz artificial $w_0$);
+    \item $A \subseteq V \times V \times \mathcal{R}$ é o conjunto de arcos rotulados, onde cada arco $(w_i, w_j, r)$ indica que $w_i$ é a cabeça de $w_j$ com relação do tipo $r \in \mathcal{R}$;
+    \item cada token (exceto a raiz) possui exatamente uma cabeça, garantindo a estrutura de árvore \cite{Jurafsky2023}.
+\end{itemize}
+
+Como exemplo, considere a sentença \textit{``Você quer água.''} Sua árvore de dependência teria \textit{quer} como raiz (verbo principal), com \textit{Você} ligado a ela pelo arco \texttt{nsubj} (sujeito nominal) e \textit{água} pelo arco \texttt{obj} (objeto direto).
+
+No presente trabalho, a análise de dependência é realizada pela biblioteca spaCy \cite{Honnibal2020}, que implementa um analisador neural baseado em transições (\textit{transition-based parser}). Esse analisador processa a sentença da esquerda para a direita, mantendo uma pilha e uma fila de tokens, e a cada passo aplica uma das três operações possíveis: \textit{SHIFT} (empilha o próximo token), \textit{LEFT-ARC} (cria um arco da cabeça para o dependente à esquerda) ou \textit{RIGHT-ARC} (cria um arco da cabeça para o dependente à direita). A escolha da operação é feita por um classificador neural que considera o contexto da pilha e da fila \cite{Honnibal2020}.
+
+A adoção de árvores de dependência é especialmente adequada para este projeto por três razões. Primeiro, como a Libras apresenta ordem frasal flexível (SVO, SOV, OSV, entre outras), a análise de dependência é robusta a variações de ordem, pois identifica as relações semânticas independentemente da posição linear dos tokens \cite{Jurafsky2023}. Segundo, a estrutura arbórea explicita quais tokens são sujeito, objeto e predicado, fornecendo ao módulo de reordenação a informação necessária para reconstruir a sentença na estrutura SVO do português. Terceiro, as etiquetas de dependência permitem aplicar regras de concordância dirigidas: identificado o sujeito (\texttt{nsubj}), é possível flexionar o verbo-cabeça no número e pessoa correspondentes \cite{Bird2009}.
+
+Dessa forma, as árvores de dependência atuam como a representação intermediária que conecta a saída do reconhecedor de gestos (sequência de tokens na ordem da Libras) à frase final gramaticalmente correta em português, tornando o pipeline de tradução mais explícito, interpretável e extensível.
+
+\subsection{Integração Visão Computacional + NLP}
+
+A integração entre visão computacional e processamento de linguagem natural é essencial para o funcionamento do sistema proposto. Essa combinação permite não apenas reconhecer os sinais, mas também convertê-los em linguagem compreensível.
+
+O processo ocorre em etapas, iniciando pela captura de vídeo, seguida pelo reconhecimento dos sinais por meio de modelos de visão computacional, e finalizando com a conversão desses sinais em texto por meio de técnicas de NLP.
+
+Um dos principais desafios dessa integração está na necessidade de transformar sinais isolados em frases coerentes, respeitando as regras gramaticais da língua portuguesa. Dessa forma, o sistema não se limita ao reconhecimento de gestos, mas busca realizar uma tradução mais completa e significativa.
+
+\subsection{Modelos de Linguagem de Grande Escala (LLM)}
+
+Os Modelos de Linguagem de Grande Escala (LLMs, do inglês Large Language Models) são sistemas de inteligência artificial treinados em vastos volumes de dados, especializados na compreensão e geração de texto com alta fluência. Diferente das arquiteturas de aprendizado profundo voltadas para o processamento de sequências de dados brutos, os LLMs baseiam-se na arquitetura Transformer \cite{Vaswani2017} para realizar o processamento semântico avançado da linguagem escrita.
+
+No fluxo de tradução proposto, o LLM atua como uma camada de refinamento linguístico final. Após o módulo de NLP (spaCy) organizar a estrutura sintática básica e realizar as flexões necessárias, o LLM recebe essa sentença intermediária para otimizar sua naturalidade. Essa etapa é essencial para ajustar nuances que as regras gramaticais rígidas podem não captar, como a inserção de conectivos contextuais ou o ajuste de registro (formal ou informal), garantindo que a saída em português não seja apenas gramaticalmente correta, mas também fluida para o ouvinte.
+
+A integração de modelos como Llama \cite{Touvron2023} ou Gemma \cite{GemmaTeam2024} permite que o sistema aproveite a capacidade de few-shot learning \cite{Brown2020}, ou seja, a habilidade do modelo em refinar traduções a partir de poucos exemplos de contexto, sem a necessidade de um novo treinamento exaustivo. Assim, o projeto estabelece uma arquitetura híbrida e colaborativa.
+
+Para validar essa integração, a eficiência do LLM será avaliada tanto pela métrica BLEU, que verificará a qualidade do texto refinado em relação a referências humanas, quanto pela análise de latência, monitorando o tempo de resposta para que o refinamento não comprometa a agilidade da tradução em tempo real.
+
+
+\subsection{Acurácia e Matriz de Confusão}
+
+A acurácia é uma das métricas mais fundamentais para a avaliação de modelos de classificação. Ela expressa a proporção de predições corretas em relação ao total de exemplos avaliados, oferecendo uma visão geral do desempenho do sistema \cite{Goodfellow2016}. Apesar de sua interpretação direta, a acurácia isolada pode ser insuficiente em contextos com muitas classes, pois não revela quais sinais estão sendo confundidos entre si, informação essencial para o refinamento do modelo.
+
+Para suprir essa limitação, utiliza-se a matriz de confusão, uma representação tabular que cruza as classes reais com as classes preditas. Cada célula indica quantas amostras de uma determinada classe foram classificadas como outra, permitindo identificar padrões de erro específicos. Por exemplo, quais pares de sinais o modelo tende a confundir com maior frequência devido à semelhança na configuração de mão ou no movimento \cite{Goodfellow2016}. A partir dela, derivam-se ainda métricas complementares como precisão e \textit{recall}, que expõem desequilíbrios de desempenho entre as classes de forma mais granular.
+
+No escopo desta pesquisa, a acurácia e a matriz de confusão serão utilizadas para avaliar o módulo de visão computacional, tanto na classificação de sinais estáticos pela CNN quanto no reconhecimento de sinais dinâmicos pela LSTM. A análise conjunta dessas métricas permitirá identificar os sinais com maior taxa de erro e orientar ajustes no modelo ou na composição do dataset de treinamento.
+
+Com essa abordagem, busca-se garantir que o sistema apresente desempenho equilibrado entre todos os sinais do vocabulário definido, e não apenas nas classes mais frequentes.
+
+\subsection{Métrica BLEU}
+
+A métrica BLEU (\textit{Bilingual Evaluation Understudy}), proposta por \citeonline{Papineni2002}, é o padrão consolidado para avaliação automática de qualidade em sistemas de tradução. Ela compara o texto gerado pelo sistema com traduções humanas de referência, mensurando a sobreposição de sequências de palavras conhecidas como $n$-gramas. Esses elementos representam agrupamentos contínuos de $n$ itens; enquanto os unigramas ($n=1$) avaliam a presença de palavras isoladas, os bigramas ($n=2$) e trigramas ($n=3$) permitem verificar se a ordem e o contexto gramatical foram preservados. Quanto maior a correspondência com as referências humanas, mais alto o escore BLEU, que varia de 0 a 1.
+
+O uso do BLEU é especialmente relevante neste projeto porque o módulo de NLP não apenas transcreve sinais isolados, mas reorganiza e flexiona as palavras para gerar frases coerentes em português, um processo criativo que não pode ser avaliado somente por acurácia. Conforme apontam \citeonline{Papineni2002}, a métrica captura tanto a precisão lexical quanto aspectos da fluência, ao penalizar hipóteses que se distanciam estruturalmente das referências humanas.
+
+Para a validação do sistema proposto, o BLEU será calculado comparando as frases em português produzidas pelo sistema com traduções de referência elaboradas por especialistas para o mesmo conjunto de sinais de entrada. Escores mais altos indicam que o módulo de NLP está gerando saídas linguisticamente próximas ao que um humano produziria a partir dos mesmos sinais.
+
+Nesse sentido, o BLEU complementa as métricas de reconhecimento gestual ao avaliar especificamente a qualidade da camada linguística do sistema, fechando o ciclo de avaliação do pipeline completo de tradução.
+
+\subsection{Latência e Tempo de Resposta}
+
+A latência corresponde ao tempo decorrido entre a captura do sinal pelo sistema e a exibição da tradução ao usuário. Em aplicações de tradução em tempo real, esse fator é crítico, pois impacta diretamente a experiência de uso e a fluidez da comunicação.
+
+Sistemas com alta latência podem gerar atrasos perceptíveis, comprometendo a interação entre os usuários. Por isso, é necessário otimizar todas as etapas do pipeline, desde a captura do vídeo até o processamento pelos modelos e a geração da saída textual.
+
+De acordo com \citeonline{Molchanov2015}, em sistemas de reconhecimento de gestos em tempo real, o desempenho está diretamente relacionado à eficiência computacional dos modelos e à capacidade de processar sequências de vídeo com baixa latência.
+
+No presente trabalho, a latência será considerada como um dos principais critérios de avaliação do sistema. A utilização de técnicas como processamento eficiente de frames, redução do tamanho dos dados (por meio de \textit{landmarks}) e escolha de modelos com menor custo computacional contribui para minimizar o tempo de resposta.
+
+Dessa forma, busca-se garantir que a tradução ocorra de forma rápida e contínua, aproximando-se de uma comunicação natural.
 
 % ---------------------------------------------------------------
 \section{Trabalhos relacionados}
