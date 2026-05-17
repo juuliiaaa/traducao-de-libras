@@ -206,16 +206,16 @@ Os objetivos deste trabalho estão voltados para o desenvolvimento de uma soluç
 
 \subsection{Objetivo principal}
 
-Implementar um sistema computacional capaz de reconhecer gestos da Língua Brasileira de Sinais (Libras) por meio de visão computacional e traduzi-los em texto, utilizando técnicas de processamento de linguagem natural.
+Implementar um sistema computacional capaz de reconhecer gestos da Língua Brasileira de Sinais (Libras) por meio de visão computacional e traduzi-los em frases gramaticalmente coerentes em língua portuguesa, utilizando técnicas de processamento de linguagem natural e modelos de linguagem de grande escala.
 
 \subsection{Objetivos secundários}
 
 \begin{enumerate}
-    \item Selecionar, estruturar e tratar datasets de Libras;
-    \item Desenvolver um modelo de visão computacional para detecção e reconhecimento dos sinais manuais;
-    \item Implementar um módulo de processamento de linguagem natural para lidar com um conjunto definido de palavras e formar frases simples em português;
-    \item Integrar os módulos em um sistema funcional de tradução com processamento em tempo real;
-    \item Avaliar o desempenho do sistema utilizando diferentes métricas.
+    \item Realizar levantamento bibliográfico sobre reconhecimento de gestos em Libras, arquiteturas de redes neurais convolucionais e recorrentes, processamento de linguagem natural e modelos de linguagem de grande escala aplicados à tradução automática;
+    \item Selecionar, estruturar e pré-processar os datasets de Libras, aplicando técnicas de balanceamento e augmentação de dados para garantir a qualidade do treinamento;
+    \item Projetar a arquitetura híbrida do sistema, integrando o módulo de visão computacional baseado em MediaPipe, CNN e LSTM ao módulo de NLP implementado com spaCy e refinamento via LLM;
+    \item Implementar um protótipo funcional do pipeline completo de tradução, desde a captura de vídeo via webcam até a exibição da frase traduzida em português na interface do usuário;
+    \item Validar o desempenho do sistema por meio de métricas quantitativas de acurácia e matriz de confusão para o módulo de reconhecimento gestual, métrica BLEU para a qualidade linguística das traduções, e análise de latência para verificar a viabilidade do uso em tempo real.
 \end{enumerate}
 
 % ===============================================================
