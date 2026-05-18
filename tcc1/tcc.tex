@@ -359,28 +359,6 @@ Outra aplicação fundamental é o reconhecimento de gestos, técnica que visa i
 
 Por fim, aplica-se a extração de características para identificar padrões relevantes, como o formato e a trajetória das mãos, permitndo que o sistema identifique pontos específicos, chamados de \textit{landmarks}, essenciais para a classificação precisa do sinal.
 
-\subsection{Landmarks (Pontos-chave)}
-
-
-No reconhecimento de Libras, os \textit{landmarks} desempenham um papel fundamental, pois permitem reduzir a complexidade dos dados visuais. Em vez de processar toda a imagem, o sistema passa a trabalhar com um conjunto estruturado de pontos que descrevem a posição e a movimentação das mãos ao longo do tempo.
-
-Ferramentas como o Google MediaPipe possibilitam a detecção desses pontos em tempo real, fornecendo informações como coordenadas tridimensionais (x, y, z) das articulações. Conforme ilustrado na Figura~\ref{fig:landmarks}, o sistema mapeia 21 pontos distintos, organizados em grupos que representam o pulso (ponto 0), o polegar (pontos 1-4) e os demais dedos — indicador (5-8), médio (9-12), anelar (13-16) e mínimo (17-20).
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]{./figuras/landmarks.jpg}
-    \caption{Mapeamento de pontos de referência (\textit{landmarks}) da mão pelo MediaPipe.}
-    \label{fig:landmarks}
-    \fonte{\citeonline{Jung2021}.}
-\end{figure}
-
-
-De acordo com \citeonline{Lugaresi2019}, essa abordagem torna o processamento mais eficiente e robusto, além de reduzir a influência de fatores externos, como iluminação e fundo da imagem.
-
-Os \textit{landmarks}, ou pontos-chave, são coordenadas específicas extraídas de partes relevantes do corpo, como mãos, dedos e articulações, utilizadas para representar a geometria e o movimento dos sinais.
-
-Dessa forma, os \textit{landmarks} atuam como uma representação compacta e informativa dos sinais, facilitando tanto o processamento pelas redes neurais quanto a generalização do modelo para diferentes usuários.
-
 \subsection{MediaPipe & Landmarks}
 
 O MediaPipe é um \textit{framework} de código aberto desenvolvido pelo Google para a construção de pipelines de percepção multimodal em tempo real \cite{Lugaresi2019}. Ele fornece um conjunto de soluções pré-treinadas para tarefas como detecção de pose corporal, rastreamento de rosto e, de forma central para este trabalho, detecção e rastreamento de mãos (\textit{MediaPipe Hands}).
