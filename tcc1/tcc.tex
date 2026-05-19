@@ -307,8 +307,24 @@ Essas diferenças impactam diretamente o processo de tradução. Elementos comun
 \section{Metodologia da pesquisa bibliográfica}
 \label{sec:metodologia_pesquisa}
 
-A pesquisa bibliográfica foi realizada nas bases Google Scholar e IEEE Xplore, utilizando as strings de busca "Libras" AND "Deep Learning" AND "Visão Computacional", "Reconhecimento de sinais" AND "Libras" AND ("CNN" OR "LSTM") e "Língua Brasileira de Sinais" AND "Acessibilidade" AND "Redes Neurais". Foram selecionados artigos publicados entre 2021 e 2026, em português e inglês, que abordassem diretamente o reconhecimento automático de sinais, técnicas de visão computacional aplicadas à Libras e métodos de processamento de linguagem natural voltados à tradução de linguagem de sinais.
+A pesquisa bibliográfica foi realizada nas bases Google Scholar e IEEE Xplore, utilizando as seguintes palavras-chave em português e inglês: \textit{``Libras''} AND \textit{``Deep Learning''} AND \textit{``Visão Computacional''}, \textit{``Reconhecimento de sinais''} AND \textit{``Libras''} AND (\textit{``CNN''} OR \textit{``LSTM''}) e \textit{``Língua Brasileira de Sinais''} AND \textit{``Acessibilidade''} AND \textit{``Redes Neurais''}.
 
+Foram selecionados artigos publicados entre 2021 e 2026, em português e inglês, que abordassem diretamente o reconhecimento automático de sinais, técnicas de visão computacional aplicadas à Libras e métodos de processamento de linguagem natural voltados à tradução de linguagem de sinais.
+
+Os critérios de inclusão adotados foram: (i)~publicações no período de 2021 a 2026; (ii)~artigos em português ou inglês; (iii)~trabalhos que utilizassem técnicas de visão computacional, redes neurais (CNN, LSTM ou similares) ou processamento de linguagem natural aplicados ao reconhecimento ou à tradução de línguas de sinais; e (iv)~estudos com avaliação quantitativa de desempenho.
+
+Os critérios de exclusão foram: (i)~publicações anteriores a 2021; (ii)~artigos sem relação direta com línguas de sinais ou acessibilidade para surdos; (iii)~trabalhos sem metodologia técnica reproduzível, como editoriais e resumos de conferência sem detalhamento experimental; e (iv)~estudos sem acesso ao texto completo nas bases consultadas.
+
+O fluxo de filtragem decorrente da aplicação desses critérios, desde o volume inicial de produções encontradas até o portfólio final de artigos selecionados para análise, está sistematizado no funil metodológico apresentado na Figura~\ref{fig:funil_pesquisa}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.65\textwidth]{./figuras/funil-pesquisa.png} 
+    \caption{Funil metodológico da seleção e filtragem da pesquisa bibliográfica.}
+    \label{fig:funil_pesquisa}
+    \source{Autoria própria (2026).}
+\end{figure}
+ 
 % \textit{} italico
 
 % ---------------------------------------------------------------
@@ -326,9 +342,9 @@ No desenvolvimento de modelos de \textit{Deep Learning}, o dataset (base de dado
 No contexto do reconhecimento de Libras, os datasets apresentam desafios únicos devido à natureza multimodal da língua. Um \textit{dataset} robusto para este fim deve conter não apenas imagens isoladas, mas sequências de vídeo que capturem a dinâmica dos sinais. De acordo com \citeonline{Silva2017}, a diversidade dos dados é crucial para mitigar problemas de overfitting, garantindo que o sistema seja capaz de reconhecer gestos realizados por diferentes usuários, com variações em:
 
 \begin{itemize}
-\item {Antropometria:} Diferenças no tamanho, cor e formato das mãos dos sinalizadores;
-\item {Condições Ambientais:} Variações de iluminação e fundos de imagem (backgrounds) complexos, que testam a capacidade de segmentação do modelo;
-\item {Execução do Sinal:} Diferenças na velocidade, amplitude e fluidez do movimento, que impactam diretamente a análise temporal das redes LSTM.
+    \item {Antropometria:} Diferenças no tamanho, cor e formato das mãos dos sinalizadores;
+    \item {Condições Ambientais:} Variações de iluminação e fundos de imagem (backgrounds) complexos, que testam a capacidade de segmentação do modelo;
+    \item {Execução do Sinal:} Diferenças na velocidade, amplitude e fluidez do movimento, que impactam diretamente a análise temporal das redes LSTM.
 \end{itemize}
 
 Os três datasets adotados neste projeto apresentam diversidade de dados a esse respeito: o MINDS-Libras conta com distribuição controlada, são 6 pessoas realizando 5 repetições de cada um dos 20 sinais, resultando em classes uniformes \cite{Rezende2021}; o V-Librasil possui estrutura igualmente regular, com exatamente 3 gravações por sinal para cada um dos 1.364 termos \cite{Rodrigues2021}; já o dataset Libras Brazilian Sign Language, composto por imagens estáticas do alfabeto manual, apresenta variação relevante no número de amostras entre as classes, característica comum em datasets tratados a partir de fontes variadas \cite{Pas2020}. 
