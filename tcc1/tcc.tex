@@ -521,6 +521,35 @@ Além disso, a variabilidade entre usuários introduz complexidade, uma vez que 
 
 Por fim, a influência do fundo da imagem (background) pode impactar a precisão, especialmente em cenários com muitos objetos ou cores semelhantes ao tom da pele humana, o que torna essencial o uso de filtros adaptativos ou técnicas de segmentação para isolar adequadamente a mão do restante da cena \cite{Monteiro2016}.
 
+\subsection{Árvores de Dependência Sintática}
+
+Uma árvore de dependência sintática é uma estrutura de dados que representa as relações gramaticais binárias e assimétricas entre os tokens de uma sentença. Diferentemente das gramáticas de constituintes (baseadas em sintagmas), a análise de dependência conecta diretamente pares de palavras: uma cabeça e um dependente, com uma etiqueta que nomeia o tipo de relação (\textit{nsubj} para sujeito nominal, \textit{obj} para objeto direto, \textit{advmod} para modificador adverbial, etc.) \cite{Jurafsky2023}.
+
+Formalmente, dada uma sentença $s = (w_1, w_2, \ldots, w_n)$, uma árvore de dependência é um grafo dirigido $G = (V, A)$ onde:
+
+\begin{itemize}
+    \item $V = \{w_0, w_1, \ldots, w_n\}$ é o conjunto de vértices (tokens mais um nó raiz artificial $w_0$);
+    \item $A \subseteq V \times V \times \mathcal{R}$ é o conjunto de arcos rotulados, onde cada arco $(w_i, w_j, r)$ indica que $w_i$ é a cabeça de $w_j$ com relação do tipo $r \in \mathcal{R}$;
+    \item cada token (exceto a raiz) possui exatamente uma cabeça, garantindo a estrutura de árvore \cite{Jurafsky2023}.
+\end{itemize}
+
+Como exemplo, considere a sentença \textit{``Você quer água.''} Sua árvore de dependência teria \textit{quer} como raiz (verbo principal), com \textit{Você} ligado a ela pelo arco \texttt{nsubj} (sujeito nominal) e \textit{água} pelo arco \texttt{obj} (objeto direto), conforme exemplificado na estrutura da Figura \ref{fig:arvore_dependencia}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./figuras/arvoreDependencia.png}
+    \caption{Exemplo estrutural de uma árvore de análise por dependência sintática.}
+    \label{fig:arvore_dependencia}
+    \noindent\footnotesize{Fonte: \textcite{pucrio2026arvore}.}
+\end{figure}
+
+No presente trabalho, a análise de dependência é realizada pela biblioteca spaCy \cite{Honnibal2020}, que implementa um analisador neural baseado em transições (\textit{transition-based parser}). Esse analisador processa a sentença da esquerda para a direita, mantendo uma pilha e uma fila de tokens, e a cada passo aplica uma das três operações possíveis: \textit{SHIFT} (empilha o próximo token), \textit{LEFT-ARC} (cria um arco da cabeça para o dependente à esquerda) ou \textit{RIGHT-ARC} (cria um arco da cabeça para o dependente à direita). A escolha da operação é feita por um classificador neural que considera o contexto da pilha e da fila \cite{Honnibal2020}.
+
+A adoção de árvores de dependência é especialmente adequada para este projeto por três razões. Primeiro, como a Libras apresenta ordem frasal flexível (SVO, SOV, OSV, entre outras), a análise de dependência é robusta a variações de ordem, pois identifica as relações semânticas independentemente da posição linear dos tokens \cite{Jurafsky2023}. Segundo, a estrutura arbórea explicita quais tokens são sujeito, objeto e predicado, fornecendo ao módulo de reordenação a informação necessária para reconstruir a sentença na estrutura SVO do português. Terceiro, as etiquetas de dependência permitem aplicar regras de concordância dirigidas: identificado o sujeito (\texttt{nsubj}), é possível flexionar o verbo-cabeça no número e pessoa correspondentes \cite{Bird2009}.
+
+Dessa forma, as árvores de dependência atuam como a representação intermediária que conecta a saída do reconhecedor de gestos (sequência de tokens na ordem da Libras) à frase final gramaticalmente correta em português, tornando o pipeline de tradução mais explícito, interpretável e extensível.
+
+
 \subsection{Processamento de Linguagem Natural (NLP)}
 
 O Processamento de Linguagem Natural é uma vertente da Inteligência Artificial que visa capacitar sistemas computacionais a compreender, interpretar e gerar a linguagem humana, tanto em formato de texto. Segundo \citeonline{Stryker2024}, o NLP combina a linguística estatística e computacional com modelos de \textit{deep learning} para processar a linguagem em formas que exibam compreensão de significado e intenção.
@@ -551,34 +580,6 @@ onde $\pi$ é uma permutação dos índices dos tokens guiada pelas relações d
     \caption{Diagrama de Processamento de Linguagem Natural - NLP.}
     \source{Autoria própria (2026).}
 \end{figure}
-
-\subsection{Árvores de Dependência Sintática}
-
-Uma árvore de dependência sintática é uma estrutura de dados que representa as relações gramaticais binárias e assimétricas entre os tokens de uma sentença. Diferentemente das gramáticas de constituintes (baseadas em sintagmas), a análise de dependência conecta diretamente pares de palavras: uma cabeça e um dependente, com uma etiqueta que nomeia o tipo de relação (\textit{nsubj} para sujeito nominal, \textit{obj} para objeto direto, \textit{advmod} para modificador adverbial, etc.) \cite{Jurafsky2023}.
-
-Formalmente, dada uma sentença $s = (w_1, w_2, \ldots, w_n)$, uma árvore de dependência é um grafo dirigido $G = (V, A)$ onde:
-
-\begin{itemize}
-    \item $V = \{w_0, w_1, \ldots, w_n\}$ é o conjunto de vértices (tokens mais um nó raiz artificial $w_0$);
-    \item $A \subseteq V \times V \times \mathcal{R}$ é o conjunto de arcos rotulados, onde cada arco $(w_i, w_j, r)$ indica que $w_i$ é a cabeça de $w_j$ com relação do tipo $r \in \mathcal{R}$;
-    \item cada token (exceto a raiz) possui exatamente uma cabeça, garantindo a estrutura de árvore \cite{Jurafsky2023}.
-\end{itemize}
-
-Como exemplo, considere a sentença \textit{``Você quer água.''} Sua árvore de dependência teria \textit{quer} como raiz (verbo principal), com \textit{Você} ligado a ela pelo arco \texttt{nsubj} (sujeito nominal) e \textit{água} pelo arco \texttt{obj} (objeto direto), conforme exemplificado na estrutura da Figura \ref{fig:arvore_dependencia}.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{./figuras/arvoreDependencia.png}
-    \caption{Exemplo estrutural de uma árvore de análise por dependência sintática.}
-    \label{fig:arvore_dependencia}
-    \noindent\footnotesize{Fonte: \textcite{pucrio2026arvore}.}
-\end{figure}
-
-No presente trabalho, a análise de dependência é realizada pela biblioteca spaCy \cite{Honnibal2020}, que implementa um analisador neural baseado em transições (\textit{transition-based parser}). Esse analisador processa a sentença da esquerda para a direita, mantendo uma pilha e uma fila de tokens, e a cada passo aplica uma das três operações possíveis: \textit{SHIFT} (empilha o próximo token), \textit{LEFT-ARC} (cria um arco da cabeça para o dependente à esquerda) ou \textit{RIGHT-ARC} (cria um arco da cabeça para o dependente à direita). A escolha da operação é feita por um classificador neural que considera o contexto da pilha e da fila \cite{Honnibal2020}.
-
-A adoção de árvores de dependência é especialmente adequada para este projeto por três razões. Primeiro, como a Libras apresenta ordem frasal flexível (SVO, SOV, OSV, entre outras), a análise de dependência é robusta a variações de ordem, pois identifica as relações semânticas independentemente da posição linear dos tokens \cite{Jurafsky2023}. Segundo, a estrutura arbórea explicita quais tokens são sujeito, objeto e predicado, fornecendo ao módulo de reordenação a informação necessária para reconstruir a sentença na estrutura SVO do português. Terceiro, as etiquetas de dependência permitem aplicar regras de concordância dirigidas: identificado o sujeito (\texttt{nsubj}), é possível flexionar o verbo-cabeça no número e pessoa correspondentes \cite{Bird2009}.
-
-Dessa forma, as árvores de dependência atuam como a representação intermediária que conecta a saída do reconhecedor de gestos (sequência de tokens na ordem da Libras) à frase final gramaticalmente correta em português, tornando o pipeline de tradução mais explícito, interpretável e extensível.
 
 \subsection{Modelos de Linguagem de Grande Escala (LLM)}
 
