@@ -295,7 +295,7 @@ A Tabela \ref{tab:variacoes_libras} ilustra como o pipeline de Processamento de 
 \textbf{OSV}       & [ÁGUA] [VOCÊ] [QUERER]                & Objeto + Sujeito + Verbo           \\
 \textbf{VOS}       & [QUERER] [ÁGUA] [VOCÊ]                & Verbo + Objeto + Sujeito            \\ \hline
 \end{tabularx}
-\noindent\footnotesize{\newline \textbf{Fonte:} Autoria própria (2026), baseado em \textcite{Quadros2004} e \textcite{Jurafsky2023}.}
+\noindent\footnotesize{\newline \textbf{Fonte:} Autoria própria (2026), baseado em \citeonline{Quadros2004} e \citeonline{Jurafsky2023}.}
 \end{table}
 
 Essas diferenças impactam diretamente o processo de tradução. Elementos comuns no português, como artigos e preposições, nem sempre aparecem de forma explícita na Libras, pois muitas dessas relações são expressas pelo uso do espaço e pelo contexto. Por isso, sistemas computacionais precisam não apenas reconhecer os sinais, mas também reorganizar as informações e incluir elementos necessários para gerar frases corretas em português.
@@ -426,7 +426,7 @@ Dessa forma, a profundidade dessas redes permite que o sistema capture desde det
     \includegraphics[width=1.0\textwidth]{./figuras/deepLearning.jpg}
     \caption{Fluxo de processamento hierárquico em uma arquitetura de Deep Learning.}
     \label{fig:deep_learning}
-    \noindent\footnotesize{Fonte: \textcite{computerweekly2026deep}.}
+    \noindent\footnotesize{Fonte: \citeonline{computerweekly2026deep}.}
 \end{figure}
 
 
@@ -465,7 +465,7 @@ A integração sequencial e o fluxo de dados entre essas três camadas fundament
     \includegraphics[width=0.9\textwidth]{./figuras/cnn.png}
     \caption{Diagrama clássico de blocos e fluxo de dados em uma Rede Neural Convolucional.}
     \label{fig:cnn_arquitetura}
-    \noindent\footnotesize{Fonte: \textcite{ionos2026cnn}.}
+    \noindent\footnotesize{Fonte: \citeonline{ionos2026cnn}.}
 \end{figure}
 
 No contexto deste projeto, os \textit{landmarks} extraídos pelo MediaPipe (coordenadas $x$, $y$, $z$ das articulações da mão) são organizados como vetores de entrada para a CNN. A rede aprende, durante o treinamento, quais combinações de posições articulares são discriminativas para cada sinal estático. 
@@ -540,7 +540,7 @@ Como exemplo, considere a sentença \textit{``Você quer água.''} Sua árvore d
     \includegraphics[width=0.7\textwidth]{./figuras/arvoreDependencia.png}
     \caption{Exemplo estrutural de uma árvore de análise por dependência sintática.}
     \label{fig:arvore_dependencia}
-    \noindent\footnotesize{Fonte: \textcite{pucrio2026arvore}.}
+    \noindent\footnotesize{Fonte: \citeonline{pucrio2026arvore}.}
 \end{figure}
 
 No presente trabalho, a análise de dependência é realizada pela biblioteca spaCy \cite{Honnibal2020}, que implementa um analisador neural baseado em transições (\textit{transition-based parser}). Esse analisador processa a sentença da esquerda para a direita, mantendo uma pilha e uma fila de tokens, e a cada passo aplica uma das três operações possíveis: \textit{SHIFT} (empilha o próximo token), \textit{LEFT-ARC} (cria um arco da cabeça para o dependente à esquerda) ou \textit{RIGHT-ARC} (cria um arco da cabeça para o dependente à direita). A escolha da operação é feita por um classificador neural que considera o contexto da pilha e da fila \cite{Honnibal2020}.
