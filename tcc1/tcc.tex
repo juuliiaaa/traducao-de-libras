@@ -768,7 +768,7 @@ As limitações a seguir definem o escopo desta pesquisa e orientam o planejamen
     \item Cobertura restrita ao domínio selecionado: O sistema realiza tradução de alta qualidade dentro do domínio temático escolhido. Sinais fora desse escopo não serão reconhecidos, o que é uma consequência esperada e planejada da estratégia de foco em domínio adotada. A extensão do vocabulário a outros domínios é um trabalho futuro natural.
     \item Sinais classificadores e polissêmicos complexos: Sinais cujo significado depende criticamente de contexto espacial tridimensional complexo, como classificadores que referenciam objetos posicionados no espaço de sinalização, estão fora do escopo desta versão, dado que o \textit{pipeline} atual não modela explicitamente o espaço de referenciação da Libras.
     \item Dependência de condições mínimas de captura: Embora o uso de \textit{landmarks} pelo MediaPipe reduza significativamente a sensibilidade a variações de iluminação e fundo, situações de oclusão severa das mãos ou iluminação extremamente baixa podem comprometer a detecção. Câmeras com resolução mínima adequada são requisito de hardware do sistema.
-    \item Latência do módulo LLM em hardware limitado: Em dispositivos com recursos computacionais mais restritos, a chamada ao LLM pode introduzir atrasos perceptíveis. A validação de latência (seção 3.1.6) incluirá testes em diferentes configurações de hardware para mapear os requisitos mínimos do sistema.
+    \item Latência do módulo LLM em hardware limitado: Em dispositivos com recursos computacionais mais restritos, a chamada ao LLM pode introduzir atrasos perceptíveis. A validação de latência incluirá testes em diferentes configurações de hardware para mapear os requisitos mínimos do sistema.
 \end{enumerate}
 
 \subsection{Arquitetura}
@@ -791,9 +791,9 @@ As escolhas tecnológicas foram feitas visando o alto desempenho em processament
 \begin{itemize}
     \item Linguagem de Programação: Python, devido à sua maturidade e vasta biblioteca para IA.
     \item Frameworks de Inteligência Artificial: TensorFlow ou Keras para o desenvolvimento das arquiteturas CNN e LSTM.
-    \item Visão Computacional: MediaPipe ou OpenCV para a extração ágil de pontos de referência (\textit{landmarks}) das mãos.
+    \item Visão Computacional: MediaPipe para a extração ágil de pontos de referência (\textit{landmarks}) das mãos.
     \item Dataset: Minds-Libras, Libras Brazilian Sign Language e V-BrasilIL escolhidos pela diversidade de sinais e qualidade das anotações.
-    \item Processamento de Texto: Biblioteca NLTK ou spaCy para as tarefas de NLP e adequação gramatical.
+    \item Processamento de Texto: Biblioteca spaCy para as tarefas de NLP e adequação gramatical.
 \end{itemize}
 \subsection{Funcionalidades principais}
 Para atingir os objetivos propostos, o sistema disponibilizará as seguintes funcionalidades:
