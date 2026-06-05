@@ -336,11 +336,29 @@ Este tópico apresenta os principais fundamentos teóricos e tecnológicos que s
 
 A Inteligência Artificial (IA) é um campo da Ciência da Computação dedicado ao desenvolvimento de sistemas capazes de executar tarefas que normalmente requerem inteligência humana, como percepção, raciocínio, aprendizado e tomada de decisão \cite{russell2021}. Seu objetivo é criar métodos computacionais capazes de interpretar informações do ambiente, extrair conhecimento a partir de dados e agir de forma autônoma para alcançar determinados objetivos.
 
-Historicamente, as primeiras abordagens de IA eram baseadas em regras explícitas definidas por especialistas, nas quais o comportamento do sistema era determinado por conjuntos de instruções previamente programadas. Com o aumento da disponibilidade de dados e do poder computacional, surgiram técnicas capazes de aprender padrões diretamente a partir de exemplos, consolidando o paradigma conhecido como Aprendizado de Máquina (\textit{Machine Learning}) \cite{ibm_ml2026}.
+Historicamente, as primeiras abordagens de IA eram baseadas em regras explícitas definidas por especialistas, nas quais o comportamento do sistema era determinado por conjuntos de instruções previamente programadas. Com o aumento da disponibilidade de dados e do poder computacional, surgiram técnicas capazes de aprender padrões diretamente a partir de exemplos, consolidando o paradigma conhecido como \textit{Machine Learning} \cite{ibm_ml2026}.
 
 Atualmente, a Inteligência Artificial engloba diversas áreas de pesquisa e aplicação, incluindo aprendizado de máquina, visão computacional, processamento de linguagem natural, robótica e sistemas de recomendação. Essas áreas compartilham o objetivo comum de permitir que sistemas computacionais interpretem informações complexas e realizem tarefas que anteriormente dependiam exclusivamente da capacidade humana \cite{russell2021}.
 
 No contexto deste trabalho, a Inteligência Artificial constitui o campo teórico que fundamenta o desenvolvimento da solução proposta, fornecendo os conceitos e técnicas que possibilitam o reconhecimento de padrões visuais e o processamento computacional da linguagem necessários para a tradução da Libras para a língua portuguesa.
+
+
+\subsection{Machine Learning}
+
+O Aprendizado de Máquina (\textit{Machine Learning}, ML) é uma subárea da Inteligência Artificial dedicada ao desenvolvimento de algoritmos capazes de aprender padrões a partir de dados e utilizá-los para realizar previsões, classificações ou tomadas de decisão sem que todas as regras precisem ser explicitamente programadas \cite{mitchell1997, faceli2021}. Em vez de depender exclusivamente de instruções definidas por um programador, os modelos ajustam seus parâmetros com base em exemplos durante o processo de treinamento.
+
+Os métodos de Aprendizado de Máquina são tradicionalmente classificados em três categorias principais \cite{geron2022, oracle_machine_learning}:
+
+\begin{itemize}
+    \item Aprendizado Supervisionado: utiliza conjuntos de dados rotulados, nos quais cada exemplo de entrada está associado a uma saída esperada. O objetivo é aprender uma função capaz de realizar previsões corretas para novos dados;
+    \item Aprendizado Não Supervisionado: trabalha com dados sem rótulos, buscando identificar padrões, agrupamentos ou estruturas ocultas presentes nas informações analisadas;
+    \item Aprendizado por Reforço: baseia-se na interação entre um agente e um ambiente, onde o aprendizado ocorre por meio de recompensas e penalidades associadas às ações executadas.
+\end{itemize}
+
+O avanço do Aprendizado de Máquina impulsionou o desenvolvimento de aplicações em diversas áreas, incluindo reconhecimento de imagens, processamento de linguagem natural, sistemas de recomendação e análise preditiva \cite{faceli2021}. Entre suas vertentes, destaca-se o \textit{Deep Learning}, que utiliza redes neurais com múltiplas camadas para modelar problemas complexos a partir de grandes volumes de dados.
+
+No contexto deste trabalho, o Aprendizado de Máquina fornece a base para o treinamento dos modelos responsáveis pelo reconhecimento dos sinais da Libras. A partir de exemplos previamente rotulados, os algoritmos aprendem a associar padrões extraídos dos landmarks das mãos e do rosto às respectivas classes de sinais, possibilitando a identificação automática dos gestos realizados pelo usuário.
+
 
 \subsection{Datasets}
 
