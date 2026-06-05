@@ -117,7 +117,8 @@
 % RESUMO
 % ---------------------------------------------------------------
 \begin{resumo}
-Este trabalho propõe o desenvolvimento de um sistema inteligente de tradução automática da Língua Brasileira de Sinais (Libras) para a língua portuguesa, integrando visão computacional, aprendizado profundo e modelos de linguagem em um pipeline unificado. A motivação parte da barreira comunicacional existente entre a comunidade surda e ouvintes, agravada pelo número reduzido de intérpretes disponíveis em situações cotidianas. A revisão bibliográfica abrange os fundamentos da Libras e suas Expressões Não Manuais (ENM), técnicas de visão computacional com MediaPipe, arquiteturas de redes neurais convolucionais (CNN) e recorrentes (LSTM), processamento de linguagem natural com spaCy e modelos de linguagem de grande escala (LLM). A solução proposta é composta por quatro camadas: captura simultânea de landmarks manuais e faciais via MediaPipe, classificação gestual por CNN e LSTM, reorganização sintática por NLP e refinamento linguístico por LLM, produzindo frases gramaticalmente coerentes em português. O sistema é desenvolvido com foco em um domínio vocabular específico, selecionado a partir da análise dos datasets MINDS-Libras, V-Librasil e Libras Brazilian Sign Language. O desempenho será avaliado por acurácia, matriz de confusão, métrica BLEU, análise de latência e validação com usuários reais da comunidade surda.
+
+Este trabalho propõe o desenvolvimento de um sistema inteligente de tradução da Língua Brasileira de Sinais (Libras) para a língua portuguesa, integrando visão computacional, aprendizado profundo e modelos de linguagem em um pipeline unificado. A motivação parte da barreira comunicacional existente entre a comunidade surda e ouvintes, agravada pelo número reduzido de intérpretes disponíveis em situações cotidianas. A revisão bibliográfica abrange os fundamentos da Libras, técnicas de visão computacional com MediaPipe, arquiteturas de redes neurais convolucionais (CNN) e recorrentes (LSTM), processamento de linguagem natural com spaCy e modelos de linguagem de grande escala (LLM). A solução proposta é composta por quatro camadas: captura simultânea de landmarks manuais e faciais via MediaPipe, classificação gestual por CNN e LSTM, reorganização sintática por NLP e refinamento linguístico por LLM, produzindo frases gramaticalmente coerentes em português. O sistema é desenvolvido com foco em um domínio vocabular específico, selecionado a partir da análise dos datasets MINDS-Libras, V-Librasil e Libras Brazilian Sign Language. O desempenho será avaliado por acurácia, matriz de confusão, métrica BLEU, análise de latência e validação com usuários reais da comunidade surda.
 
 \vspace{\onelineskip}
 
@@ -330,7 +331,7 @@ O fluxo de filtragem decorrente da aplicação desses critérios, desde o volume
 \section{Fundamentos}
 \label{sec:fundamentos}
 
-Este tópico apresenta os principais fundamentos teóricos e tecnológicos que sustentam o desenvolvimento do sistema proposto. Inicialmente, são discutidos os datasets utilizados e as técnicas de pré-processamento aplicadas aos dados. Em seguida, são abordados os conceitos de visão computacional, MediaPipe e landmarks, responsáveis pela captura e representação dos sinais em Libras. Posteriormente, são apresentados os fundamentos de deep learning, incluindo redes neurais convolucionais (CNN) e redes LSTM, utilizadas no reconhecimento de sinais estáticos e dinâmicos. Por fim, são discutidos os conceitos de processamento de linguagem natural (NLP), árvores de dependência sintática, modelos de linguagem de grande escala (LLM) e as métricas de avaliação empregadas no sistema.
+Este tópico apresenta os principais fundamentos teóricos e tecnológicos que sustentam o desenvolvimento do sistema proposto. Inicialmente, estabelece-se o panorama macro através dos conceitos de Inteligência Artificial e \textit{Machine Learning}, delimitando o paradigma computacional adotado. Em seguida, são abordados os conceitos de visão computacional, MediaPipe e landmarks, responsáveis pela captura e representação dos sinais em Libras. Posteriormente, detalha-se o universo do \textit{Deep Learning}, incluindo o funcionamento de redes CNN e redes LSTM, aplicadas no reconhecimento de sinais estáticos e dinâmicos. Por fim, são discutidos os conceitos de Processamento de Linguagem Natural (PLN), as árvores de dependência sintática, os Modelos de Linguagem de Grande Escala (LLM) e as métricas de avaliação empregadas no sistema.
 
 \subsection{Inteligência Artificial}
 
@@ -387,6 +388,16 @@ Outro aspecto relevante é a padronização dos dados de entrada, garantindo que
 Também é importante o balanceamento de classes. Em datasets de reconhecimento de sinais, é comum que determinadas classes possuam um número de amostras significativamente maior do que outras. Quando treinado sobre dados desbalanceados, o modelo tende a favorecer as classes com maior quantidade, comprometendo o desempenho nas classes menor quantidade \cite{Chawla2002}. 
 
 Além disso, a integração dos três pode ampliar desequilíbrios, visto que as interseções de vocabulário entre eles são parciais e as quantidades de amostras por sinal diferem. Para mitigar esse problema, serão adotadas estratégias complementares: \textit{data augmentation} (espelhamento, rotações e variações de velocidade dos vídeos) para aumentar as classes minoritárias; SMOTE (\textit{Synthetic Minority Over-sampling Technique}), aplicado sobre os vetores de \textit{landmarks} extraídos pelo MediaPipe, e não diretamente sobre pixels, gerando exemplos sintéticos por interpolação entre amostras próximas no espaço de características \cite{Chawla2002}; e ponderação de classes na função de perda durante o treinamento, penalizando mais os erros cometidos nas classes menos frequentes \cite{Goodfellow2016}.
+
+A Figura \ref{fig:data_augmentation} apresenta exemplos de técnicas de \textit{data augmentation}, nas quais uma mesma imagem é transformada por operações como espelhamento, rotação, alteração de contraste e exposição. Essas transformações aumentam artificialmente a diversidade do conjunto de treinamento, reduzindo problemas de sobreajuste (\textit{overfitting}) e melhorando a capacidade de generalização dos modelos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{./figuras/data-augmentation-image-augment.png}
+    \caption{Exemplo de técnicas de \textit{Data Augmentation} aplicadas a uma imagem original.}
+    \label{fig:data_augmentation}
+    \noindent\footnotesize{Fonte: Adaptado IBM Think (2025).}
+\end{figure}
 
 \subsection{Visão Computacional}
 
@@ -624,6 +635,16 @@ Para validar essa integração, a eficiência do LLM será avaliada tanto pela m
 A acurácia é uma das métricas mais fundamentais para a avaliação de modelos de classificação. Ela expressa a proporção de predições corretas em relação ao total de exemplos avaliados, oferecendo uma visão geral do desempenho do sistema \cite{Goodfellow2016}. Apesar de sua interpretação direta, a acurácia isolada pode ser insuficiente em contextos com muitas classes, pois não revela quais sinais estão sendo confundidos entre si, informação essencial para o refinamento do modelo.
 
 Para suprir essa limitação, utiliza-se a matriz de confusão, uma representação tabular que cruza as classes reais com as classes preditas. Cada célula indica quantas amostras de uma determinada classe foram classificadas como outra, permitindo identificar padrões de erro específicos. Por exemplo, quais pares de sinais o modelo tende a confundir com maior frequência devido à semelhança na configuração de mão ou no movimento \cite{Goodfellow2016}. A partir dela, derivam-se ainda métricas complementares como precisão e \textit{recall}, que expõem desequilíbrios de desempenho entre as classes de forma mais granular.
+
+A estrutura básica de uma matriz de confusão pode ser observada na Figura \ref{fig:matriz_confusao}. Nela, os resultados de classificação são organizados em verdadeiros positivos (VP), verdadeiros negativos (VN), falsos positivos (FP) e falsos negativos (FN), permitindo uma análise detalhada dos acertos e erros cometidos pelo modelo durante o processo de classificação.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./figuras/matrizConfusao.png}
+    \caption{Estrutura conceitual de uma matriz de confusão.}
+    \label{fig:matriz_confusao}
+    \noindent\footnotesize{Fonte: Adaptado de Nogare (2020).}
+\end{figure}
 
 No escopo desta pesquisa, a acurácia e a matriz de confusão serão utilizadas para avaliar o módulo de visão computacional, tanto na classificação de sinais estáticos pela CNN quanto no reconhecimento de sinais dinâmicos pela LSTM. A análise conjunta dessas métricas permitirá identificar os sinais com maior taxa de erro e orientar ajustes no modelo ou na composição do dataset de treinamento.
 
