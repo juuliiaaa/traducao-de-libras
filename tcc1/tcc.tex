@@ -118,7 +118,7 @@
 % ---------------------------------------------------------------
 \begin{resumo}
 
-Este trabalho propõe um sistema inteligente de tradução da Língua Brasileira de Sinais (Libras) para a língua portuguesa, integrando visão computacional, \textit{deep learning} e modelos de linguagem em um \textit{pipeline} unificado. A motivação parte da barreira comunicacional existente entre a comunidade surda e ouvintes, agravada pelo número reduzido de intérpretes disponíveis em situações cotidianas. A revisão bibliográfica abrange os fundamentos da Libras, técnicas de visão computacional com MediaPipe, arquiteturas de redes neurais convolucionais (CNN) e recorrentes (LSTM), processamento de linguagem natural com spaCy e modelos de linguagem de grande escala (LLM). A solução proposta é composta por quatro camadas: captura simultânea de \textit{landmarks} manuais e faciais via MediaPipe, classificação gestual por CNN e LSTM, reorganização sintática por NLP e refinamento linguístico por LLM, produzindo frases gramaticalmente coerentes em português. O sistema foca em um domínio vocabular específico, selecionado a partir da análise dos datasets MINDS-Libras, V-Librasil e Libras Brazilian Sign Language. O desempenho será avaliado por acurácia, matriz de confusão, métrica BLEU, análise de latência e validação com usuários reais da comunidade surda.
+Este trabalho propõe um sistema inteligente de tradução da Língua Brasileira de Sinais (Libras) para a língua portuguesa, integrando visão computacional, \textit{deep learning} e modelos de linguagem em um \textit{pipeline} unificado. A motivação parte da barreira comunicacional existente entre a comunidade surda e ouvintes, agravada pelo número reduzido de intérpretes disponíveis em situações cotidianas. A revisão bibliográfica abrange os fundamentos da Libras, técnicas de visão computacional com MediaPipe, arquiteturas de redes neurais convolucionais (CNN) e recorrentes (LSTM), processamento de linguagem natural com spaCy e modelos de linguagem de grande escala (LLM). A solução proposta é composta por quatro camadas: captura simultânea de \textit{landmarks} manuais e faciais via MediaPipe, classificação gestual por CNN e LSTM, reorganização sintática por NLP e refinamento linguístico por LLM, produzindo frases gramaticalmente coerentes em português. O sistema foca em um domínio vocabular específico, selecionado a partir da análise dos \textit{datasets} MINDS-Libras, V-Librasil e Libras Brazilian Sign Language. O desempenho será avaliado por acurácia, matriz de confusão, métrica BLEU, análise de latência e validação com usuários reais da comunidade surda.
 
 \vspace{\onelineskip}
 
@@ -232,7 +232,7 @@ Alguma dificuldade & 8.462.304 & 149.364 & 8.312.939 \\
 Muita dificuldade & 2.127.560 & 64.043 & 2.063.517 \\
 Não consegue ouvir de modo algum & 197.594 & 70.731 & 126.863 \\ \hline
 \end{tabularx}
-\noindent\footnotesize{\newline \textbf{Fonte:} Adaptado de IBGE - Pesquisa Nacional de Saúde (Tabela 8223).}
+\noindent\footnotesize{\newline \textbf{Fonte:} Adaptado de \citeonline{IBGE2019} - Pesquisa Nacional de Saúde (Tabela 8223).}
 \end{table}
 
 % ---------------------------------------------------------------
@@ -268,7 +268,7 @@ Implementar um sistema computacional capaz de reconhecer sinais da Língua Brasi
 
 \begin{enumerate}
     \item Realizar levantamento bibliográfico sobre reconhecimento de gestos em Libras, arquiteturas de redes neurais convolucionais e recorrentes, processamento de linguagem natural e modelos de linguagem de grande escala aplicados à tradução;
-    \item Selecionar, estruturar e pré-processar os datasets de Libras, aplicando técnicas de divisão de dados, \textit{data augmentation}, SMOTE e ponderação de classes para garantir a qualidade do treinamento;
+    \item Selecionar, estruturar e pré-processar os \textit{datasets} de Libras, aplicando técnicas de divisão de dados, \textit{data augmentation}, SMOTE e ponderação de classes para garantir a qualidade do treinamento;
     \item Projetar a arquitetura híbrida do sistema, integrando o módulo de visão computacional baseado em MediaPipe, CNN e LSTM ao módulo de NLP implementado com spaCy e refinamento via LLM;
     \item Implementar um protótipo funcional do pipeline completo de tradução, desde a captura de vídeo via câmera até a exibição da frase traduzida em português na interface do usuário;
     \item Validar o desempenho do sistema por meio de métricas quantitativas de acurácia e matriz de confusão para o módulo de reconhecimento gestual, métrica BLEU para a qualidade linguística das traduções, e análise de latência para verificar a viabilidade do uso em tempo de execução.
@@ -417,9 +417,9 @@ No contexto deste projeto, a visão computacional constitui a primeira e mais cr
 
 \subsection{Datasets}
 
-No desenvolvimento de modelos de \textit{Deep Learning}, o dataset (base de dados) constitui o pilar fundamental para o treinamento e a validação do sistema. Segundo \citeonline{Schmidhuber2014}, a eficácia de arquiteturas complexas como CNNs e LSTMs depende diretamente da disponibilidade de grandes volumes de dados rotulados, que permitem ao modelo aprender representações estatísticas precisas e generalizáveis.
+No desenvolvimento de modelos de \textit{Deep Learning}, o \textit{dataset} (base de dados) constitui o pilar fundamental para o treinamento e a validação do sistema. Segundo \citeonline{Schmidhuber2014}, a eficácia de arquiteturas complexas como CNNs e LSTMs depende diretamente da disponibilidade de grandes volumes de dados rotulados, que permitem ao modelo aprender representações estatísticas precisas e generalizáveis.
 
-No contexto do reconhecimento de Libras, os datasets apresentam desafios devido à natureza multimodal da língua. Um \textit{dataset} robusto para este fim deve conter não apenas imagens isoladas, mas sequências de vídeo que capturem a dinâmica dos sinais. De acordo com \citeonline{Silva2017}, a diversidade dos dados é crucial para mitigar problemas de overfitting, ou seja, a perda de capacidade de generalização do sistema por memorização exaustiva dos dados de treinamento, garantindo que o sistema seja capaz de reconhecer gestos realizados por diferentes usuários, com variações em:
+No contexto do reconhecimento de Libras, os \textit{datasets} apresentam desafios devido à natureza multimodal da língua. Um \textit{dataset} robusto para este fim deve conter não apenas imagens isoladas, mas sequências de vídeo que capturem a dinâmica dos sinais. De acordo com \citeonline{Silva2017}, a diversidade dos dados é crucial para mitigar problemas de overfitting, ou seja, a perda de capacidade de generalização do sistema por memorização exaustiva dos dados de treinamento, garantindo que o sistema seja capaz de reconhecer gestos realizados por diferentes usuários, com variações em:
 
 \begin{itemize}
     \item {Antropometria:} Diferenças no tamanho, cor, formato das mãos e traços faciais dos sinalizadores;
@@ -427,9 +427,9 @@ No contexto do reconhecimento de Libras, os datasets apresentam desafios devido 
     \item {Execução do Sinal:} Diferenças na velocidade, amplitude e fluidez do movimento, que impactam diretamente a análise temporal das redes LSTM.
 \end{itemize}
 
-Os três datasets adotados neste projeto apresentam diversidade de dados a esse respeito: o MINDS-Libras conta com distribuição controlada, são 6 pessoas realizando 5 repetições de cada um dos 20 sinais, resultando em classes uniformes \cite{Rezende2021}; o V-Librasil possui estrutura regular, com 3 gravações por sinal para cada um dos 1.364 termos \cite{Rodrigues2021}; já o dataset Libras Brazilian Sign Language, composto por imagens estáticas do alfabeto manual, apresenta variação no número de amostras entre as classes, característica comum em datasets tratados a partir de fontes variadas \cite{Pas2020}. 
+Os três \textit{datasets} adotados neste projeto apresentam diversidade de dados a esse respeito: o MINDS-Libras conta com distribuição controlada, são 6 pessoas realizando 5 repetições de cada um dos 20 sinais, resultando em classes uniformes \cite{Rezende2021}; o V-Librasil possui estrutura regular, com 3 gravações por sinal para cada um dos 1.364 termos \cite{Rodrigues2021}; já o \textit{dataset} \textit{Libras Brazilian Sign Language}, composto por imagens estáticas do alfabeto manual, apresenta variação no número de amostras entre as classes, característica comum em \textit{datasets} tratados a partir de fontes variadas \cite{Pas2020}. 
 
-Além disso, a estruturação do dataset deve prever a divisão entre conjuntos de treinamento, validação e teste. Conforme explicam \citeonline{Goodfellow2016}, essa separação é o que permite avaliar a capacidade de generalização do algoritmo frente a dados nunca vistos, assegurando que o tradutor de Libras funcione corretamente em cenários do mundo real e não apenas em ambientes controlados de laboratório.
+Além disso, a estruturação do \textit{dataset} deve prever a divisão entre conjuntos de treinamento, validação e teste. Conforme explicam \citeonline{Goodfellow2016}, essa separação é o que permite avaliar a capacidade de generalização do algoritmo frente a dados nunca vistos, assegurando que o tradutor de Libras funcione corretamente em cenários do mundo real e não apenas em ambientes controlados de laboratório.
 
 \subsection{Pré-processamento de Dados}
 
@@ -444,12 +444,12 @@ Para ampliar a diversidade do conjunto de treinamento e reduzir problemas de \te
     \includegraphics[width=1.0\textwidth]{./figuras/data-augmentation-image-augment.png}
     \caption{Exemplo de técnicas de \textit{Data Augmentation} aplicadas a uma imagem original.}
     \label{fig:data_augmentation}
-    \noindent\footnotesize{Fonte: Adaptado IBM Think (2025).}
+    \noindent\footnotesize{Fonte: Adaptado \citeonline{murel2024data}.}
 \end{figure}
 
 Outro aspecto relevante é a padronização dos dados de entrada, garantindo que todas as imagens ou sequências possuam dimensões e formatos consistentes. Essa uniformidade é essencial para funcionamento correto das redes neurais, especialmente em modelos baseados em CNN e LSTM.
 
-Também é importante o balanceamento de classes. Em datasets de reconhecimento de sinais, é comum que determinadas classes possuam um número de amostras significativamente maior do que outras. Quando treinado sobre dados desbalanceados, o modelo tende a favorecer as classes com maior quantidade, comprometendo o desempenho nas classes com menor representatividade \cite{Chawla2002}. Para mitigar esse efeito, será adotada a ponderação de classes na função de perda durante o treinamento, penalizando mais os erros cometidos nas classes menos frequentes \cite{Goodfellow2016}.
+Também é importante o balanceamento de classes. Em \textit{datasets} de reconhecimento de sinais, é comum que determinadas classes possuam um número de amostras significativamente maior do que outras. Quando treinado sobre dados desbalanceados, o modelo tende a favorecer as classes com maior quantidade, comprometendo o desempenho nas classes com menor representatividade \cite{Chawla2002}. Para mitigar esse efeito, será adotada a ponderação de classes na função de perda durante o treinamento, penalizando mais os erros cometidos nas classes menos frequentes \cite{Goodfellow2016}.
 
 Para consolidar a regularização estatística do pipeline, aplica-se a técnica SMOTE (\textit{Synthetic Minority Over-sampling Technique}) sobre os vetores de \textit{landmarks} extraídos pelo MediaPipe, gerando exemplos sintéticos por interpolação matemática entre amostras próximas no espaço de características, sem manipular diretamente os pixels brutos \cite{Chawla2002}. Por fim, os dados serão divididos em conjuntos de treinamento, validação e teste, separação que, conforme explicam \citeonline{Goodfellow2016}, é o que permite avaliar a capacidade de generalização do modelo frente a dados nunca vistos, assegurando que o tradutor funcione corretamente em cenários reais e não apenas em ambientes controlados de laboratório.
 
@@ -705,7 +705,7 @@ A estrutura básica de uma matriz de confusão pode ser observada na Figura \ref
     \noindent\footnotesize{Fonte: Adaptado de \citeonline{Nogare2020}.}
 \end{figure}
 
-No escopo desta pesquisa, a acurácia e a matriz de confusão serão utilizadas para avaliar o módulo de visão computacional, tanto na classificação de sinais estáticos pela CNN quanto no reconhecimento de sinais dinâmicos pela LSTM. A análise conjunta dessas métricas permitirá identificar os sinais com maior taxa de erro e orientar ajustes no modelo ou na composição do dataset de treinamento.
+No escopo desta pesquisa, a acurácia e a matriz de confusão serão utilizadas para avaliar o módulo de visão computacional, tanto na classificação de sinais estáticos pela CNN quanto no reconhecimento de sinais dinâmicos pela LSTM. A análise conjunta dessas métricas permitirá identificar os sinais com maior taxa de erro e orientar ajustes no modelo ou na composição do \textit{dataset} de treinamento.
 
 Com essa abordagem, busca-se garantir que o sistema apresente desempenho equilibrado entre todos os sinais do vocabulário definido, e não apenas nas classes mais frequentes.
 
@@ -739,11 +739,11 @@ Dessa forma, busca-se garantir que a tradução ocorra de forma rápida e contí
 
 O estudo de \citeonline{Wang2025} investigou o problema da dificuldade de comunicação entre pessoas surdas e ouvintes, causada pela falta de compreensão da língua de sinais, o que impacta diretamente o acesso a serviços e interações sociais, o mesmo problema abordado neste trabalho.
 
-Para enfrentar essa questão, os autores desenvolveram um sistema de tradução de língua de sinais em tempo real, combinando técnicas de visão computacional, redes neurais convolucionais (CNN), redes recorrentes do tipo LSTM e processamento de linguagem natural. A metodologia incluiu a coleta e anotação de um dataset de gestos, seguido do treinamento de modelos capazes de reconhecer sinais e convertê-los em texto automaticamente.
+Para enfrentar essa questão, os autores desenvolveram um sistema de tradução de língua de sinais em tempo real, combinando técnicas de visão computacional, redes neurais convolucionais (CNN), redes recorrentes do tipo LSTM e processamento de linguagem natural. A metodologia incluiu a coleta e anotação de um \textit{dataset} de gestos, seguido do treinamento de modelos capazes de reconhecer sinais e convertê-los em texto automaticamente.
 
 Os resultados obtidos demonstraram uma precisão de 97\% no reconhecimento dos gestos, indicando que a abordagem é eficaz para cenários controlados. Além disso, o sistema mostrou potencial para melhorar a acessibilidade e a inclusão social.
 
-Entretanto, a solução apresenta limitações importantes, como a dependência de condições ambientais controladas (iluminação e fundo), a escassez de datasets amplos, e dificuldades em manter desempenho em tempo real. Também há restrições relacionadas à acessibilidade, especialmente em sistemas baseados na web que dependem de conexão com a internet.
+Entretanto, a solução apresenta limitações importantes, como a dependência de condições ambientais controladas (iluminação e fundo), a escassez de \textit{datasets} amplos, e dificuldades em manter desempenho em tempo real. Também há restrições relacionadas à acessibilidade, especialmente em sistemas baseados na web que dependem de conexão com a internet.
 
 Diferentemente desse trabalho, a presente pesquisa propõe uma abordagem mais integrada, ao não apenas reconhecer os sinais, mas também estruturá-los linguisticamente por meio de processamento de linguagem natural, buscando gerar frases coerentes em português, e não apenas transcrições diretas de sinais.
 
@@ -763,7 +763,7 @@ O presente trabalho avança em relação a essa proposta ao incorporar, além da
 
 \citeonline{Vyavahare2023} abordaram o desenvolvimento de um sistema para reconhecimento e interpretação da língua de sinais indiana (ISL) em tempo real, com o objetivo de reduzir a lacuna comunicacional entre pessoas com deficiência auditiva e a sociedade, problema equivalente ao tratado neste TCC.
 
-A solução proposta baseia-se no uso de técnicas de visão computacional para extração de características visuais, combinadas com redes neurais recorrentes do tipo LSTM, capazes de capturar dependências temporais em gestos dinâmicos. Os autores também criaram um dataset próprio, composto por vídeos anotados de usuários nativos de ISL.
+A solução proposta baseia-se no uso de técnicas de visão computacional para extração de características visuais, combinadas com redes neurais recorrentes do tipo LSTM, capazes de capturar dependências temporais em gestos dinâmicos. Os autores também criaram um \textit{dataset} próprio, composto por vídeos anotados de usuários nativos de ISL.
 
 Os resultados experimentais indicaram um desempenho elevado, com 96\% de acurácia no treinamento e 87\% no teste, evidenciando a capacidade do modelo em reconhecer padrões gestuais dinâmicos.
 
@@ -804,7 +804,7 @@ Este trabalho se diferencia ao propor uma solução que vai além do reconhecime
         & Sensível à iluminação e dependência de conexão web. 
         & Classificação restrita a sinais/palavras isoladas. 
         & Não interpreta frases completas ou contexto linguístico. 
-        & Dependência de dataset abrangente para diversidade de sinais. \\
+        & Dependência de \textit{dataset} abrangente para diversidade de sinais. \\
         \bottomrule
     \end{tabular}
     \\
@@ -933,12 +933,12 @@ As escolhas tecnológicas foram feitas visando o alto desempenho em processament
 Para atingir os objetivos propostos, o sistema disponibilizará as seguintes funcionalidades:
 \begin{itemize}
     \item Captura de Sinais em Tempo Real: Processamento de vídeo via câmera com baixa latência.
-    \item Reconhecimento de Sinais Estáticos e Dinâmicos: Capacidade de traduzir desde o alfabeto manual, como o da Figura~\ref{fig:alfabetoLibras}, até gestos complexos em movimento.
+    \item Reconhecimento de Sinais Estáticos e Dinâmicos: Capacidade de traduzir desde o alfabeto manual, como o da Figura \ref{fig:alfabetoLibras}, até gestos complexos em movimento.
     \begin{figure}[H]
         \centering
-        \label{fig:alfabetoLibras}
-        \caption{Alfabeto de Libras.} 
         \includegraphics[width=0.8\textwidth]{./figuras/alfabetoLibras.jpg}
+        \caption{Alfabeto de Libras.} 
+        \label{fig:alfabetoLibras}
         \fonte{\citeonline{Nascimento2018}.}
     \end{figure}
     \item Tradução Sintática: Reorganização de sentenças da estrutura Libras para a estrutura SVO do português.
@@ -988,7 +988,7 @@ O cronograma a seguir apresenta, no formato de diagrama de Gantt, as atividades 
             \ganttgroup{Fase 1: Planejamento}{1}{4} \\
             \ganttbar{Revisão bibliográfica}{1}{2} \\
             \ganttbar{Requisitos do sistema}{2}{3} \\
-            \ganttbar{Análise do dataset}{2}{4} \\
+            \ganttbar{Análise do \textit{dataset}}{2}{4} \\
             \ganttbar{Projeto da arquitetura}{3}{4} \\
             \ganttmilestone{Entrega projeto}{4} \\
 
