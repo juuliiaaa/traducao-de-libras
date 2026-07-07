@@ -63,7 +63,7 @@
 % ---------------------------------------------------------------
 % INFORMAÇÕES DO DOCUMENTO
 % ---------------------------------------------------------------
-\titulo{Sistema Inteligente de Tradução de Libras Utilizando Visão Computacional e Processamento de Linguagem Natural}
+\titulo{Sistema de Tradução de Libras Utilizando Visão Computacional e Processamento de Linguagem Natural}
 \autor{Júlia Almeida Leite \\ Maria Eduarda Mariano Coelho}
 \local{São Paulo}
 \data{2026}
@@ -118,7 +118,7 @@
 % ---------------------------------------------------------------
 \begin{resumo}
 
-Este trabalho propõe um sistema inteligente de tradução da Língua Brasileira de Sinais (Libras) para a língua portuguesa, integrando visão computacional, \textit{deep learning} e modelos de linguagem em um \textit{pipeline} unificado. A motivação parte da barreira comunicacional existente entre a comunidade surda e ouvintes, agravada pelo número reduzido de intérpretes disponíveis em situações cotidianas. A revisão bibliográfica abrange os fundamentos da Libras, técnicas de visão computacional com MediaPipe, arquiteturas de redes neurais convolucionais (CNN) e recorrentes (LSTM), processamento de linguagem natural com spaCy e modelos de linguagem de grande escala (LLM). A solução proposta é composta por quatro camadas: captura simultânea de \textit{landmarks} manuais e faciais via MediaPipe, classificação gestual por CNN e LSTM, reorganização sintática por NLP e refinamento linguístico por LLM, produzindo frases gramaticalmente coerentes em português. O sistema foca em um domínio vocabular específico, selecionado a partir da análise dos \textit{datasets} MINDS-Libras, V-Librasil e Libras Brazilian Sign Language. O desempenho será avaliado por acurácia, matriz de confusão, métrica BLEU, análise de latência e validação com usuários reais da comunidade surda.
+Este trabalho propõe um sistema inteligente de tradução da Língua Brasileira de Sinais (Libras) para a língua portuguesa, integrando visão computacional, \textit{deep learning} e modelos de linguagem em um \textit{pipeline} unificado. A motivação parte da barreira comunicacional existente entre a comunidade surda e ouvintes, agravada pelo número reduzido de intérpretes disponíveis em situações cotidianas. A revisão bibliográfica abrange os fundamentos da Libras, técnicas de visão computacional com MediaPipe, arquiteturas de redes neurais convolucionais (CNN) e recorrentes (LSTM), processamento de linguagem natural com spaCy e Modelos de Linguagem de Grande Escala (LLM). A solução proposta é composta por quatro camadas: captura simultânea de \textit{landmarks} manuais e faciais via MediaPipe, classificação gestual por CNN e LSTM, reorganização sintática por NLP e refinamento linguístico por LLM, produzindo frases gramaticalmente coerentes em português. O sistema foca em um domínio vocabular específico, selecionado a partir da análise dos \textit{datasets} MINDS-Libras, V-Librasil e Libras Brazilian Sign Language. O desempenho será avaliado por acurácia, matriz de confusão, métrica BLEU, análise de latência e validação com usuários reais da comunidade surda.
 
 \vspace{\onelineskip}
 
@@ -235,6 +235,13 @@ Não consegue ouvir de modo algum & 197.594 & 70.731 & 126.863 \\ \hline
 \noindent\footnotesize{\newline \textbf{Fonte:} Adaptado de \citeonline{IBGE2019} - Pesquisa Nacional de Saúde (Tabela 8223).}
 \end{table}
 
+A \citeonline{AgenciaBrasil2021}, em 2019, investigou o conhecimento de Libras também na população em geral, independentemente de a pessoa ter ou não algum tipo de deficiência, 2,4\% da população brasileira com cinco anos ou mais de idade, o equivalente a 4,6 milhões de pessoas, sabia usar a Libras.
+
+O IBGE não divulga diretamente o recorte de quantas dessas pessoas não possuem dificuldade auditiva; entretanto, subtraindo desse total as 284.138 pessoas com algum grau de dificuldade auditiva que dominam Libras, é possível estimar que aproximadamente 4,3 milhões de pessoas ouvintes também conheçam a língua. 
+
+Essa estimativa reforça a dimensão do abismo comunicacional: mesmo somando ouvintes e surdos sinalizantes, o conhecimento de Libras permanece concentrado em uma pequena fração da população brasileira.
+
+
 % ---------------------------------------------------------------
 \section{Justificativa}
 \label{sec:justificativa}
@@ -243,11 +250,11 @@ A comunicação é fundamental para a inclusão social e para a participação d
 
 Do ponto de vista acadêmico, este trabalho se insere na área de Ciência da Computação ao combinar técnicas de visão computacional e processamento de linguagem natural em uma mesma solução. Trata-se de um problema que envolve desde o reconhecimento de movimentos e gestos até a construção de frases compreensíveis em português. Além disso, lidar com dados visuais em sequência e interpretar corretamente os sinais são desafios relevantes, o que torna a proposta interessante como estudo e desenvolvimento na área de inteligência artificial aplicada.
 
-Em relação à prática, a proposta pode trazer benefícios concretos, principalmente para a comunidade surda. Um sistema capaz de traduzir Libras pode ajudar a diminuir a dependência de intérpretes em situações cotidianas, como atendimentos, ambientes educacionais ou interações básicas. Com isso, há um ganho em autonomia e acessibilidade, além de ampliar as possibilidades de comunicação em diferentes contextos.
+Em relação à prática, a proposta pode trazer benefícios concretos, principalmente para a comunidade surda. Um sistema capaz de traduzir Libras pode ampliar as possibilidades de comunicação direta entre pessoas surdas e ouvintes em situações cotidianas, como atendimentos, ambientes educacionais ou interações básicas, especialmente em contextos nos quais um intérprete humano não esteja prontamente disponível. Não se trata de substituir o trabalho do intérprete de Libras, profissional insubstituível pela sensibilidade cultural, contextual e ética que sua atuação exige, mas de oferecer um recurso tecnológico complementar, que amplie a autonomia da pessoa surda e as possibilidades de comunicação em diferentes contextos.
 
 Apesar de já existirem pesquisas nessa área, ainda há aspectos que podem ser melhor explorados. Muitos trabalhos focam no reconhecimento de sinais isolados, sem considerar de forma mais ampla o contexto da comunicação. Além disso, ainda são limitados os estudos que integram todo o processo, desde a identificação dos gestos até a formação de frases com sentido em português.
 
-Portanto, este trabalho busca avançar nesse quesito ao propor uma solução mais integrada, que não se limite apenas ao reconhecimento individual de sinais, mas que também considere a construção da linguagem. A intenção é contribuir tanto para a área acadêmica quanto para a sociedade, explorando uma aplicação prática da inteligência artificial voltada à acessibilidade.
+Portanto, este trabalho propõe uma solução mais integrada, que não se limite apenas ao reconhecimento individual de sinais, mas que também considere a construção da linguagem. A intenção é contribuir tanto para a área acadêmica quanto para a sociedade, explorando uma aplicação prática da inteligência artificial voltada à acessibilidade.
 
 % ---------------------------------------------------------------
 \section{Hipótese}
@@ -262,7 +269,7 @@ A utilização de uma arquitetura híbrida baseada em CNN, LSTM, NLP e LLM viabi
 Os objetivos deste trabalho estão voltados para o desenvolvimento de uma solução capaz de auxiliar na comunicação entre pessoas surdas e ouvintes por meio da tradução de Libras. Para isso, define-se um objetivo principal que orienta a proposta geral do sistema, enquanto os objetivos secundários detalham as etapas necessárias para sua construção, incluindo desde o levantamento bibliográfico até a implementação e avaliação da solução.
 
 \subsection{Objetivo principal}
-Implementar um sistema computacional capaz de reconhecer sinais da Língua Brasileira de Sinais (Libras) por meio de visão computacional e traduzi-los em frases gramaticalmente coerentes em língua portuguesa, utilizando técnicas de processamento de linguagem natural e modelos de linguagem de grande escala.
+Implementar um sistema computacional capaz de reconhecer sinais da Língua Brasileira de Sinais (Libras) por meio de visão computacional e traduzi-los em frases gramaticalmente coerentes em língua portuguesa, utilizando técnicas de processamento de linguagem natural e modelos de linguagem de grande escala, a fim de reduzir a barreira comunicacional entre pessoas surdas e ouvintes e ampliar a autonomia e a acessibilidade da comunidade surda em situações cotidianas.
 
 \subsection{Objetivos secundários}
 
@@ -290,11 +297,77 @@ Neste capítulo, são apresentados os conceitos fundamentais necessários para o
 
 De acordo com a \citeonline{Brasil2005}, Língua Brasileira de Sinais (Libras) é uma língua natural, completa e autônoma, utilizada pela comunidade surda no Brasil, reconhecida pela Lei nº 10.436/2002 e regulamentada pelo Decreto nº 5.626/2005 como meio legal de comunicação e expressão. Possui estrutura gramatical própria, independente da Língua Portuguesa, e está inserida em um contexto cultural e linguístico específico da comunidade surda.
 
+O reconhecimento legal da Libras não ocorreu de forma isolada, mas como parte de um processo gradual de consolidação de direitos linguísticos e de acessibilidade para a comunidade surda, que se estende por mais de uma década. A Figura \ref{fig:linha_tempo_libras} sintetiza os principais marcos dessa trajetória legislativa, desde o reconhecimento da Libras como meio legal de comunicação, em 2002, até o fortalecimento das políticas de acessibilidade previstas na Lei Brasileira de Inclusão da Pessoa com Deficiência, em 2015.
+ 
+\begin{figure}[htbp]
+\centering
+\caption{Linha do tempo da legislação brasileira sobre a Libras.}
+\label{fig:linha_tempo_libras}
+\begin{tikzpicture}[
+  every node/.style={font=\footnotesize},
+  dot/.style={circle, fill=black, minimum size=4pt, inner sep=0pt}
+]
+  % Eixo principal
+  \draw[thick, -{Stealth}] (0,0) -- (13,0);
+ 
+  % 2002 - acima
+  \node[dot] (d1) at (1.5,0) {};
+  \draw (d1) -- ++(0,0.5);
+  \node[font=\bfseries\small] at (1.5,0.75) {2002};
+  \node[align=center, text width=3.1cm] at (1.5,1.9) {Lei n\textordmasculine{} 10.436\\[2pt]Reconhece a Libras como meio legal de comunicação e expressão};
+ 
+  % 2005 - abaixo
+  \node[dot] (d2) at (5,0) {};
+  \draw (d2) -- ++(0,-0.5);
+  \node[font=\bfseries\small] at (5,-0.75) {2005};
+  \node[align=center, text width=3.1cm] at (5,-1.9) {Decreto n\textordmasculine{} 5.626\\[2pt]Regulamenta a Lei 10.436; institui a Libras como disciplina curricular};
+ 
+  % 2010 - acima
+  \node[dot] (d3) at (8.5,0) {};
+  \draw (d3) -- ++(0,0.5);
+  \node[font=\bfseries\small] at (8.5,0.75) {2010};
+  \node[align=center, text width=3.1cm] at (8.5,1.9) {Lei n\textordmasculine{} 12.319\\[2pt]Regulamenta a profissão de tradutor e intérprete de Libras};
+ 
+  % 2015 - abaixo
+  \node[dot] (d4) at (12,0) {};
+  \draw (d4) -- ++(0,-0.5);
+  \node[font=\bfseries\small] at (12,-0.75) {2015};
+  \node[align=center, text width=3.1cm] at (12,-1.9) {Lei n\textordmasculine{} 13.146 (LBI)\\[2pt]Reforça a acessibilidade e o uso da Libras em diferentes contextos};
+\end{tikzpicture}
+\noindent\footnotesize{\newline \textbf{Fonte:} Elaborado pelos autores com base em \citeonline{Brasil2002}, \citeonline{Brasil2005}, \citeonline{Brasil2010} e \citeonline{Brasil2015}.}
+\end{figure}
+
+A Lei nº 10.436/2002 foi o marco inicial desse processo. Antes de sua promulgação, a Libras não possuía qualquer status legal no Brasil, o que contribuía para a invisibilidade da língua e para a marginalização de seus usuários em contextos escolares, de saúde e de serviços públicos. 
+
+A lei é sucinta, mas simbolicamente decisiva: reconhece a Libras como meio legal de comunicação e expressão da comunidade surda brasileira, determina que o poder público deve apoiar seu uso e difusão, e prevê que sistemas educacionais devam garantir formas de apoiar seu ensino. 
+
+É importante destacar que a própria lei ressalva que a Libras não substitui a modalidade escrita da Língua Portuguesa, ou seja, o objetivo não é sobrepor uma língua à outra, mas garantir a coexistência de ambas na vida da pessoa surda.
+ 
+O Decreto nº 5.626/2005 surgiu justamente para dar efetividade prática à Lei nº 10.436/2002, que, por si só, não estabelecia mecanismos concretos de implementação. O decreto foi responsável por tornar a Libras disciplina curricular obrigatória nos cursos de licenciatura e nos cursos de Fonoaudiologia em todo o país, estabelecendo prazos e percentuais mínimos de adesão das instituições de ensino.
+
+Além disso, criou critérios para a formação e certificação de professores, instrutores e tradutores/intérpretes de Libras, inclusive por meio de exames de proficiência (Prolibras), e assegurou o direito à educação bilíngue para pessoas surdas, com a Libras como primeira língua e o português escrito como segunda língua. 
+
+Em outras palavras, o decreto transformou o reconhecimento simbólico de 2002 em obrigações concretas para as instituições de ensino, sendo considerado um divisor de águas para a formação de profissionais qualificados em Libras no Brasil.
+ 
+A Lei nº 12.319/2010 avançou em uma frente diferente: a profissionalização do intérprete. Até então, a atuação de tradutores e intérpretes de Libras carecia de regulamentação formal, o que dificultava o reconhecimento da categoria e a garantia de padrões mínimos de qualificação e conduta ética. 
+
+A lei define as competências do tradutor e intérprete de Libras, os requisitos mínimos de formação (nível médio ou superior, complementados por exame de proficiência), e as atribuições do profissional, que vão desde a interpretação em salas de aula e concursos públicos até o apoio em depoimentos judiciais. 
+
+Também estabelece princípios éticos de atuação, como imparcialidade, sigilo e respeito à cultura surda. Essa regulamentação foi fundamental para consolidar o intérprete de Libras como uma carreira reconhecida, ampliando a oferta de profissionais qualificados nos mais diversos contextos sociais.
+ 
+Por fim, a Lei nº 13.146/2015, conhecida como Lei Brasileira de Inclusão da Pessoa com Deficiência (LBI) ou Estatuto da Pessoa com Deficiência, inspirada na Convenção sobre os Direitos das Pessoas com Deficiência da ONU, não trata exclusivamente da Libras, mas insere a língua em um arcabouço mais amplo de direitos à acessibilidade comunicacional. 
+
+A LBI reforça, entre outros pontos, o direito à educação bilíngue, a obrigatoriedade de intérpretes de Libras em instituições de ensino superior, a disponibilização de recursos de acessibilidade em serviços de saúde, eventos culturais e científicos, e a formação continuada de tradutores e intérpretes pelo poder público. 
+
+Ao consolidar, em uma única lei nacional, direitos que antes estavam dispersos em normas variadas, a LBI ampliou a exigibilidade da Libras como direito de acessibilidade em praticamente todas as esferas da vida social.
+
 Do ponto de vista linguístico, a Libras pertence à modalidade visual-espacial, caracterizando-se pela capacidade de expressar múltiplos blocos de informação simultaneamente por meio da combinação de sinais, movimentos e expressões faciais. Esse modelo contrapõe-se diretamente à modalidade oral-auditiva da língua portuguesa, cuja estrutura é essencialmente linear e baseada na organização de elementos em uma sequência fonética e temporal fixa.
 
 As expressões faciais e corporais possuem papel fundamental na Libras, não sendo utilizadas apenas para transmitir emoções, mas também como elementos gramaticais da língua. Conhecidas como Expressões Não Manuais (ENM), elas complementam os sinais realizados com as mãos e auxiliam na construção do significado das frases \cite{Quadros2004}. Em muitos casos, a ausência dessas expressões pode dificultar a compreensão ou até alterar o sentido do enunciado.
 
 Diferentes movimentos do rosto podem indicar intenções comunicativas específicas. Expressões faciais associadas ao movimento das sobrancelhas, por exemplo, podem marcar perguntas, negações e intensificações, funcionando como elementos linguísticos da estrutura da Libras \cite{Brito1995}. Além disso, movimentos da boca, direção do olhar e expressões corporais também contribuem para a construção da mensagem e para a fluidez da comunicação.
+
+No nível fonológico, os sinais são formados por parâmetros básicos, conforme detalhado na Figura~\ref{fig:sinais}: a configuração de mão (CM), o movimento (M), a locação (L), a orientação (Or) e as expressões não manuais (ENM). A combinação desses elementos forma os sinais, e mudanças em qualquer um desses parâmetros podem alterar o significado.
 
 \begin{figure}[H]
     \centering
@@ -303,8 +376,6 @@ Diferentes movimentos do rosto podem indicar intenções comunicativas específi
     \label{fig:sinais}
     \fonte{\citeonline{Felipe2013}.}
 \end{figure}
-
-No nível fonológico, os sinais são formados por parâmetros básicos, conforme detalhado na Figura~\ref{fig:sinais}: a configuração de mão (CM), o movimento (M), a locação (L), a orientação (Or) e as expressões não manuais (ENM). A combinação desses elementos forma os sinais, e mudanças em qualquer um desses parâmetros podem alterar o significado.
 
 Estudos mostram que as línguas de sinais possuem as mesmas propriedades das línguas naturais, como criatividade, organização por regras e capacidade de expressar qualquer tipo de conteúdo \cite{Quadros2004}.
 
@@ -338,7 +409,7 @@ Essas diferenças impactam diretamente o processo de tradução. Elementos comun
 \section{Metodologia da pesquisa bibliográfica}
 \label{sec:metodologia_pesquisa}
 
-A pesquisa bibliográfica foi realizada nas bases Google Scholar, utilizando as seguintes palavras-chave em português e inglês: \textit{``Libras''} AND \textit{``Deep Learning''} AND \textit{``Visão Computacional''}, \textit{``Reconhecimento de sinais''} AND \textit{``Libras''} AND (\textit{``CNN''} OR \textit{``LSTM''}) e \textit{``Língua Brasileira de Sinais''} AND \textit{``Acessibilidade''} AND \textit{``Redes Neurais''}.
+A pesquisa bibliográfica foi realizada nas bases Google Scholar, utilizando as seguintes palavras-chave em português e inglês: \textit{``Libras''} AND \textit{``Deep Learning''} AND \textit{``Visão Computacional''}, \textit{``Reconhecimento de sinais''} AND \textit{``Libras''} AND (\textit{``CNN''} OR \textit{``LSTM''}), \textit{``Língua Brasileira de Sinais''} AND \textit{``Acessibilidade''} AND \textit{``Redes Neurais''} e \textit{``Tradução''} AND \textit{``Libras''} AND \textit{``Processamento de Linguagem Natural''}.
 
 Foram selecionados artigos publicados entre 2021 e 2026, em português e inglês, que abordassem diretamente o reconhecimento automático de sinais, técnicas de visão computacional aplicadas à Libras e métodos de processamento de linguagem natural voltados à tradução de linguagem de sinais.
 
@@ -364,7 +435,7 @@ O fluxo de filtragem decorrente da aplicação desses critérios, desde o volume
 \section{Fundamentos}
 \label{sec:fundamentos}
 
-Este tópico apresenta os principais fundamentos teóricos e tecnológicos que sustentam o desenvolvimento do sistema proposto. Inicialmente, estabelece-se o panorama através dos conceitos de Inteligência Artificial e \textit{Machine Learning}, delimitando o paradigma computacional adotado. Em seguida, são abordados os conceitos de visão computacional, MediaPipe e \textit{landmarks}, responsáveis pela captura e representação dos sinais em Libras. Posteriormente, detalha-se o universo do \textit{Deep Learning}, incluindo o funcionamento de redes CNN e redes LSTM, aplicadas no reconhecimento de sinais estáticos e dinâmicos. Por fim, são discutidos os conceitos de Processamento de Linguagem Natural (NLP), as árvores de dependência sintática, os Modelos de Linguagem de Grande Escala (LLM) e as métricas de avaliação empregadas no sistema.
+Este capítulo apresenta os principais fundamentos teóricos e tecnológicos que sustentam o desenvolvimento do sistema proposto. Inicialmente, estabelece-se o panorama através dos conceitos de Inteligência Artificial e \textit{Machine Learning}, delimitando o paradigma computacional adotado. Em seguida, são abordados os conceitos de visão computacional, MediaPipe e \textit{landmarks}, responsáveis pela captura e representação dos sinais em Libras. Posteriormente, detalha-se o universo do \textit{Deep Learning}, incluindo o funcionamento de redes CNN e redes LSTM, aplicadas no reconhecimento de sinais estáticos e dinâmicos. Por fim, são discutidos os conceitos de Processamento de Linguagem Natural (NLP), as árvores de dependência sintática, os Modelos de Linguagem de Grande Escala (LLM) e as métricas de avaliação empregadas no sistema.
 
 \subsection{Inteligência Artificial}
 
@@ -769,7 +840,7 @@ Os resultados experimentais indicaram um desempenho elevado, com 96\% de acurác
 
 No entanto, o estudo apresenta algumas limitações relevantes. A principal delas é que o sistema está restrito ao reconhecimento de palavras isoladas, não sendo capaz de interpretar frases completas. Além disso, o desempenho pode ser afetado por fatores como variações de iluminação, ângulo de câmera e posicionamento das mãos.
 
-Este trabalho se diferencia ao propor uma solução que vai além do reconhecimento de gestos individuais, incorporando uma camada de processamento de linguagem natural para construção de frases, buscando uma tradução mais próxima da comunicação real entre Libras e língua portuguesa.
+Este trabalho propõe uma solução que vai além do reconhecimento de gestos individuais, incorporando uma camada de processamento de linguagem natural para construção de frases, buscando uma tradução mais próxima da comunicação real entre Libras e língua portuguesa.
 
 \vspace{0.5cm}
 
