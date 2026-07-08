@@ -293,7 +293,40 @@ Neste capítulo, são apresentados os conceitos fundamentais necessários para o
 \section{Referencial teórico}
 \label{sec:referencial}
 
-\title{Linguagem da Língua Brasileira de Sinais (Libras)}
+
+% ---------------------------------------------------------------
+\section{Metodologia da pesquisa bibliográfica}
+\label{sec:metodologia_pesquisa}
+
+A pesquisa bibliográfica foi realizada nas bases Google Scholar, utilizando as seguintes palavras-chave em português e inglês: \textit{``Libras''} AND \textit{``Deep Learning''} AND \textit{``Visão Computacional''}, \textit{``Reconhecimento de sinais''} AND \textit{``Libras''} AND (\textit{``CNN''} OR \textit{``LSTM''}), \textit{``Língua Brasileira de Sinais''} AND \textit{``Acessibilidade''} AND \textit{``Redes Neurais''} e \textit{``Tradução''} AND \textit{``Libras''} AND \textit{``Processamento de Linguagem Natural''}.
+
+Foram selecionados artigos publicados entre 2021 e 2026, em português e inglês, que abordassem diretamente o reconhecimento automático de sinais, técnicas de visão computacional aplicadas à Libras e métodos de processamento de linguagem natural voltados à tradução de linguagem de sinais.
+
+A seleção dos estudos seguiu o processo de \textit{Screening} em dois estágios sequenciais. No primeiro estágio, realizou-se a triagem por título e resumo, eliminando produções claramente fora do escopo temático. No segundo estágio, procedeu-se à leitura do texto completo dos artigos pré-selecionados, aplicando os critérios de inclusão e exclusão definidos a seguir, o que resultou no conjunto de trabalhos analisados.
+
+Os critérios de inclusão adotados foram: (i)~artigos em português ou inglês; (ii)~trabalhos que utilizassem técnicas de visão computacional, redes neurais (CNN, LSTM ou similares) ou processamento de linguagem natural aplicados ao reconhecimento ou à tradução de línguas de sinais; e (iii)~estudos com avaliação quantitativa de desempenho.
+
+Os critérios de exclusão foram: (i)~artigos sem relação direta com línguas de sinais ou acessibilidade para surdos; (ii)~trabalhos sem metodologia técnica reproduzível, como editoriais e resumos de conferência sem detalhamento experimental; e (iii)~estudos sem acesso ao texto completo nas bases consultadas.
+
+O fluxo de filtragem decorrente da aplicação desses critérios, desde o volume inicial de produções encontradas até o conjunto de artigos selecionados para análise, está sistematizado no funil metodológico apresentado na Figura~\ref{fig:funil_pesquisa}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{./figuras/funil-pesquisa.png} 
+    \caption{Funil metodológico da seleção e filtragem da pesquisa bibliográfica.}
+    \label{fig:funil_pesquisa}
+    \source{Autoria própria (2026).}
+\end{figure}
+ 
+% \textit{} italico
+
+% ---------------------------------------------------------------
+\section{Fundamentos}
+\label{sec:fundamentos}
+
+Este capítulo apresenta os principais fundamentos teóricos e tecnológicos que sustentam o desenvolvimento do sistema proposto. Inicialmente, estabelece-se o panorama através dos conceitos de Inteligência Artificial e \textit{Machine Learning}, delimitando o paradigma computacional adotado. Em seguida, são abordados os conceitos de visão computacional, MediaPipe e \textit{landmarks}, responsáveis pela captura e representação dos sinais em Libras. Posteriormente, detalha-se o universo do \textit{Deep Learning}, incluindo o funcionamento de redes CNN e redes LSTM, aplicadas no reconhecimento de sinais estáticos e dinâmicos. Por fim, são discutidos os conceitos de Processamento de Linguagem Natural (NLP), as árvores de dependência sintática, os Modelos de Linguagem de Grande Escala (LLM) e as métricas de avaliação empregadas no sistema.
+
+\subsection{Língua Brasileira de Sinais (Libras)}
 
 De acordo com a \citeonline{Brasil2005}, Língua Brasileira de Sinais (Libras) é uma língua natural, completa e autônoma, utilizada pela comunidade surda no Brasil, reconhecida pela Lei nº 10.436/2002 e regulamentada pelo Decreto nº 5.626/2005 como meio legal de comunicação e expressão. Possui estrutura gramatical própria, independente da Língua Portuguesa, e está inserida em um contexto cultural e linguístico específico da comunidade surda.
 
@@ -405,37 +438,6 @@ A Tabela \ref{tab:variacoes_libras} ilustra como o pipeline de Processamento de 
 
 Essas diferenças impactam diretamente o processo de tradução. Elementos comuns no português, como artigos e preposições, nem sempre aparecem de forma explícita na Libras, pois muitas dessas relações são expressas pelo uso do espaço e pelo contexto. Por isso, sistemas computacionais precisam não apenas reconhecer os sinais, mas também reorganizar as informações e incluir elementos necessários para gerar frases corretas em português.
 
-% ---------------------------------------------------------------
-\section{Metodologia da pesquisa bibliográfica}
-\label{sec:metodologia_pesquisa}
-
-A pesquisa bibliográfica foi realizada nas bases Google Scholar, utilizando as seguintes palavras-chave em português e inglês: \textit{``Libras''} AND \textit{``Deep Learning''} AND \textit{``Visão Computacional''}, \textit{``Reconhecimento de sinais''} AND \textit{``Libras''} AND (\textit{``CNN''} OR \textit{``LSTM''}), \textit{``Língua Brasileira de Sinais''} AND \textit{``Acessibilidade''} AND \textit{``Redes Neurais''} e \textit{``Tradução''} AND \textit{``Libras''} AND \textit{``Processamento de Linguagem Natural''}.
-
-Foram selecionados artigos publicados entre 2021 e 2026, em português e inglês, que abordassem diretamente o reconhecimento automático de sinais, técnicas de visão computacional aplicadas à Libras e métodos de processamento de linguagem natural voltados à tradução de linguagem de sinais.
-
-A seleção dos estudos seguiu o processo de \textit{Screening} em dois estágios sequenciais. No primeiro estágio, realizou-se a triagem por título e resumo, eliminando produções claramente fora do escopo temático. No segundo estágio, procedeu-se à leitura do texto completo dos artigos pré-selecionados, aplicando os critérios de inclusão e exclusão definidos a seguir, o que resultou no conjunto de trabalhos analisados.
-
-Os critérios de inclusão adotados foram: (i)~artigos em português ou inglês; (ii)~trabalhos que utilizassem técnicas de visão computacional, redes neurais (CNN, LSTM ou similares) ou processamento de linguagem natural aplicados ao reconhecimento ou à tradução de línguas de sinais; e (iii)~estudos com avaliação quantitativa de desempenho.
-
-Os critérios de exclusão foram: (i)~artigos sem relação direta com línguas de sinais ou acessibilidade para surdos; (ii)~trabalhos sem metodologia técnica reproduzível, como editoriais e resumos de conferência sem detalhamento experimental; e (iii)~estudos sem acesso ao texto completo nas bases consultadas.
-
-O fluxo de filtragem decorrente da aplicação desses critérios, desde o volume inicial de produções encontradas até o conjunto de artigos selecionados para análise, está sistematizado no funil metodológico apresentado na Figura~\ref{fig:funil_pesquisa}.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.65\textwidth]{./figuras/funil-pesquisa.png} 
-    \caption{Funil metodológico da seleção e filtragem da pesquisa bibliográfica.}
-    \label{fig:funil_pesquisa}
-    \source{Autoria própria (2026).}
-\end{figure}
- 
-% \textit{} italico
-
-% ---------------------------------------------------------------
-\section{Fundamentos}
-\label{sec:fundamentos}
-
-Este capítulo apresenta os principais fundamentos teóricos e tecnológicos que sustentam o desenvolvimento do sistema proposto. Inicialmente, estabelece-se o panorama através dos conceitos de Inteligência Artificial e \textit{Machine Learning}, delimitando o paradigma computacional adotado. Em seguida, são abordados os conceitos de visão computacional, MediaPipe e \textit{landmarks}, responsáveis pela captura e representação dos sinais em Libras. Posteriormente, detalha-se o universo do \textit{Deep Learning}, incluindo o funcionamento de redes CNN e redes LSTM, aplicadas no reconhecimento de sinais estáticos e dinâmicos. Por fim, são discutidos os conceitos de Processamento de Linguagem Natural (NLP), as árvores de dependência sintática, os Modelos de Linguagem de Grande Escala (LLM) e as métricas de avaliação empregadas no sistema.
 
 \subsection{Inteligência Artificial}
 
@@ -443,10 +445,18 @@ A Inteligência Artificial (IA) é um campo da Ciência da Computação dedicado
 
 Antigamente, os sistemas de Inteligência Artificial não aprendiam sozinhos: eles apenas seguiam regras e instruções fixas criadas e programadas por humanos. Com o aumento da disponibilidade de dados e do poder computacional, surgiram técnicas capazes de aprender padrões diretamente a partir de exemplos, consolidando o paradigma conhecido como \textit{Machine Learning} \cite{ibm_ml2026}.
 
+O campo da Inteligência Artificial teve sua origem formalmente estabelecida na década de 1950, quando pesquisadores reunidos na Conferência de Dartmouth propuseram investigar se máquinas poderiam simular aspectos da inteligência humana \cite{russell2021}. 
+
+Nas décadas seguintes, o desenvolvimento da área alternou períodos de grande investimento e otimismo com fases de estagnação, conhecidas como invernos da Inteligência Artificial, motivadas principalmente pelas limitações computacionais da época e pela dificuldade de generalização dos sistemas baseados exclusivamente em regras fixas. 
+
+Apenas com o avanço do poder de processamento, a disponibilidade de grandes volumes de dados e o aperfeiçoamento das técnicas de aprendizado profundo a área retomou um crescimento consistente, culminando nas aplicações observadas atualmente \cite{russell2021}.
+
 Atualmente, a Inteligência Artificial engloba diversas áreas de pesquisa e aplicação, incluindo \textit{machine learning}, visão computacional, processamento de linguagem natural, robótica e sistemas de recomendação. Essas áreas compartilham o objetivo comum de permitir que sistemas computacionais interpretem informações complexas e realizem tarefas que anteriormente dependiam exclusivamente da capacidade humana \cite{russell2021}.
+Quanto ao escopo de atuação, os sistemas de Inteligência Artificial podem ser classificados em Inteligência Artificial Estreita (\textit{Narrow AI}) e Inteligência Artificial Geral (\textit{General AI}). 
 
-No contexto deste trabalho, a Inteligência Artificial constitui o campo teórico que fundamenta o desenvolvimento da solução proposta, fornecendo os conceitos e técnicas que possibilitam o reconhecimento de padrões visuais e o processamento computacional da linguagem necessários para a tradução da Libras para a língua portuguesa.
+A primeira categoria refere-se a sistemas projetados para executar uma tarefa específica, como reconhecimento de imagens ou tradução automática, sem possuir capacidade de generalização para domínios distintos daquele para o qual foram treinados. A segunda categoria, ainda hipotética, corresponderia a sistemas capazes de replicar a versatilidade cognitiva humana em qualquer domínio de conhecimento \cite{russell2021}. 
 
+O sistema proposto neste trabalho enquadra-se na categoria de Inteligência Artificial Estreita, uma vez que seu escopo está delimitado ao reconhecimento e à tradução de sinais em Libras para a língua portuguesa.
 
 \subsection{Machine Learning}
 
@@ -686,7 +696,17 @@ O Processamento de Linguagem Natural é uma vertente da Inteligência Artificial
 
 No escopo deste projeto, o reconhecimento isolado de gestos por meio de visão computacional não é suficiente para uma comunicação fluida, dada a profunda divergência gramatical entre a Libras e a língua portuguesa. Conforme apontam \citeonline{Lopez2017}, o uso de redes neurais aplicadas ao NLP permite que o sistema lide com a ambiguidade inerente à linguagem e aprenda representações hierárquicas dos dados textuais. O módulo de NLP atua, portanto, como uma camada de pós-processamento essencial, realizando a conversão semântica e sintática dos sinais identificados pela rede neural.
 
-A abordagem adotada neste trabalho baseia-se em um pipeline de processamento sequencial implementado com a biblioteca spaCy \cite{Honnibal2020}. Conforme ilustrado no diagrama da Figura \ref{fig:pipeline_nlp}, este fluxo é composto por 5 etapas fundamentais: tokenização e normalização, etiquetagem morfossintática, análise de dependência sintática e, por fim, reordenação sintática e concordância.
+Antes de detalhar essa camada, é necessário esclarecer dois conceitos centrais utilizados ao longo desta e da próxima subseção: \textit{token} e \textit{pipeline}. Um \textit{token} é a menor unidade textual que um sistema de NLP manipula, obtida por meio da tokenização, processo que segmenta uma sentença em unidades discretas, como palavras, pontuações ou, no caso deste trabalho, sinais isolados reconhecidos pela visão computacional \cite{Bird2009}. Cada token é tratado individualmente pelas etapas seguintes do processamento, sendo posteriormente recombinado em uma estrutura gramatical coerente. 
+
+Já um \textit{pipeline} é uma sequência ordenada de etapas de processamento, na qual a saída de uma etapa serve de entrada para a etapa seguinte \cite{Honnibal2020}. Essa organização em módulos encadeados permite decompor uma tarefa complexa, como transformar sinais soltos da Libras em uma frase gramaticalmente correta em português, em uma série de subtarefas menores, mais simples de implementar, testar e depurar de forma independente.
+
+A ferramenta escolhida para implementar esse pipeline neste trabalho é a spaCy \cite{Honnibal2020}, uma biblioteca de código aberto para NLP escrita em Python e Cython. Diferentemente de bibliotecas voltadas majoritariamente para fins didáticos e experimentais, como o NLTK, a spaCy foi projetada com foco industrial (\textit{industrial-strength}), priorizando desempenho, eficiência de memória e facilidade de uso em aplicações de produção \cite{Honnibal2020}.
+
+Um dos principais diferenciais da spaCy é justamente sua organização nativa em pipelines pré-configurados: ao carregar um modelo de linguagem treinado, o texto de entrada é processado automaticamente por uma sequência integrada de componentes, entre eles o tokenizador, o \textit{tagger} morfossintático, o analisador de dependências sintáticas e um reconhecedor de entidades nomeadas (NER), sem que seja necessário implementar cada uma dessas etapas manualmente \cite{Honnibal2020}. Internamente, a biblioteca representa o resultado desse processamento por meio de objetos como \texttt{Doc} (o texto processado como um todo), \texttt{Token} (cada unidade individual) e \texttt{Span} (trechos contínuos de tokens), o que facilita a navegação programática pelas relações identificadas em cada sentença.
+
+Além dos componentes padrão, a spaCy permite estender ou substituir qualquer etapa do pipeline por meio de componentes customizados, inseridos com o método \texttt{nlp.add\_pipe} \cite{Honnibal2020}. É essa extensibilidade que viabiliza acoplar o próprio módulo de reordenação sintática, como uma etapa adicional do pipeline, executada logo após a análise de dependências nativa da biblioteca. Para a etiquetagem e a análise sintática em português, a spaCy disponibiliza pipelines pré-treinados específicos para o idioma, como o \texttt{pt\_core\_news\_sm}, o \texttt{pt\_core\_news\_md} e o \texttt{pt\_core\_news\_lg}, que se diferenciam entre si pelo tamanho do vocabulário e pela presença de vetores de palavras, impactando diretamente a acurácia da etiquetagem e da análise de dependências \cite{Honnibal2020}.
+
+Na abordagem adotada neste trabalho, esse pipeline é composto por 5 etapas fundamentais, ilustradas no diagrama da Figura \ref{fig:pipeline_nlp}: tokenização e normalização, etiquetagem morfossintática, análise de dependência sintática e, por fim, reordenação sintática e concordância.
 
 \begin{figure}[H]
     \centering
@@ -909,6 +929,8 @@ As próximas seções detalham cada componente dessa arquitetura, bem como as te
 \label{sec:solucao}
 
 \subsection{Visão geral da solução}
+O sistema é concebido para uso em contextos informais e cotidianos de comunicação, como interações sociais básicas, pedidos simples e trocas do dia a dia, e não para a interpretação de discursos formais, técnicos ou juridicamente sensíveis, cenários que continuam exigindo a atuação de um intérprete humano qualificado.
+
 A aplicação é composta por quatro módulos principais integrados em um \textit{pipeline} de processamento sequencial: (i) o módulo de visão computacional, responsável pela captura simultânea dos \textit{landmarks} manuais e das expressões faciais; (ii) os modelos de reconhecimento, CNN para sinais estáticos e LSTM para sinais dinâmicos, que classificam os gestos e as expressões capturadas; (iii) o módulo de processamento de linguagem natural, responsável pela conversão dos \textit{tokens} reconhecidos em frases estruturadas em português; e (iv) o módulo LLM, que refina a saída produzida pelo NLP para garantir fluência e naturalidade na sentença final.
 
 O processamento inicia-se com a captura contínua de \textit{frames} pela câmera. Cada \textit{frame} é analisado pelo módulo de visão computacional para verificar a presença das regiões de interesse. Quando uma mão é detectada, o \textit{MediaPipe} realiza a extração dos \textit{landmarks} das mãos e da face, gerando uma representação geométrica dos gestos e das expressões faciais do sinalizador.
@@ -983,10 +1005,11 @@ A arquitetura do sistema é organizada de forma modular, dividida em quatro cama
 \begin{enumerate}
 	\item Entrada: Ponto de partida do \textit{pipeline}. O sistema recebe como entrada uma imagem estática ou um \textit{frame} extraído de um fluxo de vídeo, que será processado nas etapas subsequentes.
 	\item Pré-processamento: O \textit{frame} bruto passa por técnicas de pré-processamento para melhorar a qualidade da imagem, como filtragem de ruído e normalização, preparando a entrada para uma extração de características mais precisa.
-	\item Segmentação: A região de interesse é isolada. Nesta etapa, as mãos são detectadas e os \textit{landmarks} das articulações são extraídos, reduzindo o espaço de análise ao que é semanticamente relevante para o reconhecimento do sinal.
-	\item Camadas de Convolução: As representações extraídas passam por camadas convolucionais da CNN, que aplicam filtros para detectar padrões locais como bordas, curvas e texturas. Cada filtro aprende automaticamente quais características são discriminativas para distinguir os sinais.
-	\item Pooling: Após a convolução, camadas de \textit{pooling}  reduzem a dimensionalidade dos mapas de características, tornando a representação mais compacta, invariante a pequenas translações e menos suscetível ao \textit{overfitting}.
-	\item Classificação: A representação comprimida é passada a uma camada densa com função de ativação \textit{softmax}, que produz uma distribuição de probabilidade sobre as classes de sinais estáticos, o sinal reconhecido é aquele com maior probabilidade.
+	\item Segmentação e extração de \textit{landmarks}: A região de interesse é isolada, as mãos e o rosto são detectados, e o MediaPipe extrai as coordenadas tridimensionais ($x$, $y$, $z$) dos pontos articulares. Cada mão detectada contribui com um vetor de $21 \times 3 = 63$ valores, ou seja, 21 pontos-chave, cada um com 3 coordenadas; como uma pessoa pode sinalizar com uma ou duas mãos, esses vetores por mão são concatenados, totalizando até 126 valores quando ambas as mãos estão presentes. A esses, são concatenados os valores dos pontos faciais relevantes extraídos pelo \textit{MediaPipe Face Mesh}, utilizados para a classificação das Expressões Não Manuais (ENM). É esse vetor numérico de \textit{landmarks} -- e não a imagem bruta -- que serve de entrada para os modelos de reconhecimento das etapas seguintes, reduzindo o espaço de análise ao que é semanticamente relevante para o sinal.
+	\item Roteamento por tipo de sinal: Com base na presença ou ausência de deslocamento significativo dos \textit{landmarks} ao longo de \textit{frames} consecutivos, o sistema direciona o vetor (ou a sequência de vetores) para um dos dois ramos de classificação a seguir, que são paralelos e independentes entre si.
+	\item Ramo estático (CNN): Para sinais sem componente de movimento relevante, o vetor de \textit{landmarks} de um único \textit{frame} é tratado como entrada estruturada da CNN. As camadas de convolução aplicam filtros sobre esse vetor -- não sobre pixels de uma imagem -- para detectar combinações discriminativas entre as posições articulares, como o padrão de flexão dos dedos característico de cada configuração de mão. Em seguida, camadas de \textit{pooling} reduzem a dimensionalidade das representações obtidas, tornando-as mais compactas e menos suscetíveis ao \textit{overfitting}.
+	\item Ramo dinâmico (LSTM): Para sinais com movimento, em vez de um único vetor, a entrada é uma sequência de vetores de \textit{landmarks} correspondente aos \textit{frames} do gesto. A LSTM processa essa sequência \textit{frame} a \textit{frame}, utilizando seus portões de entrada, esquecimento e saída para reter, ao longo do tempo, a informação de trajetória necessária para diferenciar sinais que dependem do movimento.
+    \item Classificação: A representação comprimida é passada a uma camada densa com função de ativação \textit{softmax}, que produz uma distribuição de probabilidade sobre as classes de sinais estáticos, o sinal reconhecido é aquele com maior probabilidade.
 \end{enumerate}
 
 
@@ -1029,9 +1052,9 @@ O sucesso da solução será medido através de métricas quantitativas e qualit
 % ---------------------------------------------------------------
 \section{Cronograma de trabalho}
 \label{sec:cronograma}
-
+ 
 O cronograma a seguir apresenta, no formato de diagrama de Gantt, as atividades previstas para o desenvolvimento do TCC2, distribuídas ao longo das semanas do semestre.
-
+ 
 \begin{figure}[H]
     \centering
     \label{fig:gantt}
@@ -1055,41 +1078,47 @@ O cronograma a seguir apresenta, no formato de diagrama de Gantt, as atividades 
         ]{1}{16}
             \gantttitle{Semanas}{16} \\
             \gantttitlelist{1,...,16}{1} \\
-
-            \ganttgroup{Fase 1: Planejamento}{1}{4} \\
-            \ganttbar{Revisão bibliográfica}{1}{2} \\
-            \ganttbar{Requisitos do sistema}{2}{3} \\
-            \ganttbar{Análise do \textit{dataset}}{2}{4} \\
-            \ganttbar{Projeto da arquitetura}{3}{4} \\
-            \ganttmilestone{Entrega projeto}{4} \\
-
-            \ganttgroup{Fase 2: Desenvolvimento}{5}{12} \\
-            \ganttbar{Módulo Visão Computacional}{5}{7} \\
-            \ganttbar{Treinamento CNN}{6}{8} \\
-            \ganttbar{Implementação LSTM}{7}{9} \\
-            \ganttbar{Desenvolvimento PLN + LLM}{8}{11} \\
-            \ganttbar{Integração módulos}{10}{11} \\
-            \ganttbar{Interface}{10}{12} \\
-            \ganttmilestone{Protótipo}{12} \\
-
+ 
+            \ganttgroup{Fase 1: Planejamento}{1}{3} \\
+            \ganttbar[name=req]{Requisitos do sistema}{1}{2} \\
+            \ganttbar[name=analise]{Análise do \textit{dataset}}{1}{2} \\
+            \ganttbar[name=arq]{Projeto da arquitetura}{2}{3} \\
+            \ganttmilestone[name=m1]{Entrega projeto}{3} \\
+ 
+            \ganttgroup{Fase 2: Desenvolvimento}{4}{12} \\
+            \ganttbar[name=visao]{Módulo Visão Computacional}{4}{6} \\
+            \ganttbar[name=cnn]{Treinamento CNN}{5}{7} \\
+            \ganttbar[name=lstm]{Implementação LSTM}{6}{8} \\
+            \ganttbar[name=pln]{Desenvolvimento PLN + LLM}{6}{10} \\
+            \ganttbar[name=integ]{Integração módulos}{9}{11} \\
+            \ganttbar[name=interf]{Interface}{9}{12} \\
+            \ganttmilestone[name=m2]{Protótipo}{12} \\
+ 
             \ganttgroup{Fase 3: Validação}{13}{16} \\
             \ganttbar{Testes e avaliação}{13}{14} \\
             \ganttbar{Ajustes e otimizações}{14}{15} \\
-            \ganttbar{Redação final}{13}{16} \\
-            \ganttmilestone{Entrega final}{16}
-
-            \ganttlink{elem2}{elem3}
-            \ganttlink{elem3}{elem4}
-            \ganttlink{elem4}{elem5}
-            \ganttlink{elem7}{elem8}
-            \ganttlink{elem8}{elem9}
-            \ganttlink{elem9}{elem10}
-            \ganttlink{elem12}{elem13}
+            \ganttmilestone{Entrega final}{16} \\
+ 
+            \ganttbar{Redação final}{1}{16}
+ 
+            \ganttlink{req}{arq}
+            \ganttlink{analise}{arq}
+            \ganttlink{visao}{cnn}
+            \ganttlink{cnn}{lstm}
+            \ganttlink{lstm}{integ}
+            \ganttlink{pln}{integ}
+            \ganttlink{integ}{interf}
         \end{ganttchart}
     }
     \caption{Cronograma de atividades -- Diagrama de Gantt}
     \source{Autoria própria (2026).}
 \end{figure}
+ 
+O cronograma proposto está organizado em três fases. A Fase 1 (Planejamento) compreende a definição dos requisitos e a análise do \textit{dataset}, executadas em paralelo, convergindo para o projeto da arquitetura na semana 3. 
+
+A Fase 2 (Desenvolvimento) concentra a implementação dos módulos do \textit{pipeline}: o módulo de visão computacional antecede o treinamento da CNN e a implementação da LSTM, enquanto o desenvolvimento do PLN e da camada de refinamento por LLM ocorre em paralelo, por não depender dessa etapa, encerrando-se com a integração dos módulos, o desenvolvimento da interface e a entrega do protótipo na semana 12. 
+
+Por fim, a Fase 3 (Validação), entre as semanas 13 e 16, reúne os testes e a avaliação do sistema e os ajustes decorrentes dos resultados obtidos. A redação final do trabalho, por sua vez, ocorre de forma contínua desde a semana 1, acompanhando o avanço do planejamento, do desenvolvimento e da validação.
 
 % ---------------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
